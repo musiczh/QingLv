@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Qinglv</string>
+    <string name="my">我的</string>
+    <string name="message">消息</string>
+    <string name="add">增加</string>
+    <string name="shop">商店</string>
+    <string name="main">首页</string>
+</resources>

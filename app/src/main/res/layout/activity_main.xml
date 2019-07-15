@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/layout_frame_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+    </FrameLayout>
+
+
+    <RadioGroup
+        android:id="@+id/radio_group_main"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="#FAFAFA"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/radio_button_main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/selector_main"
+            android:gravity="center"
+            android:text="@string/main" />
+
+        <RadioButton
+            android:id="@+id/radio_button_shop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_shop"
+            android:gravity="center"
+            android:text="@string/shop" />
+
+        <RadioButton
+            android:id="@+id/radio_button_add"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/img_add"
+            android:gravity="center"
+            android:text="@string/add" />
+
+        <RadioButton
+            android:id="@+id/radio_button_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_message"
+            android:gravity="center"
+            android:text="@string/message" />
+
+        <RadioButton
+            android:id="@+id/radio_button_my"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/selector_my"
+            android:gravity="center"
+            android:text="@string/my" />
+
+    </RadioGroup>
+
+
+</android.support.constraint.ConstraintLayout>
