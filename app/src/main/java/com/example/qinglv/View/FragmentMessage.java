@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 
 import com.example.qinglv.R;
 
+/**
+ * 消息界面的额碎片
+ */
+
 public class FragmentMessage extends Fragment {
     @Nullable
     @Override

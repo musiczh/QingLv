@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 
 import com.example.qinglv.R;
 
+/**
+ * 商家界面的碎片
+ */
+
 public class FragmentShop extends Fragment {
     @Nullable
     @Override

@@ -20,8 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * 首页界面的碎片
+ */
+
 public class FragmentMain extends Fragment {
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,7 +36,7 @@ public class FragmentMain extends Fragment {
 
         ViewPager viewPager = view.findViewById(R.id.view_pager_main);
         viewPager.setPageTransformer(false,new ZoomOutPageTransformer());
-        viewPager.setAdapter(new SectionStatePagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(),fragmentList));
+        viewPager.setAdapter(new SectionStatePagerAdapter(getChildFragmentManager(),fragmentList));
         TabLayout tabLayout = view.findViewById(R.id.tab_layout_main);
         tabLayout.setupWithViewPager(viewPager);
 

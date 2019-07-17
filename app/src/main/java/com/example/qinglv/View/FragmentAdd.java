@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 
 import com.example.qinglv.R;
 
+/**
+ * 增加界面的碎片
+ */
+
 public class FragmentAdd extends Fragment {
     @Nullable
     @Override

@@ -11,6 +11,10 @@ import android.widget.RadioGroup;
 
 import com.example.qinglv.R;
 
+/**
+ * 主函数，主界面
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private RadioGroup radioGroup;          //底部导航按钮组
@@ -35,23 +39,18 @@ public class MainActivity extends AppCompatActivity {
     //初始化界面数据
     private void initView(){
         //设置底部导航栏图标的规格为60dp
-        setImgSize(R.id.radio_button_main,R.drawable.selector_main,60);
-        setImgSize(R.id.radio_button_shop,R.drawable.selector_shop,60);
-        setImgSize(R.id.radio_button_message,R.drawable.selector_message,60);
-        setImgSize(R.id.radio_button_my,R.drawable.selector_my,60);
-        setImgSize(R.id.radio_button_add,R.drawable.img_add,80);
+        setImgSize(R.id.radio_button_main,R.drawable.selector_main,55);
+        setImgSize(R.id.radio_button_shop,R.drawable.selector_shop,55);
+        setImgSize(R.id.radio_button_message,R.drawable.selector_message,55);
+        setImgSize(R.id.radio_button_my,R.drawable.selector_my,55);
+        setImgSize(R.id.radio_button_add,R.drawable.img_add,90);
 
-        //创建碎片实例
-        fragmentAdd = new FragmentAdd();
-        fragmentMain = new FragmentMain();
-        fragmentMessage = new FragmentMessage();
-        fragmentShop = new FragmentShop();
-        fragmentMy = new FragmentMy();
 
         //获取底部导航栏实例
         radioGroup = findViewById(R.id.radio_group_main);
 
         //首次进入直接进入主页
+        if (fragmentMain == null){ fragmentMain = new FragmentMain(); }
         changeFragment(fragmentMain);
     }
 
@@ -65,18 +64,33 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
                     case R.id.radio_button_main :
+                        if (fragmentMain == null){
+                            fragmentMain = new FragmentMain();
+                        }
                         changeFragment(fragmentMain);
                         break;
                     case R.id.radio_button_add :
+                        if (fragmentAdd == null){
+                            fragmentAdd = new FragmentAdd();
+                        }
                         changeFragment(fragmentAdd);
                         break;
                     case R.id.radio_button_my :
+                        if (fragmentMy == null){
+                            fragmentMy = new FragmentMy();
+                        }
                         changeFragment(fragmentMy);
                         break;
                     case R.id.radio_button_shop :
+                        if (fragmentShop == null){
+                            fragmentShop = new FragmentShop();
+                        }
                         changeFragment(fragmentShop);
                         break;
                     case R.id.radio_button_message :
+                        if (fragmentMessage == null){
+                            fragmentMessage = new FragmentMessage();
+                        }
                         changeFragment(fragmentMessage);
                         break;
 
