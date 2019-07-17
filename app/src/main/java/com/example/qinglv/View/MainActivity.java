@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     private void start(){
 
 
-
         //给底部按钮组设置监听
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -106,4 +105,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
 
     }
+
+
 }
