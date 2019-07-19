@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.example.qinglv.R;
 
 /**
- * 主页右边个人发布信息的碎片，放在viewPager中
+ * 主页右边友圈发布信息的碎片，放在viewPager中
  */
 
 public class FragmentMainPersonal extends Fragment {
