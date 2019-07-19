@@ -10,18 +10,20 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.List;
 
 /**
- * 首页viewPager对应碎片的适配器
- * 主要增加对应TabLayout标题
+ * 1.viewPager对应碎片的适配器
+ * 2.主要增加对应TabLayout标题
+ * 3.构造器传入三个参数，FragmentManager，fragmentList，和String[],最后一个参数是标题栏的名字
  */
 
-public class SectionStatePagerAdapter extends FragmentStatePagerAdapter {
-    private String[] titles = {"共享","我的"};
+public class SectionsFragmentStateViewPagerAdapter extends FragmentStatePagerAdapter {
+    private String[] mTitles;
     private List<Fragment> list;
 
 
-    public SectionStatePagerAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+    public SectionsFragmentStateViewPagerAdapter(FragmentManager fm, List<Fragment> fragmentList, String[] titles) {
         super(fm);
         list = fragmentList;
+        mTitles = titles;
     }
 
     @Override
@@ -41,6 +43,6 @@ public class SectionStatePagerAdapter extends FragmentStatePagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position];
+        return mTitles[position];
     }
 }

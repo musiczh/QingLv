@@ -9,8 +9,7 @@
     </style>
 
     <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
-        <item name="textAllCaps">false</item>
-        <item name = "android:textSize">100sp</item>
+        <item name = "android:textSize">50sp</item>
     </style>
 
 </resources>

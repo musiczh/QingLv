@@ -9,6 +9,7 @@
         android:id="@+id/tab_layout_main"
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        app:tabIndicatorHeight="1.5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
