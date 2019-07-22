@@ -1,5 +1,6 @@
 package com.example.qinglv.View;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -69,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
                         changeFragment(fragmentMain);
                         break;
                     case R.id.radio_button_add :
-                        changeFragment(fragmentAdd);
+//                        changeFragment(fragmentAdd);
+                        Intent intent = new Intent(MainActivity.this,AddActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.radio_button_my :
                         changeFragment(fragmentMy);

@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="contextPhotoAnim" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/context_photo_enter</item>
+        <item name="android:windowExitAnimation">@anim/context_photo_exit</item>
+    </style>
+
 </resources>
