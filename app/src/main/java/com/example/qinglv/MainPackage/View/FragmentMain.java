@@ -36,9 +36,10 @@ public class FragmentMain extends Fragment {
 
         //给ViewPager构造适配器，并绑定tabLayout
         ViewPager viewPager = view.findViewById(R.id.view_pager_main);
+        //viewPager.setOffscreenPageLimit(3);
         viewPager.setPageTransformer(false,new ZoomOutPageTransformer());
         viewPager.setAdapter(new SectionsFragmentStateViewPagerAdapter(getChildFragmentManager(),fragmentList,
-                new String[]{"游记","景点","美食","友圈"}));
+                new String[]{"路线","景点","美食","友圈"}));
         TabLayout tabLayout = view.findViewById(R.id.tab_layout_main);
         tabLayout.setupWithViewPager(viewPager);
 
