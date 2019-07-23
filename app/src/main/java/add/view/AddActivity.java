@@ -1,4 +1,4 @@
-package com.example.qinglv.View;
+package add;
 
 
 import android.support.constraint.ConstraintLayout;
@@ -29,7 +29,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_share);
+        setContentView(R.layout.activity_add);
         initalView();
     }
 
@@ -58,7 +58,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         mPopWindow.setHeight(ViewGroup.LayoutParams.FILL_PARENT);
 
         //显示contentView
-        View rootView = LayoutInflater.from(AddActivity.this).inflate(R.layout.activity_share,null);
+        View rootView = LayoutInflater.from(AddActivity.this).inflate(R.layout.activity_add,null);
         //窗口动画
         mPopWindow.setAnimationStyle(R.style.contextPhotoAnim);
         mPopWindow.showAtLocation(rootView, Gravity.BOTTOM,0,0);
