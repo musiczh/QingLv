@@ -12,6 +12,8 @@ import android.widget.RadioGroup;
 
 import com.example.qinglv.R;
 
+import add.view.AddActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private RadioGroup radioGroup;          //底部导航按钮组
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.radio_button_add :
 //                        changeFragment(fragmentAdd);
-                        Intent intent = new Intent(MainActivity.this,AddActivity.class);
+                        Intent intent = new Intent(MainActivity.this, AddActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.radio_button_my :

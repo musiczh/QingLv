@@ -1,4 +1,4 @@
-package add;
+package add.view;
 
 
 import android.support.constraint.ConstraintLayout;
