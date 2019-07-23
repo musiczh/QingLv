@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainPackage.View.ArticleActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_article"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="#FAFAFA"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="675dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_article">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager_article"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+            </android.support.v4.view.ViewPager>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView_article_author"
+                    android:src="@drawable/img_head"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp" />
+
+                <TextView
+                    android:id="@+id/textView_authorName"
+                    android:text="作者名字"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#515151"/>
+
+            <TextView
+                android:id="@+id/textView_article_contain"
+                android:text="我是文章内容"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <com.sackcentury.shinebuttonlib.ShineButton
+                    android:id="@+id/shineButton_article_good"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:siShape="@drawable/img_heart"
+                    app:btn_fill_color="#e74b37"
+                    app:enable_flashing="false"
+                    />
+
+                <com.sackcentury.shinebuttonlib.ShineButton
+                    android:id="@+id/shineButton_article_collect"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:siShape="@drawable/img_star"
+                    app:btn_fill_color="#e74b37"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>
