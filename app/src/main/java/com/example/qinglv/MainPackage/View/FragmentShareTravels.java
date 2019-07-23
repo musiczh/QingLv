@@ -1,4 +1,4 @@
-package com.example.qinglv.View;
+package com.example.qinglv.MainPackage.View;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

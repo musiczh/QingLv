@@ -1,5 +1,6 @@
-package com.example.qinglv.View;
+package com.example.qinglv;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,7 +10,12 @@ import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.qinglv.R;
+import com.example.qinglv.MainPackage.View.ArticleActivity;
+import com.example.qinglv.AddPackage.View.FragmentAdd;
+import com.example.qinglv.MainPackage.View.FragmentMain;
+import com.example.qinglv.MessagePackage.FragmentMessage;
+import com.example.qinglv.UserPackage.View.FragmentMy;
+import com.example.qinglv.ShopPackage.FragmentShop;
 
 /**
  * 主函数，主界面
@@ -73,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                         if (fragmentAdd == null){
                             fragmentAdd = new FragmentAdd();
                         }
-                        changeFragment(fragmentAdd);
+                        //changeFragment(fragmentAdd);
+
                         break;
                     case R.id.radio_button_my :
                         if (fragmentMy == null){
@@ -85,7 +92,9 @@ public class MainActivity extends AppCompatActivity {
                         if (fragmentShop == null){
                             fragmentShop = new FragmentShop();
                         }
-                        changeFragment(fragmentShop);
+                        //changeFragment(fragmentShop);
+                        Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.radio_button_message :
                         if (fragmentMessage == null){

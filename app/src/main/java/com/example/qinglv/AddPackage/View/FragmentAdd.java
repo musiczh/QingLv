@@ -1,4 +1,4 @@
-package com.example.qinglv.View;
+package com.example.qinglv.AddPackage.View;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,13 +11,13 @@ import android.view.ViewGroup;
 import com.example.qinglv.R;
 
 /**
- * "我的"界面的碎片
+ * 增加界面的碎片
  */
 
-public class FragmentMy extends Fragment {
+public class FragmentAdd extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my,container,false);
+        return inflater.inflate(R.layout.fragment_add,container,false);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.qinglv.View;
+package com.example.qinglv.MainPackage.View;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.qinglv.Adapter.SectionsFragmentStateViewPagerAdapter;
+import com.example.qinglv.MainPackage.Adapter.SectionsFragmentStateViewPagerAdapter;
 import com.example.qinglv.R;
 
 import java.util.ArrayList;

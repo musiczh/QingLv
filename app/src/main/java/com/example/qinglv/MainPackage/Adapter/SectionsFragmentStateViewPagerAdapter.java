@@ -1,11 +1,10 @@
-package com.example.qinglv.Adapter;
+package com.example.qinglv.MainPackage.Adapter;
 
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
  * 3.构造器传入三个参数，FragmentManager，fragmentList，和String[],最后一个参数是标题栏的名字
  */
 
-public class SectionsFragmentStateViewPagerAdapter extends FragmentStatePagerAdapter {
+public class SectionsFragmentStateViewPagerAdapter extends FragmentPagerAdapter {
     private String[] mTitles;
     private List<Fragment> list;
 

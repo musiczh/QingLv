@@ -1,4 +1,4 @@
-package com.example.qinglv.View;
+package com.example.qinglv.MainPackage.View;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,10 +13,8 @@ import android.webkit.WebViewClient;
 
 import com.example.qinglv.R;
 
-public class FragmentShareSight extends Fragment {
+public class FragmentShareFoods extends Fragment {
     private WebView webView;
-
-
 
 
     @Nullable
@@ -26,7 +24,7 @@ public class FragmentShareSight extends Fragment {
         webView = view.findViewById(R.id.webView_share);
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://you.ctrip.com/sight/guangzhou152.html");
+        webView.loadUrl("https://you.ctrip.com/fooditem/guangzhou152.html");
 
 
         return view;

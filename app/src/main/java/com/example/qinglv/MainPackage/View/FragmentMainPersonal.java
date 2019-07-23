@@ -1,4 +1,4 @@
-package com.example.qinglv.View;
+package com.example.qinglv.MainPackage.View;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,13 +11,18 @@ import android.view.ViewGroup;
 import com.example.qinglv.R;
 
 /**
- * 增加界面的碎片
+ * 主页右边友圈发布信息的碎片，放在viewPager中
  */
 
-public class FragmentAdd extends Fragment {
+public class FragmentMainPersonal extends Fragment {
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add,container,false);
+        View view = inflater.inflate(R.layout.fragment_main_personal,container,false);
+
+        return view;
     }
 }
