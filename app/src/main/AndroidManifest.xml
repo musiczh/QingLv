@@ -15,7 +15,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".MainPackage.View.ArticleActivity"></activity>
+        <activity android:name=".UserPackage.View.LoginActivity"></activity>
+        <activity android:name=".MainPackage.View.ArticleActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

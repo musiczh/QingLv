@@ -1,0 +1,15 @@
+package com.example.qinglv.UserPackage.Model;
+
+import com.example.qinglv.UserPackage.Contract.ILoginContract;
+
+public class LoginModel implements ILoginContract.Model {
+    @Override
+    public void login(String username, String password) {
+
+    }
+
+    @Override
+    public void register(String username, String password) {
+
+    }
+}
