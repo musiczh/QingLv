@@ -5,11 +5,14 @@ public class ILoginContract {
         void loginSuccess();
         void loginError(String msg);
         void registerSuccess();
-        void registerError();
+        void registerError(String msg);
     }
 
     public interface Presenter {
+        //View
         void login(String username,String password);
+        void register(String username,String password);
+        //model
         void loginSuccess();
         void loginError(String msg);
         void registerSuccess();
