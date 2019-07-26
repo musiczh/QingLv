@@ -5,4 +5,11 @@
     <string name="add">增加</string>
     <string name="shop">商店</string>
     <string name="main">首页</string>
+    <string name="todo">TODO</string>
+    <string name="title">加个标题会有更多赞哦~</string>
+    <string name="mood">说说此刻的心情...</string>
+    <string name="share">发布笔记</string>
+    <string name="photograph">拍摄</string>
+    <string name="photo">相册</string>
+    <string name="cancel">取消</string>
 </resources>

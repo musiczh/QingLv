@@ -10,8 +10,9 @@ import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.example.qinglv.AddPackage.view.AddActivity;
+import com.example.qinglv.AddPackage.view.FragmentAdd;
 import com.example.qinglv.MainPackage.View.ArticleActivity;
-import com.example.qinglv.AddPackage.View.FragmentAdd;
 import com.example.qinglv.MainPackage.View.FragmentMain;
 import com.example.qinglv.MessagePackage.FragmentMessage;
 import com.example.qinglv.UserPackage.View.FragmentMy;
@@ -81,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
                         }
                         //changeFragment(fragmentAdd);
 
+//                        changeFragment(fragmentAdd);
+                        Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.radio_button_my :
                         if (fragmentMy == null){
@@ -93,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
                             fragmentShop = new FragmentShop();
                         }
                         //changeFragment(fragmentShop);
-                        Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
-                        startActivity(intent);
+                        Intent intent2 = new Intent(MainActivity.this, ArticleActivity.class);
+                        startActivity(intent2);
                         break;
                     case R.id.radio_button_message :
                         if (fragmentMessage == null){
