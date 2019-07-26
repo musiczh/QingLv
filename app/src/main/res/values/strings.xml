@@ -5,4 +5,9 @@
     <string name="add">增加</string>
     <string name="shop">商店</string>
     <string name="main">首页</string>
+    <string name="comment">评分</string>
+    <string name="text_view">TextView</string>
+    <string name="no_picture">no picture</string>
+    <string name="author_name">作者名字</string>
+    <string name="content">我是文章内容</string>
 </resources>

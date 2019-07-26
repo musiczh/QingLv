@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+        <ImageView
+            android:id="@+id/imageView_item_food_preview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/no_picture"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/img_head" />
+
+        <TextView
+            android:id="@+id/textView_item_food_tittle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            android:text="@string/text_view"
+            app:layout_constraintBottom_toTopOf="@+id/textView_item_food_content"
+            app:layout_constraintStart_toEndOf="@+id/imageView_item_food_preview"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_item_food_content"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/text_view"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView_item_food_time"
+            app:layout_constraintStart_toEndOf="@+id/imageView_item_food_preview"
+            app:layout_constraintTop_toBottomOf="@+id/textView_item_food_tittle" />
+
+        <TextView
+            android:id="@+id/textView_item_food_time"
+            android:layout_width="wrap_content"
+            android:layout_height="14dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="12sp"
+            android:text="@string/text_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView_item_food_preview" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
