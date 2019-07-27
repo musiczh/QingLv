@@ -1,42 +1,59 @@
 package com.example.qinglv.AddPackage.view;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 
-import java.io.File;
-import java.io.IOException;
+import android.content.Context;
+import android.graphics.Color;
+
+import com.example.qinglv.R;
+
+import cn.finalteam.galleryfinal.CoreConfig;
+import cn.finalteam.galleryfinal.FunctionConfig;
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.ImageLoader;
+import cn.finalteam.galleryfinal.ThemeConfig;
 
 public class Util {
 
-    private static final int TAKE_PHOTO = 3;
 
-  /*  //调用摄像头拍照
-    public  void  takePhoto(Activity activity, Uri imageUri){
-        //创建File对象，用于存储拍照后的照片
-        File outputImage = new File(activity.getExternalCacheDir(),
-                "output_image.jpg");
+    /**
+     * GalleryFinal 初始化配置
+     * @param context
+     */
+    public static void initGalleryFinal(Context context){
+        //设置主题
+        ThemeConfig theme = new ThemeConfig.Builder()
+                .setTitleBarBgColor(Color.rgb(0xFF,0x57,0x22))
+                .setTitleBarIconColor(Color.BLACK)
+                .setTitleBarTextColor(Color.BLACK)
+                .setFabNornalColor(Color.BLACK)
+                .setFabPressedColor(Color.BLUE)
+                .setCheckNornalColor(Color.WHITE)
+                .setCheckSelectedColor(Color.BLACK)
+                .setIconBack(R.mipmap.ic_action_previous_item)
+                .setIconRotate(R.mipmap.ic_action_repeat)
+                .setIconCrop(R.mipmap.ic_action_crop)
+                .setIconCamera(R.mipmap.ic_action_camera)
+                .build();
+        //配置功能
+       FunctionConfig functionConfig= new FunctionConfig.Builder()
+                .setEnableCamera(true)
+                .setEnableEdit(false)
+                .setEnableCrop(false)
+                .setEnableRotate(true)
+                .setCropSquare(true)
+                .setEnablePreview(true)
+                .setMutiSelectMaxSize(9)
+                .build();
 
-        try {
-        if(outputImage.exists()){
-            outputImage.delete();
-        }
-            outputImage.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(Build.VERSION.SDK_INT>=24){
-            imageUri = FileProvider.getUriForFile(activity.getBaseContext(),"com.example.qinglv.Util.fileprovier",outputImage);
-        }else {
-            imageUri = Uri.fromFile(outputImage);
-        }
-        //启动相机程序
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-        activity.startActivityForResult(intent,TAKE_PHOTO);
-    }*/
+
+        //配置imageloader
+        ImageLoader imageLoader = new GlideImageLoader();
+        CoreConfig coreConfig = new CoreConfig.Builder(context,imageLoader, theme)
+                .setFunctionConfig(functionConfig)
+                .build();
+
+        GalleryFinal.init(coreConfig);
+
+    }
 
 }
