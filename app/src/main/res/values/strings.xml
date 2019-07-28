@@ -5,4 +5,7 @@
     <string name="add">增加</string>
     <string name="shop">商店</string>
     <string name="main">首页</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

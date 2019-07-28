@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    tools:context=".UserPackage.View.MyItemFragment" >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="255dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="16dp"
+            android:text="昵称"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="136dp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="254dp"
+            android:layout_height="38dp"
+            android:text="偏好"
+            tools:layout_editor_absoluteX="136dp"
+            tools:layout_editor_absoluteY="54dp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="373dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="32dp"
+            android:text="个性签名"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="253dp"
+            android:layout_height="22dp"
+            android:text="地址"
+            tools:layout_editor_absoluteX="136dp"
+            tools:layout_editor_absoluteY="108dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>
