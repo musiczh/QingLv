@@ -11,6 +11,7 @@ import com.example.qinglv.R;
 
 /**
  * recyclerView的装饰，用于添加上拉加载功能
+ * 对最后一项特别设置
  */
 
 public class RecyclerViewAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -20,10 +21,10 @@ public class RecyclerViewAdapterWrapper extends RecyclerView.Adapter<RecyclerVie
     private final int TYPE_ITEM = 2;
 
     //footView的三种状态，下拉加载，加载中，没有更多了
-    private int itemState = 1;
-    private final int CONTINUE_DRAG = 1;
-    private final int LOADING = 2;
-    private final int NO_MORE = 3;
+    private int itemState = 0;
+    public final static int CONTINUE_DRAG = 1;
+    public final static int LOADING = 2;
+    public final static int NO_MORE = 3;
 
     //新建一个最后一项布局的holder类，因为他的布局和其他的item不一样
     private class FootViewHolder extends RecyclerView.ViewHolder{
@@ -75,6 +76,7 @@ public class RecyclerViewAdapterWrapper extends RecyclerView.Adapter<RecyclerVie
         if (viewHolder instanceof FootViewHolder){
             FootViewHolder footViewHolder = (FootViewHolder)viewHolder;
             switch (itemState){
+                case 0 : footViewHolder.textView.setText("");break;
                 case CONTINUE_DRAG : footViewHolder.textView.setText("下拉加载更多");break;
                 case LOADING : footViewHolder.textView.setText("正在加载中");break;
                 case NO_MORE : footViewHolder.textView.setText("我是个有底线的列表");break;

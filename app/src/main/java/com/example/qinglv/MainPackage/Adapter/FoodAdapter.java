@@ -15,6 +15,10 @@ import com.example.qinglv.R;
 
 import java.util.List;
 
+/**
+ * 美食预览页recyclerView的适配器
+ */
+
 public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Food> mList;
     private Context context;
@@ -23,6 +27,7 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mList = list;
     }
 
+    //自定义的ViewHolder
     class FoodViewHolder extends RecyclerView.ViewHolder{
         TextView tittleTextView;
         TextView contentTextView;
@@ -38,6 +43,7 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    //创建viewHolder
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -47,6 +53,7 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return new FoodViewHolder(view);
     }
 
+    //绑定布局，并传入数据
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         FoodViewHolder foodViewHolder = (FoodViewHolder) viewHolder;
@@ -57,6 +64,7 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Glide.with(context).load(food.getPreview()).into(foodViewHolder.previewImage);
     }
 
+    //获得一共有几项
     @Override
     public int getItemCount() {
         return mList.size();

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.example.qinglv.R;
 import com.sackcentury.shinebuttonlib.ShineButton;
 
+
 public class ArticleActivity extends AppCompatActivity {
 
     @Override

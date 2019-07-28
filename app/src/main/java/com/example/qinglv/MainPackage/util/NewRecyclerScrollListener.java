@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
  * 重写RecyclerView的滑动监听器，当滑到最后一项而且是手机在拖的时候加载更多
  */
 
-public abstract class NewRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
+public abstract class NewRecyclerScrollListener extends RecyclerView.OnScrollListener {
+    //这个参数设置是否可以继续下滑，当到底的时候就不可以继续下滑了
+    public static Boolean IS_SCROLL = true;
 
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -20,9 +22,10 @@ public abstract class NewRecyclerOnScrollListener extends RecyclerView.OnScrollL
         int itemCount = manager.getItemCount();
 
         // 判断是否滑动到了最后一个item，并且是向上滑动
-        if (lastItemPosition == (itemCount - 1) && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+        if (lastItemPosition == (itemCount - 1) && newState == RecyclerView.SCROLL_STATE_DRAGGING
+                && IS_SCROLL) {
             //加载更多
-            onLoadMore(lastItemPosition, itemCount);
+            onLoadMore(itemCount);
         }
     }
 
@@ -34,5 +37,5 @@ public abstract class NewRecyclerOnScrollListener extends RecyclerView.OnScrollL
     /**
      * 加载更多回调
      */
-    abstract void onLoadMore(int lastItemPosition, int itemCount);
+    public abstract void onLoadMore(int itemCount);
 }
