@@ -1,4 +1,4 @@
-package com.example.qinglv.MainPackage.View;
+package com.example.qinglv.MainPackage.View.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.qinglv.MainPackage.Adapter.SectionsFragmentStateViewPagerAdapter;
+import com.example.qinglv.MainPackage.util.ZoomOutPageTransformer;
 import com.example.qinglv.R;
 
 import java.util.ArrayList;
@@ -29,10 +30,10 @@ public class FragmentMain extends Fragment {
 
         //建立碎片组，可以放在viewPager中
         List<Fragment> fragmentList = new ArrayList<>();
+        fragmentList.add(new FragmentSharePath());
+        fragmentList.add(new FragmentShareScenic());
+        fragmentList.add(new FragmentShareFood());
         fragmentList.add(new FragmentShareTravels());
-        fragmentList.add(new FragmentShareSight());
-        fragmentList.add(new FragmentShareFoods());
-        fragmentList.add(new FragmentMainPersonal());
 
         //给ViewPager构造适配器，并绑定tabLayout
         ViewPager viewPager = view.findViewById(R.id.view_pager_main);

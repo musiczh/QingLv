@@ -15,5 +15,5 @@ public interface FoodPreviewApiService {
 
     //这里需要两个参数，一个是从哪项开始找，另一个是需要多少项
     @GET(FOOD_PREVIEW_URL)
-    public Observable<PreviewBean<Food>> getFood(@Query("firstNum")int firstNum, @Query("size")int size);
+    Observable<PreviewBean<Food>> getFood(@Query("firstNum")int firstNum, @Query("size")int size);
 }

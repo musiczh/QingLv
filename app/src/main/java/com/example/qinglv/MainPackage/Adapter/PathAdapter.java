@@ -8,12 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Entity.Path;
+import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
 import com.example.qinglv.R;
-
 import java.util.List;
 
 /**
@@ -23,13 +21,16 @@ import java.util.List;
 public class PathAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Path> mList;
     private Context context;
+    private RecyclerClickCallback mClickCallback;
 
-    public PathAdapter(List<Path> list) {
+    public PathAdapter(List<Path> list ,RecyclerClickCallback clickCallback ) {
+        mClickCallback = clickCallback;
         mList = list;
     }
 
     //自定义的ViewHolder
     class PathViewHolder extends RecyclerView.ViewHolder {
+        View pathView;
         TextView tittleTextView;
         TextView contentTextView;
         ImageView previewImage;
@@ -37,6 +38,7 @@ public class PathAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         PathViewHolder(View itemView) {
             super(itemView);
+            pathView = itemView;
             tittleTextView = itemView.findViewById(R.id.textView_item_path_tittle);
             contentTextView = itemView.findViewById(R.id.textView_item_path_introduce);
             previewImage = itemView.findViewById(R.id.imageView_item_path_preview);
@@ -51,7 +53,15 @@ public class PathAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         context = viewGroup.getContext();
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_path, viewGroup, false);
-        return new PathViewHolder(view);
+        PathViewHolder pathViewHolder = new PathViewHolder(view);
+         final int position = pathViewHolder.getAdapterPosition();
+         pathViewHolder.pathView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickCallback.onClick(mList.get(position).getId());
+            }
+        });
+        return pathViewHolder;
     }
 
     //绑定布局，并传入数据

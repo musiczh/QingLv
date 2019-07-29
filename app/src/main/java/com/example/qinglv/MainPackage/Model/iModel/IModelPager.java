@@ -7,10 +7,10 @@ import java.util.List;
 /**
  * 美食预览碎片的model层接口
  */
-public interface IModelFood {
-    public void getData(int firstNum , int size , CallBack callBack);
-    interface CallBack{
-        void onSucceed(List<Food> list , boolean isMore);
+public interface IModelPager<T> {
+    public void getData(int firstNum , int size , CallBack<T> callBack);
+    interface CallBack<T>{
+        void onSucceed(List<T> list , boolean isMore);
         void onError(String errorType);
     }
 

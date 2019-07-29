@@ -1,9 +1,9 @@
 package com.example.qinglv.MainPackage.Model;
 
-import com.example.qinglv.MainPackage.Entity.Food;
+import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
-import com.example.qinglv.MainPackage.iApiService.FoodPreviewApiService;
+import com.example.qinglv.MainPackage.iApiService.ScenicPreviewApiService;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -17,14 +17,10 @@ import rx.schedulers.Schedulers;
 
 import static com.example.qinglv.MainPackage.util.StaticQuality.BASE_URL;
 
-/**
- * 美食预览界面model层
- */
-public class FoodModel implements IModelPager<Food> {
-
+public class ScenicModel implements IModelPager<Scenic> {
     //通过这个方法访问数据，并采用回调的方式在presenter中处理数据
     @Override
-    public void getData(int firstNum, int size, final CallBack<Food> callBack) {
+    public void getData(int firstNum, int size, final IModelPager.CallBack<Scenic> callBack) {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         httpClientBuilder.connectTimeout(10, TimeUnit.SECONDS);
 
@@ -34,14 +30,15 @@ public class FoodModel implements IModelPager<Food> {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
                 .build();
-        FoodPreviewApiService foodPreviewApiService = retrofit.create(FoodPreviewApiService.class);
-        Observable<PreviewBean<Food>> observable =
-                foodPreviewApiService.getFood(firstNum,size);
+        ScenicPreviewApiService scenicPreviewApiService = retrofit.create(ScenicPreviewApiService.class);
+        Observable<PreviewBean<Scenic>> observable =
+                scenicPreviewApiService.getScenic(firstNum,size);
 
         observable.subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<PreviewBean<Food>>() {
+                .subscribe(new Subscriber<PreviewBean<Scenic>>() {
                     @Override
                     public void onCompleted() {
+
                     }
 
                     @Override
@@ -50,13 +47,11 @@ public class FoodModel implements IModelPager<Food> {
                     }
 
                     @Override
-                    public void onNext(PreviewBean<Food> foodPreviewBean) {
+                    public void onNext(PreviewBean<Scenic> foodPreviewBean) {
                         boolean isMore = foodPreviewBean.getResult().equals("success");
-                        List<Food> foodList = foodPreviewBean.getMessage();
-                        callBack.onSucceed(foodList,isMore);
+                        List<Scenic> scenicList = foodPreviewBean.getMessage();
+                        callBack.onSucceed(scenicList,isMore);
                     }
                 });
     }
-
-
 }

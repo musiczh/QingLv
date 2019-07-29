@@ -1,34 +1,32 @@
 package com.example.qinglv.MainPackage.Presentor;
 
-import com.example.qinglv.MainPackage.Entity.Food;
-import com.example.qinglv.MainPackage.Model.FoodModel;
+import com.example.qinglv.MainPackage.Entity.Travel;
+import com.example.qinglv.MainPackage.Model.TravelModel;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
 import com.example.qinglv.MainPackage.View.iView.IViewPreview;
-
 import java.util.List;
-
 import static com.example.qinglv.MainPackage.util.NewRecyclerScrollListener.IS_SCROLL;
 
 /**
- * 美食预览的presenter类
+ * 游记预览的presenter类
  */
-public class FoodPresenter implements IPresenterPager {
+public class TravelPresenter implements IPresenterPager {
 
-    private IViewPreview<Food> mIViewPreview;
-    private IModelPager<Food> iModelPager;
+    private IViewPreview<Travel> mIViewPreview;
+    private IModelPager<Travel> iModelPager;
 
-    public FoodPresenter(IViewPreview<Food> iViewPreview){
+    public TravelPresenter(IViewPreview<Travel> iViewPreview){
         mIViewPreview = iViewPreview;
-        iModelPager = new FoodModel();
+        iModelPager = new TravelModel();
     }
 
     @Override
     public void refreshRecycler(int firstNum, int size) {
         IS_SCROLL = false;
-        IModelPager.CallBack<Food> callBack = new IModelPager.CallBack<Food>() {
+        IModelPager.CallBack<Travel> callBack = new IModelPager.CallBack<Travel>() {
             @Override
-            public void onSucceed(List<Food> list, boolean isMore) {
+            public void onSucceed(List<Travel> list, boolean isMore) {
                 mIViewPreview.setList(list,isMore);
             }
 

@@ -1,4 +1,4 @@
-package com.example.qinglv.MainPackage.View;
+package com.example.qinglv.MainPackage.util;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;

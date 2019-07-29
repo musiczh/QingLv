@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.qinglv.MainPackage.Entity.Food;
+import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
 import com.example.qinglv.R;
 
 import java.util.List;
@@ -22,13 +23,16 @@ import java.util.List;
 public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Food> mList;
     private Context context;
+    private RecyclerClickCallback mClickCallback;
 
-    public FoodAdapter(List<Food> list){
+    public FoodAdapter(List<Food> list , RecyclerClickCallback clickCallback){
+        mClickCallback = clickCallback;
         mList = list;
     }
 
     //自定义的ViewHolder
     class FoodViewHolder extends RecyclerView.ViewHolder{
+        View foodView;
         TextView tittleTextView;
         TextView contentTextView;
         ImageView previewImage;
@@ -36,6 +40,7 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         FoodViewHolder(View itemView){
             super(itemView);
+            foodView = itemView;
             tittleTextView = itemView.findViewById(R.id.textView_item_food_tittle);
             contentTextView = itemView.findViewById(R.id.textView_item_food_content);
             previewImage = itemView.findViewById(R.id.imageView_item_food_preview);
@@ -50,7 +55,15 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         context = viewGroup.getContext();
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_food,viewGroup,false);
-        return new FoodViewHolder(view);
+        FoodViewHolder foodViewHolder = new FoodViewHolder(view);
+        final int position = foodViewHolder.getAdapterPosition();
+        foodViewHolder.foodView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickCallback.onClick(mList.get(position).getId());
+            }
+        });
+        return foodViewHolder;
     }
 
     //绑定布局，并传入数据

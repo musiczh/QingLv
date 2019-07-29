@@ -10,9 +10,8 @@ import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.qinglv.MainPackage.View.ArticleActivity;
-import com.example.qinglv.AddPackage.View.FragmentAdd;
-import com.example.qinglv.MainPackage.View.FragmentMain;
+import com.example.qinglv.MainPackage.View.activity.FoodDetailActivity;
+import com.example.qinglv.MainPackage.View.fragment.FragmentMain;
 import com.example.qinglv.MessagePackage.FragmentMessage;
 import com.example.qinglv.UserPackage.View.FragmentMy;
 import com.example.qinglv.ShopPackage.FragmentShop;

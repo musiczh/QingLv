@@ -1,4 +1,4 @@
-package com.example.qinglv.MainPackage.View;
+package com.example.qinglv.MainPackage.View.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import com.example.qinglv.R;
 import com.sackcentury.shinebuttonlib.ShineButton;
 
 
-public class ArticleActivity extends AppCompatActivity {
+public class TravelDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
