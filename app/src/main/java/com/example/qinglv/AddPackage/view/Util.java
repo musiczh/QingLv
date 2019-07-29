@@ -5,14 +5,21 @@ import android.content.Context;
 import android.graphics.Color;
 
 import com.example.qinglv.R;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import cn.finalteam.galleryfinal.CoreConfig;
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
-import cn.finalteam.galleryfinal.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+
 import cn.finalteam.galleryfinal.ThemeConfig;
 
 public class Util {
+
+    public static FunctionConfig functionConfig;
 
 
     /**
@@ -35,25 +42,47 @@ public class Util {
                 .setIconCamera(R.mipmap.ic_action_camera)
                 .build();
         //配置功能
-       FunctionConfig functionConfig= new FunctionConfig.Builder()
+        functionConfig= new FunctionConfig.Builder()
                 .setEnableCamera(true)
-                .setEnableEdit(false)
-                .setEnableCrop(false)
+                .setEnableEdit(true)
+                .setEnableCrop(true)
                 .setEnableRotate(true)
                 .setCropSquare(true)
                 .setEnablePreview(true)
-                .setMutiSelectMaxSize(9)
+                .setForceCropEdit(true)
+                .setMutiSelectMaxSize(18)
                 .build();
 
 
+        initImageLoader(context);
+
+
         //配置imageloader
-        ImageLoader imageLoader = new GlideImageLoader();
-        CoreConfig coreConfig = new CoreConfig.Builder(context,imageLoader, theme)
+
+        CoreConfig coreConfig = new CoreConfig.Builder(context,new GlideImageLoader(), theme)
                 .setFunctionConfig(functionConfig)
                 .build();
 
         GalleryFinal.init(coreConfig);
 
     }
+
+
+    private static void initImageLoader(Context context) {
+
+        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
+        config.threadPriority(Thread.NORM_PRIORITY - 2);
+        config.denyCacheImageMultipleSizesInMemory();
+        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
+        config.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config.writeDebugLogs(); // Remove for release app
+
+        ImageLoader.getInstance().init(config.build());
+
+
+
+    }
+
 
 }

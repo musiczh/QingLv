@@ -5,6 +5,8 @@ package com.example.qinglv.AddPackage.view;
 import android.Manifest;
 import android.content.pm.PackageManager;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.StrictMode;
 import android.support.annotation.RequiresApi;
@@ -13,6 +15,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,18 +24,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.qinglv.AddPackage.view.adapter.ChoosePhotoListAdapter;
+import com.example.qinglv.AddPackage.view.adapter.PhotoListAdapter;
 import com.example.qinglv.R;
 
 import java.util.List;
 
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.ImageLoader;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 
+import static com.example.qinglv.AddPackage.view.Util.functionConfig;
 import static com.example.qinglv.AddPackage.view.Util.initGalleryFinal;
 
 
@@ -40,8 +50,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private static  final String TAG = "AddActivity";
     private static  final int REQUEST_CODE_GALLERY = 1;  //打开相册
     private static  final int REQUEST_CODE_CAMERA = 2;    //使用拍照
-    private static  final int REQUEST_CODE_CROP = 3;      //使用裁剪
-    private static  final int REQUEST_CODE_EDIT = 4;      //使用图片编辑
 
 
     private ImageButton mAddPcitureBtn;
@@ -49,7 +57,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private TextView photoTv;
     private TextView photographTv;
     private TextView cancelTv;
-    private ImageView picture;
+
+    private RecyclerView mRecyclerView;
+    private ListView listView;
 
 
 
@@ -68,13 +78,23 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
         //初始化界面
         initalView();
+
+
     }
 
 
     public void initalView(){
         mAddPcitureBtn = findViewById(R.id.add_picture_button);
-        picture = findViewById(R.id.output_imageView);
+
+
+        mRecyclerView = findViewById(R.id.photo_list_rcyView);
+//        listView = findViewById(R.id.photo_list_rcyView);
+        LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+
         mAddPcitureBtn.setOnClickListener(this);
+
         //初始化图片选择器
         initGalleryFinal(this);
     }
@@ -110,10 +130,19 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
      */
     private GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback = new GalleryFinal.OnHanlderResultCallback() {
        @Override
-       public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {      //成功时回调
+       public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+           if(resultList!=null){
+               if(reqeustCode == REQUEST_CODE_GALLERY){
+                   Log.d(TAG,"打开相册后回调"+resultList.size());
 
-           Log.d("AddActivity","图片"+resultList.get(0));
 
+                   PhotoListAdapter adapter = new PhotoListAdapter(AddActivity.this,resultList);
+                   mRecyclerView.setAdapter(adapter);
+
+               }else if(reqeustCode == REQUEST_CODE_CAMERA){
+                   Log.d(TAG,"打开相机后回调");
+               }
+           }
        }
 
        @Override
@@ -135,19 +164,18 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                     //没有权限就申请
                     ActivityCompat.requestPermissions(AddActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
                     mPopWindow.dismiss();
+                    mAddPcitureBtn.setVisibility(View.INVISIBLE);  //隐藏增加的按钮
                 }else {
                     //有权限就打开相册
                     Log.d(TAG,"打开了相册");
-                    FunctionConfig config = new FunctionConfig.Builder()
-                            .setMutiSelectMaxSize(9)
-                            .build();
-                    GalleryFinal.openGalleryMuti(REQUEST_CODE_GALLERY, config, mOnHanlderResultCallback);
+                    GalleryFinal.openGalleryMuti(REQUEST_CODE_GALLERY, Util.functionConfig, mOnHanlderResultCallback);
                     mPopWindow.dismiss();
+                    mAddPcitureBtn.setVisibility(View.INVISIBLE);
                 }
                 break;
             case R.id.pop_photograph:
                 //拍照
-                GalleryFinal.openCamera(REQUEST_CODE_CAMERA, mOnHanlderResultCallback);
+                GalleryFinal.openCamera(REQUEST_CODE_CAMERA,Util.functionConfig, mOnHanlderResultCallback);
                 mPopWindow.dismiss();
                 Log.d(TAG,"点击了拍照");
                 break;
@@ -158,4 +186,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
         }
     }
+
+
 }
