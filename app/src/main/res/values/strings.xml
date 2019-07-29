@@ -10,4 +10,6 @@
     <string name="no_picture">no picture</string>
     <string name="author_name">作者名字</string>
     <string name="content">我是文章内容</string>
+    <string name="tittle">这里是标题</string>
+    <string name="time">2000.00.00</string>
 </resources>
