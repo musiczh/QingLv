@@ -9,12 +9,12 @@
         android:id="@+id/tab_layout_main"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        app:tabIndicatorHeight="1.5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="0dp"
         app:tabMaxWidth="50dp"
         app:tabTextAppearance="@style/TabLayoutTextStyle">
 
