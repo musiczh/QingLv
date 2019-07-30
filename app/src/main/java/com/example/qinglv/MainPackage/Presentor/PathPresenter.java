@@ -22,12 +22,12 @@ public class PathPresenter implements IPresenterPager {
     }
 
     @Override
-    public void refreshRecycler(int firstNum, int size) {
+    public void refreshRecycler(int firstNum, int size , final boolean isRefresh) {
         IS_SCROLL = false;
         IModelPager.CallBack<Path> callBack = new IModelPager.CallBack<Path>() {
             @Override
             public void onSucceed(List<Path> list, boolean isMore) {
-                mIViewPreview.setList(list,isMore);
+                mIViewPreview.setList(list,isMore,isRefresh);
             }
 
             @Override

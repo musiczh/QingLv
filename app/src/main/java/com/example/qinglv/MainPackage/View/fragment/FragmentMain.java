@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.qinglv.MainPackage.Adapter.SectionsFragmentStateViewPagerAdapter;
+import com.example.qinglv.MainPackage.Adapter.ViewPagerFragmentStateAdapter;
 import com.example.qinglv.MainPackage.util.ZoomOutPageTransformer;
 import com.example.qinglv.R;
 
@@ -39,7 +39,7 @@ public class FragmentMain extends Fragment {
         ViewPager viewPager = view.findViewById(R.id.view_pager_main);
         //viewPager.setOffscreenPageLimit(3);
         viewPager.setPageTransformer(false,new ZoomOutPageTransformer());
-        viewPager.setAdapter(new SectionsFragmentStateViewPagerAdapter(getChildFragmentManager(),fragmentList,
+        viewPager.setAdapter(new ViewPagerFragmentStateAdapter(getChildFragmentManager(),fragmentList,
                 new String[]{"路线","景点","美食","游记"}));
         TabLayout tabLayout = view.findViewById(R.id.tab_layout_main);
         tabLayout.setupWithViewPager(viewPager);

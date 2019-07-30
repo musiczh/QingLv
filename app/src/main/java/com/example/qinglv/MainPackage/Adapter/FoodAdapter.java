@@ -60,7 +60,7 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         foodViewHolder.foodView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClickCallback.onClick(mList.get(position).getId());
+                mClickCallback.onClick(String.valueOf(mList.get(position).getId()));
             }
         });
         return foodViewHolder;
@@ -71,8 +71,9 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         FoodViewHolder foodViewHolder = (FoodViewHolder) viewHolder;
         Food food = mList.get(i);
+        String content = food.getContent().substring(0,27)+"......点击查看详情";
         foodViewHolder.timeTextView.setText(food.getDepositTime());
-        foodViewHolder.contentTextView.setText(food.getContent());
+        foodViewHolder.contentTextView.setText(content);
         foodViewHolder.tittleTextView.setText(food.getTitle());
         Glide.with(context).load(food.getPreview()).into(foodViewHolder.previewImage);
     }

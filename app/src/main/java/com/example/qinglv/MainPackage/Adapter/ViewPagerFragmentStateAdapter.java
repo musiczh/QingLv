@@ -17,12 +17,12 @@ import java.util.List;
  * 3.构造器传入三个参数，FragmentManager，fragmentList，和String[],最后一个参数是标题栏的名字
  */
 
-public class SectionsFragmentStateViewPagerAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerFragmentStateAdapter extends FragmentStatePagerAdapter {
     private String[] mTitles;
     private List<Fragment> list;
 
 
-    public SectionsFragmentStateViewPagerAdapter(FragmentManager fm, List<Fragment> fragmentList, String[] titles) {
+    public ViewPagerFragmentStateAdapter(FragmentManager fm, List<Fragment> fragmentList, String[] titles) {
         super(fm);
         list = fragmentList;
         mTitles = titles;

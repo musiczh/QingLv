@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 public abstract class NewRecyclerScrollListener extends RecyclerView.OnScrollListener {
     //这个参数设置是否可以继续下滑，当到底的时候就不可以继续下滑了
     public static Boolean IS_SCROLL = true;
+    //判断是否在向上滑动
+    private Boolean isDragUp = false;
 
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -21,9 +23,9 @@ public abstract class NewRecyclerScrollListener extends RecyclerView.OnScrollLis
         int lastItemPosition = manager.findLastCompletelyVisibleItemPosition();
         int itemCount = manager.getItemCount();
 
-        // 判断是否滑动到了最后一个item，并且是向上滑动
+        // 判断是否滑动到了最后一个item，并且是向上滑动而且是手拉着向上滑动而不是惯性
         if (lastItemPosition == (itemCount - 1) && newState == RecyclerView.SCROLL_STATE_DRAGGING
-                && IS_SCROLL) {
+                && IS_SCROLL && isDragUp) {
             //加载更多
             onLoadMore(itemCount);
         }
@@ -32,6 +34,7 @@ public abstract class NewRecyclerScrollListener extends RecyclerView.OnScrollLis
     @Override
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
+        isDragUp = dy>0;
     }
 
     /**

@@ -24,12 +24,12 @@ public class FoodPresenter implements IPresenterPager {
     }
 
     @Override
-    public void refreshRecycler(int firstNum, int size) {
+    public void refreshRecycler(int firstNum, int size , final boolean isRefresh) {
         IS_SCROLL = false;
         IModelPager.CallBack<Food> callBack = new IModelPager.CallBack<Food>() {
             @Override
             public void onSucceed(List<Food> list, boolean isMore) {
-                mIViewPreview.setList(list,isMore);
+                mIViewPreview.setList(list,isMore,isRefresh);
             }
 
             @Override

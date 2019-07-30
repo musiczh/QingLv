@@ -4,7 +4,7 @@ package com.example.qinglv.MainPackage.Entity;
  * 路线预览的实体类
  */
 public class Path {
-    private String id;
+    private int id;
 
     private String preview;
 
@@ -12,14 +12,20 @@ public class Path {
 
     private String introduction;
 
-    private String commentNum;
+    private String content;
+
+    private int commentNum;
+
+    private int starNum;
+
+    private int collectionNum;
 
     private String depositTime;
 
-    public void setId(String id){
+    public void setId(int id){
         this.id = id;
     }
-    public String getId(){
+    public int getId(){
         return this.id;
     }
     public void setPreview(String preview){
@@ -40,10 +46,10 @@ public class Path {
     public String getIntroduction(){
         return this.introduction;
     }
-    public void setCommentNum(String commentNum){
+    public void setCommentNum(int commentNum){
         this.commentNum = commentNum;
     }
-    public String getCommentNum(){
+    public int getCommentNum(){
         return this.commentNum;
     }
     public void setDepositTime(String depositTime){
@@ -53,4 +59,27 @@ public class Path {
         return this.depositTime;
     }
 
+    public void setCollectionNum(int collectionNum) {
+        this.collectionNum = collectionNum;
+    }
+
+    public int getCollectionNum() {
+        return collectionNum;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setStarNum(int starNum) {
+        this.starNum = starNum;
+    }
+
+    public int getStarNum() {
+        return starNum;
+    }
 }

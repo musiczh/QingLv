@@ -1,5 +1,7 @@
 package com.example.qinglv.MainPackage.Model;
 
+import android.support.annotation.NonNull;
+
 import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
@@ -7,6 +9,9 @@ import com.example.qinglv.MainPackage.iApiService.PathPreviewApiService;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,7 +39,22 @@ public class PathModel implements IModelPager<Path> {
                 .baseUrl(BASE_URL)
                 .build();
         PathPreviewApiService pathPreviewApiService = retrofit.create(PathPreviewApiService.class);
-        Observable<PreviewBean<Path>> observable =
+        Call<PreviewBean<Path>> previewBeanCall = pathPreviewApiService.getPath(firstNum,size);
+        previewBeanCall.enqueue(new Callback<PreviewBean<Path>>() {
+            @Override
+            public void onResponse(@NonNull Call<PreviewBean<Path>> call, @NonNull Response<PreviewBean<Path>> response) {
+                assert response.body() != null;
+                boolean isMore = response.body().getResult().equals("success");
+                List<Path> list = response.body().getMessage();
+                callBack.onSucceed(list,isMore);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PreviewBean<Path>> call, @NonNull Throwable t) {
+                callBack.onError("访问服务器错误");
+            }
+        });
+        /*Observable<PreviewBean<Path>> observable =
                 pathPreviewApiService.getPath(firstNum,size);
 
         observable.subscribeOn(Schedulers.io())
@@ -55,7 +75,7 @@ public class PathModel implements IModelPager<Path> {
                         List<Path> list = foodPreviewBean.getMessage();
                         callBack.onSucceed(list,isMore);
                     }
-                });
+                });*/
     }
 
 

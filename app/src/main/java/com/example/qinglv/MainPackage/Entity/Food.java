@@ -4,20 +4,22 @@ package com.example.qinglv.MainPackage.Entity;
  * 美食预览图的实体类
  */
 public class Food {
-    private String id;
+    private int id;
 
     private String preview;
 
     private String title;
 
-    private String content;
-
     private String depositTime;
 
-    public void setId(String id){
+    private String content;
+
+
+
+    public void setId(int id){
         this.id = id;
     }
-    public String getId(){
+    public int getId(){
         return this.id;
     }
     public void setPreview(String preview){

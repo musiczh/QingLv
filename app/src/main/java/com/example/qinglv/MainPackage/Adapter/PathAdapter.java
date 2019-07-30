@@ -58,7 +58,7 @@ public class PathAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
          pathViewHolder.pathView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClickCallback.onClick(mList.get(position).getId());
+                mClickCallback.onClick(String.valueOf(mList.get(position).getId()));
             }
         });
         return pathViewHolder;
@@ -69,7 +69,7 @@ public class PathAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         PathViewHolder pathViewHolder = (PathViewHolder) viewHolder;
         Path path = mList.get(i);
-        pathViewHolder.commentNumTextView.setText(path.getCommentNum());
+        pathViewHolder.commentNumTextView.setText(String.valueOf(path.getCommentNum()));
         pathViewHolder.contentTextView.setText(path.getIntroduction());
         pathViewHolder.tittleTextView.setText(path.getTitle());
         Glide.with(context).load(path.getPreview()).into(pathViewHolder.previewImage);

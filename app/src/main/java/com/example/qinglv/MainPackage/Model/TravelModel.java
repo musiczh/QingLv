@@ -1,5 +1,7 @@
 package com.example.qinglv.MainPackage.Model;
 
+import android.support.annotation.NonNull;
+
 import com.example.qinglv.MainPackage.Entity.Travel;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
@@ -8,6 +10,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,7 +36,22 @@ public class TravelModel implements IModelPager<Travel> {
                 .baseUrl(BASE_URL)
                 .build();
         TravelPreviewApiService travelPreviewApiService = retrofit.create(TravelPreviewApiService.class);
-        Observable<PreviewBean<Travel>> observable =
+        Call<PreviewBean<Travel>> previewBeanCall = travelPreviewApiService.getPath(firstNum, size,0,null);
+        previewBeanCall.enqueue(new Callback<PreviewBean<Travel>>() {
+            @Override
+            public void onResponse(@NonNull Call<PreviewBean<Travel>> call, @NonNull Response<PreviewBean<Travel>> response) {
+                assert response.body() != null;
+                boolean isMore = response.body().getResult().equals("success");
+                List<Travel> travelList = response.body().getMessage();
+                callBack.onSucceed(travelList,isMore);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PreviewBean<Travel>> call, @NonNull Throwable t) {
+
+            }
+        });
+        /*Observable<PreviewBean<Travel>> observable =
                 travelPreviewApiService.getPath(firstNum,size);
 
         observable.subscribeOn(Schedulers.io())
@@ -51,6 +71,6 @@ public class TravelModel implements IModelPager<Travel> {
                         List<Travel> travelList = foodPreviewBean.getMessage();
                         callBack.onSucceed(travelList,isMore);
                     }
-                });
+                });*/
     }
 }

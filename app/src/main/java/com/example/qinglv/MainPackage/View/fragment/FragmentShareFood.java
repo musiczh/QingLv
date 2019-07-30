@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.qinglv.MainPackage.Adapter.FoodAdapter;
-import com.example.qinglv.MainPackage.Adapter.RecyclerViewAdapterWrapper;
+import com.example.qinglv.MainPackage.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Presentor.FoodPresenter;
 import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
@@ -76,14 +76,14 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                iPresenterPager.refreshRecycler(1,10);
+                iPresenterPager.refreshRecycler(1,10,true);
             }
         });
 
 
         //第一次进入直接刷新并展示小圆圈提示一下
         swipeRefreshLayout.setRefreshing(true);
-        iPresenterPager.refreshRecycler(1,10);
+        iPresenterPager.refreshRecycler(1,10,false);
 
 
         return view;
@@ -94,7 +94,7 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
             @Override
             public void onLoadMore(int itemCount) {
                 adapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
-                iPresenterPager.refreshRecycler(itemCount , 10);
+                iPresenterPager.refreshRecycler(itemCount , 10,false);
             }
         });
 
@@ -103,7 +103,8 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
 
     //接口方法，用于访问数据后更改列表。第二个参数是判断还有没有更多，没有的话最后一项显示到底.IS_SCROLL是不然继续下滑的参数
     @Override
-    public void setList(List<Food> list , boolean isMore) {
+    public void setList(List<Food> list , boolean isMore,boolean isRefresh) {
+        if (isRefresh) mList.clear();
         mList.addAll(list);
         if (isMore) {
             IS_SCROLL = true;

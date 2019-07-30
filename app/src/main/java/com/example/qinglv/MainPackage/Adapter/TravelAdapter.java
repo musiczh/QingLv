@@ -63,7 +63,7 @@ public class TravelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         travelViewHolder.travelView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClickCallBack.onClick(mList.get(position).getId());
+                mClickCallBack.onClick(String.valueOf(mList.get(position).getId()));
             }
         });
         return travelViewHolder;
@@ -74,7 +74,7 @@ public class TravelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         TravelViewHolder travelViewHolder = (TravelViewHolder) viewHolder;
         Travel travel = mList.get(i);
-        travelViewHolder.userNameTextView.setText(travel.getNickname());
+        //travelViewHolder.userNameTextView.setText(travel.getNickname());
         travelViewHolder.HeartTextView.setText(travel.getStarNum());
         travelViewHolder.tittleTextView.setText(travel.getTitle());
         Glide.with(context).load(travel.getHeadPortrait()).into(travelViewHolder.userHeadImage);

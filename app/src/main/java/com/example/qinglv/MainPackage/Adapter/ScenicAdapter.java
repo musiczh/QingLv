@@ -60,7 +60,7 @@ public class ScenicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         scenicViewHolder.scenicView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClickCallback.onClick(mList.get(position).getId());
+                mClickCallback.onClick(String.valueOf(mList.get(position).getId()) );
             }
         });
         return scenicViewHolder;
@@ -72,9 +72,9 @@ public class ScenicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ScenicViewHolder scenicViewHolder = (ScenicViewHolder) viewHolder;
         Scenic scenic = mList.get(i);
         scenicViewHolder.locationTextView.setText(scenic.getLocation());
-        scenicViewHolder.commentNumTextView.setText(scenic.getCommentNum());
+        scenicViewHolder.commentNumTextView.setText(String.valueOf(scenic.getCommentNum()));
         scenicViewHolder.tittleTextView.setText(scenic.getTitle());
-        scenicViewHolder.scoreTextView.setText(scenic.getScore());
+        scenicViewHolder.scoreTextView.setText(String.valueOf( scenic.getScore()));
         Glide.with(context).load(scenic.getPreview()).into(scenicViewHolder.previewImage);
     }
 

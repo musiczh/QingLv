@@ -22,12 +22,12 @@ public class TravelPresenter implements IPresenterPager {
     }
 
     @Override
-    public void refreshRecycler(int firstNum, int size) {
+    public void refreshRecycler(int firstNum, int size , final boolean isRefresh) {
         IS_SCROLL = false;
         IModelPager.CallBack<Travel> callBack = new IModelPager.CallBack<Travel>() {
             @Override
             public void onSucceed(List<Travel> list, boolean isMore) {
-                mIViewPreview.setList(list,isMore);
+                mIViewPreview.setList(list,isMore,isRefresh);
             }
 
             @Override

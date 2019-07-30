@@ -4,7 +4,7 @@ package com.example.qinglv.MainPackage.Entity;
  * 风景预览的实体类
  */
 public class Scenic {
-    private String id;
+    private int id;
 
     private String preview;
 
@@ -12,16 +12,24 @@ public class Scenic {
 
     private String location;
 
-    private String score;
+    private float score;
 
-    private String commentNum;
+    private String spotIntroduction;
+
+    private String trafficInformation;
+
+    private int starNum;
+
+    private int collectionNum;
+
+    private int commentNum;
 
     private String depositTime;
 
-    public void setId(String id){
+    public void setId(int id){
         this.id = id;
     }
-    public String getId(){
+    public int getId(){
         return this.id;
     }
     public void setPreview(String preview){
@@ -42,16 +50,16 @@ public class Scenic {
     public String getLocation(){
         return this.location;
     }
-    public void setScore(String score){
+    public void setScore(float score){
         this.score = score;
     }
-    public String getScore(){
+    public float getScore(){
         return this.score;
     }
-    public void setCommentNum(String commentNum){
+    public void setCommentNum(int commentNum){
         this.commentNum = commentNum;
     }
-    public String getCommentNum(){
+    public int getCommentNum(){
         return this.commentNum;
     }
     public void setDepositTime(String depositTime){
@@ -60,5 +68,31 @@ public class Scenic {
     public String getDepositTime(){
         return this.depositTime;
     }
+    public void setSpotIntroduction(String spotIntroduction){
+        this.spotIntroduction = spotIntroduction;
+    }
+    public String getSpotIntroduction(){
+        return this.spotIntroduction;
+    }
+    public void setTrafficInformation(String trafficInformation){
+        this.trafficInformation = trafficInformation;
+    }
+    public String getTrafficInformation(){
+        return this.trafficInformation;
+    }
+    public void setStarNum(int starNum){
+        this.starNum = starNum;
+    }
+    public int getStarNum(){
+        return this.starNum;
+    }
+    public void setCollectionNum(int collectionNum){
+        this.collectionNum = collectionNum;
+    }
+    public int getCollectionNum(){
+        return this.collectionNum;
+    }
+
+
 
 }

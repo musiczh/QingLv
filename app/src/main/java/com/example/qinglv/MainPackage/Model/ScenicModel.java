@@ -1,5 +1,7 @@
 package com.example.qinglv.MainPackage.Model;
 
+import android.support.annotation.NonNull;
+
 import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
@@ -8,6 +10,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,10 +36,25 @@ public class ScenicModel implements IModelPager<Scenic> {
                 .baseUrl(BASE_URL)
                 .build();
         ScenicPreviewApiService scenicPreviewApiService = retrofit.create(ScenicPreviewApiService.class);
-        Observable<PreviewBean<Scenic>> observable =
+        Call<PreviewBean<Scenic>> previewBeanCall = scenicPreviewApiService.getScenic(firstNum,size);
+        previewBeanCall.enqueue(new Callback<PreviewBean<Scenic>>() {
+            @Override
+            public void onResponse(@NonNull Call<PreviewBean<Scenic>> call, @NonNull Response<PreviewBean<Scenic>> response) {
+                assert response.body() != null;
+                boolean isMore = response.body().getResult().equals("success");
+                List<Scenic> scenicList = response.body().getMessage();
+                callBack.onSucceed(scenicList,isMore);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PreviewBean<Scenic>> call, @NonNull Throwable t) {
+                callBack.onError("访问服务器错误");
+            }
+        });
+        /*Observable<PreviewBean<Scenic>> observable =
                 scenicPreviewApiService.getScenic(firstNum,size);
 
-        observable.subscribeOn(Schedulers.io())
+        observable
                 .subscribe(new Subscriber<PreviewBean<Scenic>>() {
                     @Override
                     public void onCompleted() {
@@ -52,6 +72,6 @@ public class ScenicModel implements IModelPager<Scenic> {
                         List<Scenic> scenicList = foodPreviewBean.getMessage();
                         callBack.onSucceed(scenicList,isMore);
                     }
-                });
+                });*/
     }
 }

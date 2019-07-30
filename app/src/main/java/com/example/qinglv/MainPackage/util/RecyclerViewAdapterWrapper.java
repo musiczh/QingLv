@@ -1,4 +1,4 @@
-package com.example.qinglv.MainPackage.Adapter;
+package com.example.qinglv.MainPackage.util;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -77,7 +77,7 @@ public class RecyclerViewAdapterWrapper extends RecyclerView.Adapter<RecyclerVie
             FootViewHolder footViewHolder = (FootViewHolder)viewHolder;
             switch (itemState){
                 case 0 : footViewHolder.textView.setText("");break;
-                case CONTINUE_DRAG : footViewHolder.textView.setText("下拉加载更多");break;
+                case CONTINUE_DRAG : footViewHolder.textView.setText("上拉加载更多");break;
                 case LOADING : footViewHolder.textView.setText("正在加载中");break;
                 case NO_MORE : footViewHolder.textView.setText("我是个有底线的列表");break;
             }

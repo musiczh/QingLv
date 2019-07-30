@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="6dp"
+    android:layout_marginBottom="4dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:paddingRight="5dp"
@@ -24,8 +25,12 @@
 
         <ImageView
             android:id="@+id/imageView_item_path_preview"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="95dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="@string/no_picture"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,50 +39,59 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="13dp"
-            android:layout_height="13dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginBottom="2dp"
+            android:contentDescription="@string/no_picture"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView_item_path_preview"
-            app:srcCompat="@drawable/img_comment"
-            android:contentDescription="@string/no_picture" />
+            app:srcCompat="@drawable/img_comment" />
 
         <TextView
             android:id="@+id/textView_item_path_comment"
             android:layout_width="wrap_content"
-            android:layout_height="13dp"
+            android:layout_height="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginBottom="3dp"
             android:text="@string/text_view"
-            android:textSize="12sp"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2" />
 
         <TextView
             android:id="@+id/textView_item_path_tittle"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:text="@string/text_view"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView_item_path_introduce"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toEndOf="@+id/imageView_item_path_preview"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView_item_path_introduce"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="3dp"
             android:text="@string/content"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView2"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView_item_path_comment"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView_item_path_preview"
             app:layout_constraintTop_toBottomOf="@+id/textView_item_path_tittle" />
 

@@ -26,12 +26,12 @@ public class ScenicPresenter implements IPresenterPager {
     }
 
     @Override
-    public void refreshRecycler(int firstNum, int size) {
+    public void refreshRecycler(int firstNum, int size , final boolean isRefresh) {
         IS_SCROLL = false;
         IModelPager.CallBack<Scenic> callBack = new IModelPager.CallBack<Scenic>() {
             @Override
             public void onSucceed(List<Scenic> list, boolean isMore) {
-                mIViewPreview.setList(list,isMore);
+                mIViewPreview.setList(list,isMore,isRefresh);
             }
 
             @Override

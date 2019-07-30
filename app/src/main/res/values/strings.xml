@@ -12,4 +12,5 @@
     <string name="content">我是文章内容</string>
     <string name="tittle">这里是标题</string>
     <string name="time">2000.00.00</string>
+    <string name="user_name">我是用户名</string>
 </resources>

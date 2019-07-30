@@ -1,6 +1,9 @@
 package com.example.qinglv.MainPackage.Model;
 
+import android.support.annotation.NonNull;
+
 import com.example.qinglv.MainPackage.Entity.Food;
+import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
 import com.example.qinglv.MainPackage.iApiService.FoodPreviewApiService;
@@ -8,6 +11,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -35,7 +41,22 @@ public class FoodModel implements IModelPager<Food> {
                 .baseUrl(BASE_URL)
                 .build();
         FoodPreviewApiService foodPreviewApiService = retrofit.create(FoodPreviewApiService.class);
-        Observable<PreviewBean<Food>> observable =
+        Call<PreviewBean<Food>> previewBeanCall = foodPreviewApiService.getFood(firstNum,size);
+        previewBeanCall.enqueue(new Callback<PreviewBean<Food>>() {
+            @Override
+            public void onResponse(@NonNull Call<PreviewBean<Food>> call, @NonNull Response<PreviewBean<Food>> response) {
+                assert response.body() != null;
+                boolean isMore = response.body().getResult().equals("success");
+                List<Food> foodList = response.body().getMessage();
+                callBack.onSucceed(foodList,isMore);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PreviewBean<Food>> call, @NonNull Throwable t) {
+                callBack.onError("访问服务器错误");
+            }
+        });
+        /*Observable<PreviewBean<Food>> observable =
                 foodPreviewApiService.getFood(firstNum,size);
 
         observable.subscribeOn(Schedulers.io())
@@ -55,7 +76,7 @@ public class FoodModel implements IModelPager<Food> {
                         List<Food> foodList = foodPreviewBean.getMessage();
                         callBack.onSucceed(foodList,isMore);
                     }
-                });
+                });*/
     }
 
 
