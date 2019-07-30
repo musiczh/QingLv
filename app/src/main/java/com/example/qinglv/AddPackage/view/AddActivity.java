@@ -5,8 +5,6 @@ package com.example.qinglv.AddPackage.view;
 import android.Manifest;
 import android.content.pm.PackageManager;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.StrictMode;
 import android.support.annotation.RequiresApi;
@@ -23,25 +21,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.qinglv.AddPackage.view.adapter.ChoosePhotoListAdapter;
-import com.example.qinglv.AddPackage.view.adapter.PhotoListAdapter;
+import com.example.qinglv.AddPackage.adapter.PhotoListAdapter;
 import com.example.qinglv.R;
 
 import java.util.List;
 
-import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
-import cn.finalteam.galleryfinal.ImageLoader;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 
-import static com.example.qinglv.AddPackage.view.Util.functionConfig;
 import static com.example.qinglv.AddPackage.view.Util.initGalleryFinal;
 
 

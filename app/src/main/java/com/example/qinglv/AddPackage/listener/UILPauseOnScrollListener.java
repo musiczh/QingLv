@@ -1,4 +1,4 @@
-package com.example.qinglv.AddPackage.view.listener;
+package com.example.qinglv.AddPackage.listener;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 

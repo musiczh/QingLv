@@ -1,4 +1,4 @@
-package com.example.qinglv.AddPackage.view.adapter;
+package com.example.qinglv.AddPackage.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -52,9 +52,9 @@ public class ChoosePhotoListAdapter  extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnFail(R.mipmap.ic_add)
-                .showImageForEmptyUri(R.mipmap.ic_add)
-                .showImageOnLoading(R.mipmap.ic_add).build();
+                .showImageOnFail(R.mipmap.ic_photo_add)
+                .showImageForEmptyUri(R.mipmap.ic_photo_add)
+                .showImageOnLoading(R.mipmap.ic_photo_add).build();
 
         ImageView ivPhoto = (ImageView) mInflater.inflate(R.layout.adapter_photo_item, null);
         setHeight(ivPhoto);

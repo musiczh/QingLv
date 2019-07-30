@@ -23,7 +23,7 @@ public class Util {
 
 
     /**
-     * GalleryFinal 初始化配置
+     * GalleryFinal 初始化配置的工具类
      * @param context
      */
     public static void initGalleryFinal(Context context){
