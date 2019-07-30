@@ -6,9 +6,8 @@ import com.example.qinglv.MainPackage.bean.PreviewBean;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
-import static com.example.qinglv.MainPackage.util.StaticQuality.FOOD_PREVIEW_URL;
+import static com.example.qinglv.util.StaticQuality.FOOD_PREVIEW_URL;
 
 /**
  * 美食预览网络访问retrofit的辅助接口

@@ -7,8 +7,8 @@ import com.example.qinglv.MainPackage.bean.PreviewBean;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
-import static com.example.qinglv.MainPackage.util.StaticQuality.PATH_PREVIEW_URL;
+
+import static com.example.qinglv.util.StaticQuality.PATH_PREVIEW_URL;
 
 /**
  * 路线的retrofit网络访问接口

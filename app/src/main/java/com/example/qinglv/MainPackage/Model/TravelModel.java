@@ -16,11 +16,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Subscriber;
-import rx.schedulers.Schedulers;
 
-import static com.example.qinglv.MainPackage.util.StaticQuality.BASE_URL;
+import static com.example.qinglv.util.StaticQuality.BASE_URL;
 
 public class TravelModel implements IModelPager<Travel> {
     //通过这个方法访问数据，并采用回调的方式在presenter中处理数据

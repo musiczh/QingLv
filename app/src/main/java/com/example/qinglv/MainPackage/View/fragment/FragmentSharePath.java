@@ -14,20 +14,20 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.qinglv.MainPackage.Adapter.PathAdapter;
-import com.example.qinglv.MainPackage.util.RecyclerViewAdapterWrapper;
+import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Presentor.PathPresenter;
 import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
 import com.example.qinglv.MainPackage.View.activity.PathDetailActivity;
 import com.example.qinglv.MainPackage.View.iView.IViewPreview;
 import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
-import com.example.qinglv.MainPackage.util.NewRecyclerScrollListener;
+import com.example.qinglv.util.NewRecyclerScrollListener;
 import com.example.qinglv.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.qinglv.MainPackage.util.NewRecyclerScrollListener.IS_SCROLL;
+import static com.example.qinglv.util.NewRecyclerScrollListener.IS_SCROLL;
 
 /**
  * 主页用户发布游记友圈碎片，放在viewPager中

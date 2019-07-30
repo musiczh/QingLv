@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.qinglv.MainPackage.util.RecyclerViewAdapterWrapper;
+import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Adapter.ScenicAdapter;
 import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.MainPackage.Presentor.ScenicPresenter;
@@ -21,13 +21,13 @@ import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
 import com.example.qinglv.MainPackage.View.activity.ScenicDetailActivity;
 import com.example.qinglv.MainPackage.View.iView.IViewPreview;
 import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
-import com.example.qinglv.MainPackage.util.NewRecyclerScrollListener;
+import com.example.qinglv.util.NewRecyclerScrollListener;
 import com.example.qinglv.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.qinglv.MainPackage.util.NewRecyclerScrollListener.IS_SCROLL;
+import static com.example.qinglv.util.NewRecyclerScrollListener.IS_SCROLL;
 
 public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic> {
     private RecyclerViewAdapterWrapper adapterWrapper;

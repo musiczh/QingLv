@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.qinglv.MainPackage.Adapter.ViewPagerFragmentStateAdapter;
-import com.example.qinglv.MainPackage.util.ZoomOutPageTransformer;
+import com.example.qinglv.util.ZoomOutPageTransformer;
 import com.example.qinglv.R;
 
 import java.util.ArrayList;

@@ -6,8 +6,8 @@ import com.example.qinglv.MainPackage.bean.PreviewBean;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
-import static com.example.qinglv.MainPackage.util.StaticQuality.SCENIC_PREVIEW_URL;
+
+import static com.example.qinglv.util.StaticQuality.SCENIC_PREVIEW_URL;
 
 
 /**

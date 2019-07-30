@@ -3,7 +3,6 @@ package com.example.qinglv.MainPackage.Model;
 import android.support.annotation.NonNull;
 
 import com.example.qinglv.MainPackage.Entity.Food;
-import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
 import com.example.qinglv.MainPackage.iApiService.FoodPreviewApiService;
@@ -17,11 +16,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Subscriber;
-import rx.schedulers.Schedulers;
 
-import static com.example.qinglv.MainPackage.util.StaticQuality.BASE_URL;
+import static com.example.qinglv.util.StaticQuality.BASE_URL;
 
 /**
  * 美食预览界面model层

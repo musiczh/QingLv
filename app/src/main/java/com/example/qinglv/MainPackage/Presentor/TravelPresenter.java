@@ -6,7 +6,7 @@ import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
 import com.example.qinglv.MainPackage.View.iView.IViewPreview;
 import java.util.List;
-import static com.example.qinglv.MainPackage.util.NewRecyclerScrollListener.IS_SCROLL;
+import static com.example.qinglv.util.NewRecyclerScrollListener.IS_SCROLL;
 
 /**
  * 游记预览的presenter类

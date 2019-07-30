@@ -1,4 +1,4 @@
-package com.example.qinglv.MainPackage.util;
+package com.example.qinglv.util;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +10,12 @@ import com.example.qinglv.R;
 
 
 /**
- * recyclerView的装饰，用于添加上拉加载功能
- * 对最后一项特别设置
+ * recyclerView的装饰，用于添加上拉加载功能的最后一项
+ * 让最后一项在上拉的时候给用户提示和反馈
+ * 创建完原始的adapter，直接放进这个工具类即可，用法例如：
+ * adapterWrapper = new RecyclerViewAdapterWrapper(foodAdapter);
+ *         recyclerView.setAdapter(adapterWrapper);
+ * 这样就给适配器加上一个最后一项
  */
 
 public class RecyclerViewAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

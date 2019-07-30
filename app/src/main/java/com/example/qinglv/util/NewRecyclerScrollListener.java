@@ -1,11 +1,19 @@
-package com.example.qinglv.MainPackage.util;
+package com.example.qinglv.util;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 /**
- * 重写RecyclerView的滑动监听器，当滑到最后一项而且是手机在拖的时候加载更多
+ * 重写RecyclerView的滑动监听器，当滑到最后一项而且是手在拖的时候加载更多
+ * 可以在view中给recyclerView设置上拉监听例如：
+ *recyclerView.addOnScrollListener(new NewRecyclerScrollListener() {
+ *  public void onLoadMore(int itemCount) {
+ *      //方法体
+ *   } });
+ * 在方法中设置监听
+ *
+ * 注意：要结合另一个工具类RecyclerViewAdapterWrapper
  */
 
 public abstract class NewRecyclerScrollListener extends RecyclerView.OnScrollListener {
