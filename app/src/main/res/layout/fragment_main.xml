@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout_main"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        app:tabIndicatorHeight="1.5dp"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="1.5dp"
         app:tabMaxWidth="50dp"
         app:tabTextAppearance="@style/TabLayoutTextStyle">
 
@@ -23,15 +23,15 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager_main"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tab_layout_main">
 
 
     </android.support.v4.view.ViewPager>
+
 
 </android.support.constraint.ConstraintLayout>

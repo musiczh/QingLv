@@ -12,4 +12,12 @@
     <string name="photograph">拍摄</string>
     <string name="photo">相册</string>
     <string name="cancel">取消</string>
+    <string name="comment">评分</string>
+    <string name="text_view">TextView</string>
+    <string name="no_picture">no picture</string>
+    <string name="author_name">作者名字</string>
+    <string name="content">我是文章内容</string>
+    <string name="tittle">这里是标题</string>
+    <string name="time">2000.00.00</string>
+    <string name="user_name">我是用户名</string>
 </resources>

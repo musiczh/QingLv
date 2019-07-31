@@ -1,4 +1,4 @@
-package com.example.qinglv.MainPackage.View;
+package com.example.qinglv.util;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 
 /**
- * 切换viewPager的动画
+ * 切换viewPager的动画，给viewPager添加即可，例如：
+ * viewPager.setPageTransformer(false,new ZoomOutPageTransformer());
+ *
  */
 public class ZoomOutPageTransformer implements ViewPager.PageTransformer
 {

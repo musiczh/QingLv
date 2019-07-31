@@ -11,9 +11,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.qinglv.AddPackage.view.AddActivity;
-import com.example.qinglv.AddPackage.view.FragmentAdd;
-import com.example.qinglv.MainPackage.View.ArticleActivity;
-import com.example.qinglv.MainPackage.View.FragmentMain;
+
+import com.example.qinglv.MainPackage.View.fragment.FragmentMain;
 import com.example.qinglv.MessagePackage.FragmentMessage;
 import com.example.qinglv.UserPackage.View.FragmentMy;
 import com.example.qinglv.ShopPackage.FragmentShop;
@@ -28,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentMain fragmentMain;
     private FragmentMessage fragmentMessage;
-    private FragmentAdd fragmentAdd;
     private FragmentMy fragmentMy;
     private FragmentShop fragmentShop;
 
@@ -66,48 +64,54 @@ public class MainActivity extends AppCompatActivity {
 
 
         //给底部按钮组设置监听
+        //点击先隐藏所有碎片，再显示点击的碎片
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                hideFragment(transaction);    //隐藏所有的碎片
+                //判断碎片是否存在，存在则直接展示，不存在则新建实例后再展示
                 switch (checkedId){
                     case R.id.radio_button_main :
-                        if (fragmentMain == null){
-                            fragmentMain = new FragmentMain();
-                        }
-                        changeFragment(fragmentMain);
+                        transaction.show(fragmentMain);
                         break;
                     case R.id.radio_button_add :
-                        if (fragmentAdd == null){
-                            fragmentAdd = new FragmentAdd();
-                        }
-                        //changeFragment(fragmentAdd);
-
-//                        changeFragment(fragmentAdd);
+;
                         Intent intent = new Intent(MainActivity.this, AddActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.radio_button_my :
                         if (fragmentMy == null){
                             fragmentMy = new FragmentMy();
+                            transaction.add(R.id.layout_frame_main,fragmentMy);
+                        }else {
+                            transaction.show(fragmentMy);
                         }
-                        changeFragment(fragmentMy);
                         break;
                     case R.id.radio_button_shop :
                         if (fragmentShop == null){
                             fragmentShop = new FragmentShop();
+                            transaction.add(R.id.layout_frame_main,fragmentShop);
+                        }else {
+                            transaction.show(fragmentShop);
                         }
                         //changeFragment(fragmentShop);
-                        Intent intent2 = new Intent(MainActivity.this, ArticleActivity.class);
-                        startActivity(intent2);
+//                        Intent intent2 = new Intent(MainActivity.this, ArticleActivity.class);
+//                        startActivity(intent2);
                         break;
                     case R.id.radio_button_message :
                         if (fragmentMessage == null){
                             fragmentMessage = new FragmentMessage();
+                            transaction.add(R.id.layout_frame_main,fragmentMessage);
+                        }else {
+                            transaction.show(fragmentMessage);
                         }
-                        changeFragment(fragmentMessage);
                         break;
 
                 }
+                //最后提交所有的修改
+                transaction.commit();
             }
         });
     }
@@ -121,6 +125,14 @@ public class MainActivity extends AppCompatActivity {
         //当这个图片被绘制时，给他绑定一个矩形 ltrb规定这个矩形
         drawable_news.setBounds(0, 0, size, size);
         radioButton.setCompoundDrawables(null,drawable_news,null,null);
+    }
+
+    //隐藏所有的碎片
+    private void hideFragment(FragmentTransaction transaction){
+        if (fragmentMain!=null) transaction.hide(fragmentMain);
+        if (fragmentMessage!=null) transaction.hide(fragmentMessage);
+        if (fragmentMy!=null) transaction.hide(fragmentMy);
+        if (fragmentShop!=null) transaction.hide(fragmentShop);
     }
 
 

@@ -19,10 +19,15 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".MainPackage.View.ArticleActivity"/>
+
 
         <activity android:name=".AddPackage.view.AddActivity"/>
 
+
+        <activity android:name=".MainPackage.View.activity.ScenicDetailActivity"/>
+        <activity android:name=".MainPackage.View.activity.PathDetailActivity" />
+        <activity android:name=".MainPackage.View.activity.FoodDetailActivity" />
+        <activity android:name=".MainPackage.View.activity.TravelDetailActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
