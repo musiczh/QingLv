@@ -7,11 +7,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
-
-
-
 
     <application
         android:allowBackup="true"
@@ -23,15 +21,13 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-
-
-        <activity android:name=".AddPackage.view.AddActivity"/>
-
-
-        <activity android:name=".MainPackage.View.activity.ScenicDetailActivity"/>
+        <activity android:name=".UserPackage.View.RegisterActivity"></activity>
+        <activity android:name=".AddPackage.view.AddActivity" />
+        <activity android:name=".MainPackage.View.activity.ScenicDetailActivity" />
         <activity android:name=".MainPackage.View.activity.PathDetailActivity" />
         <activity android:name=".MainPackage.View.activity.FoodDetailActivity" />
         <activity android:name=".MainPackage.View.activity.TravelDetailActivity" />
+        <activity android:name=".UserPackage.View.LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,18 +35,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
-            android:authorities="com.example.qinglv.Util.fileprovier"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.qinglv.Util.fileprovier"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
-
-
     </application>
-
 
 </manifest>
