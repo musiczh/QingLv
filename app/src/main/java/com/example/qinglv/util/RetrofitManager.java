@@ -11,7 +11,7 @@ import static com.example.qinglv.util.StaticQuality.BASE_URL;
 
 /**
  * Retrofit单例工具类
- * 内部自己创建一个retrofit实例，调用里面的方法传入一个接口class就可以返回一个call或者observable
+ * 内部自己创建一个retrofit实例，调用里面的方法传入一个接口class就可以返回一个接口实例
  * 调用示例：
  * FoodPreviewApiService foodPreviewApiService = RetrofitManager.getInstance().createRs(FoodPreviewApiService.class);
  */

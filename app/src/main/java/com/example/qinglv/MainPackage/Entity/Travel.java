@@ -1,11 +1,12 @@
 package com.example.qinglv.MainPackage.Entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 游记预览的实体类
  */
-public class Travel {
+public class Travel implements Serializable {
     private int id;
 
     private String title;

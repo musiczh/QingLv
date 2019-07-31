@@ -51,9 +51,8 @@ public class FragmentShareTravels extends Fragment implements IViewPreview<Trave
         recyclerView.setLayoutManager(linearLayoutManager);
         TravelAdapter travelAdapter = new TravelAdapter(mList, new RecyclerClickCallback() {
             @Override
-            public void onClick(String id) {
+            public void onClick(int position) {
                 Intent intent = new Intent(getContext(), TravelDetailActivity.class);
-                intent.putExtra("id",id);
                 startActivity(intent);
             }
 

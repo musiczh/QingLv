@@ -1,9 +1,11 @@
 package com.example.qinglv.MainPackage.Entity;
 
+import java.io.Serializable;
+
 /**
  * 风景预览的实体类
  */
-public class Scenic {
+public class Scenic implements Serializable {
     private int id;
 
     private String preview;

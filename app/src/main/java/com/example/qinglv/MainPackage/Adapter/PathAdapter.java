@@ -53,21 +53,20 @@ public class PathAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         context = viewGroup.getContext();
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_path, viewGroup, false);
-        PathViewHolder pathViewHolder = new PathViewHolder(view);
-         final int position = pathViewHolder.getAdapterPosition();
-         pathViewHolder.pathView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mClickCallback.onClick(String.valueOf(mList.get(position).getId()));
-            }
-        });
-        return pathViewHolder;
+        return new PathViewHolder(view);
     }
 
     //绑定布局，并传入数据
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         PathViewHolder pathViewHolder = (PathViewHolder) viewHolder;
+        final int position = i;
+        pathViewHolder.pathView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickCallback.onClick(position);
+            }
+        });
         Path path = mList.get(i);
         pathViewHolder.commentNumTextView.setText(String.valueOf(path.getCommentNum()));
         pathViewHolder.contentTextView.setText(path.getIntroduction());

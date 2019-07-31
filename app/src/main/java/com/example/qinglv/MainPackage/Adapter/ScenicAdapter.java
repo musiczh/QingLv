@@ -55,21 +55,20 @@ public class ScenicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         context = viewGroup.getContext();
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_scenic,viewGroup,false);
-        ScenicViewHolder scenicViewHolder = new ScenicViewHolder(view);
-        final int position = scenicViewHolder.getAdapterPosition();
-        scenicViewHolder.scenicView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mClickCallback.onClick(String.valueOf(mList.get(position).getId()) );
-            }
-        });
-        return scenicViewHolder;
+        return new ScenicViewHolder(view);
     }
 
     //绑定布局，并传入数据
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ScenicViewHolder scenicViewHolder = (ScenicViewHolder) viewHolder;
+        final int position = i;
+        scenicViewHolder.scenicView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickCallback.onClick(position);
+            }
+        });
         Scenic scenic = mList.get(i);
         scenicViewHolder.locationTextView.setText(scenic.getLocation());
         scenicViewHolder.commentNumTextView.setText(String.valueOf(scenic.getCommentNum()));
