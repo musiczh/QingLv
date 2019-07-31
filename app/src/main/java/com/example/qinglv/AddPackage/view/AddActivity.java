@@ -3,80 +3,92 @@ package com.example.qinglv.AddPackage.view;
 
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 
 import android.os.Build;
-import android.os.Environment;
 import android.os.StrictMode;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.qinglv.AddPackage.adapter.PhotoListAdapter;
 import com.example.qinglv.R;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.List;
 
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.model.PhotoInfo;
+
+import static com.example.qinglv.AddPackage.view.Util.initGalleryFinal;
 
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static  final String TAG = "AddActivity";
-    private static  final int CUT_PICTURE = 1;
-    private static  final int SHOW_PICTURE = 2;
+    private static  final int REQUEST_CODE_GALLERY = 1;  //打开相册
+    private static  final int REQUEST_CODE_CAMERA = 2;    //使用拍照
+
 
     private ImageButton mAddPcitureBtn;
     private PopupWindow mPopWindow;
     private TextView photoTv;
     private TextView photographTv;
     private TextView cancelTv;
-    private ImageView picture;
 
-    private Uri  imageUri;
+    private RecyclerView mRecyclerView;
+    private ListView listView;
 
 
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        //解决拍照抛出的FileUriExposedException异常
+        // android 7.0系统解决拍照的问题
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            builder.detectFileUriExposure();
-        }
+        builder.detectFileUriExposure();
+
         //初始化界面
         initalView();
-    }
 
+
+    }
 
 
     public void initalView(){
         mAddPcitureBtn = findViewById(R.id.add_picture_button);
-        picture = findViewById(R.id.output_imageView);
+
+
+        mRecyclerView = findViewById(R.id.photo_list_rcyView);
+//        listView = findViewById(R.id.photo_list_rcyView);
+        LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+
         mAddPcitureBtn.setOnClickListener(this);
+
+        //初始化图片选择器
+        initGalleryFinal(this);
     }
 
     //弹出菜单选项
@@ -105,89 +117,32 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    //开始拍照
-    public void startPhotograph(){
-       //创建File对象，用于存储拍照后的图片，将此图片存储在sd卡的根目录下
-        File outputImage = new File(Environment.getExternalStorageDirectory(),"output_image.jpg");
-
-        try{
-            if(outputImage.exists()){
-                outputImage.delete();
-            }
-            outputImage.createNewFile();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        //将File对象转换成uri对象
-        // uri标识者图片的地址
-        imageUri = Uri.fromFile(outputImage);
-        //隐式调用相机程序
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        //拍下的照片会被输出到output_image.jpg中去
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-        startActivityForResult(intent,SHOW_PICTURE);
+    /**
+     * 选择图片结果回调
+     */
+    private GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback = new GalleryFinal.OnHanlderResultCallback() {
+       @Override
+       public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+           if(resultList!=null){
+               if(reqeustCode == REQUEST_CODE_GALLERY){
+                   Log.d(TAG,"打开相册后回调"+resultList.size());
 
 
-        mPopWindow.dismiss();
+                   PhotoListAdapter adapter = new PhotoListAdapter(AddActivity.this,resultList);
+                   mRecyclerView.setAdapter(adapter);
 
-    }
-
-    //调用图库
-    public void chooseFromAlbum(){
-        File outputImage = new File(Environment.getExternalStorageDirectory(),"output_image.jpg");
-
-        try {
-            if(outputImage.exists()){
-                outputImage.delete();
-              }
-            outputImage.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        imageUri = Uri.fromFile(outputImage);
-        Intent intent = new Intent(Intent.ACTION_PICK,null);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-        startActivityForResult(intent,CUT_PICTURE);
-        mPopWindow.dismiss();
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-       switch (requestCode){
-           case CUT_PICTURE:
-               if(resultCode == RESULT_OK){
-                   Log.d(TAG,"裁剪图片的if内");
-                   //启动裁剪程序
-                   Intent intent = new Intent("com.android.camera.action.CROP");
-                   Log.d(TAG,"intent"+intent);
-                   intent.setDataAndType(data.getData(),"image/*");
-                   intent.putExtra("scale",true);
-                   intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-                   startActivityForResult(intent,SHOW_PICTURE);
-
+               }else if(reqeustCode == REQUEST_CODE_CAMERA){
+                   Log.d(TAG,"打开相机后回调");
                }
-               Log.d(TAG,"裁剪图片的if外");
-               break;
-           case SHOW_PICTURE:
-               Log.d(TAG,"显示图片");
-               if(resultCode == RESULT_OK){
-                   try{
-                       //将output_image.jpg对象解析成Bitmap对象
-                      Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                      //这里显示图片操作
-                       picture.setImageBitmap(bitmap);
-
-                   } catch (FileNotFoundException e) {
-                       e.printStackTrace();
-                   }
-               }
-               break;
-           default:
-               break;
+           }
        }
-    }
+
+       @Override
+       public void onHanlderFailure(int requestCode, String errorMsg) {                  //失败时回调
+           Toast.makeText(AddActivity.this, "选择图片失败"+errorMsg, Toast.LENGTH_SHORT).show();
+           Log.d(TAG,"errorMsg"+errorMsg);
+       }
+   };
 
     @Override
     public void onClick(View v) {
@@ -195,22 +150,25 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             case R.id.add_picture_button:
                 //弹出拍照选项
                 showPopupWindow();
-                Log.d(TAG,"点击了增加图片");
                 break;
             case R.id.pop_photo:
-
                 if(ContextCompat.checkSelfPermission(AddActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
                     //没有权限就申请
                     ActivityCompat.requestPermissions(AddActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                    mPopWindow.dismiss();
+                    mAddPcitureBtn.setVisibility(View.INVISIBLE);  //隐藏增加的按钮
                 }else {
                     //有权限就打开相册
-                    chooseFromAlbum();
+                    Log.d(TAG,"打开了相册");
+                    GalleryFinal.openGalleryMuti(REQUEST_CODE_GALLERY, Util.functionConfig, mOnHanlderResultCallback);
+                    mPopWindow.dismiss();
+                    mAddPcitureBtn.setVisibility(View.INVISIBLE);
                 }
-                Log.d(TAG,"点击了相册");
                 break;
             case R.id.pop_photograph:
                 //拍照
-                startPhotograph();
+                GalleryFinal.openCamera(REQUEST_CODE_CAMERA,Util.functionConfig, mOnHanlderResultCallback);
+                mPopWindow.dismiss();
                 Log.d(TAG,"点击了拍照");
                 break;
             case R.id.pop_cancel:
@@ -220,4 +178,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
         }
     }
+
+
 }
