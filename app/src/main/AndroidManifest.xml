@@ -21,9 +21,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
+
         <activity android:name=".UserPackage.View.RegisterActivity"></activity>
-        <activity android:name=".AddPackage.view.AddActivity" />
         <activity android:name=".MainPackage.View.activity.ScenicDetailActivity" />
+        <activity android:name=".AddPackage.view.AddActivity"/>
+        <activity android:name=".MainPackage.View.activity.SearchActivity"></activity>
         <activity android:name=".MainPackage.View.activity.PathDetailActivity" />
         <activity android:name=".MainPackage.View.activity.FoodDetailActivity" />
         <activity android:name=".MainPackage.View.activity.TravelDetailActivity" />

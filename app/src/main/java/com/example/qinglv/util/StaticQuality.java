@@ -10,6 +10,9 @@ public class StaticQuality {
     //美食的附加网址
     public static final String FOOD_PREVIEW_URL= "share/food";
 
+    //美食搜索的附加地址
+    public static final String FOOD_SEARCH_URL = "search/food";
+
     //路线的附加网址
     public static final String PATH_PREVIEW_URL= "share/path";
 
@@ -18,6 +21,8 @@ public class StaticQuality {
 
     //风景的附加网址
     public static final String SCENIC_PREVIEW_URL= "share/scenic/";
+
+    //
 
 
 }

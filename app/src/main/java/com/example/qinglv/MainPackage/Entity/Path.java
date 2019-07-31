@@ -1,9 +1,11 @@
 package com.example.qinglv.MainPackage.Entity;
 
+import java.io.Serializable;
+
 /**
  * 路线预览的实体类
  */
-public class Path {
+public class Path implements Serializable {
     private int id;
 
     private String preview;
