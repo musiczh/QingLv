@@ -6,6 +6,8 @@ import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
 import com.example.qinglv.MainPackage.iApiService.PathPreviewApiService;
+import com.example.qinglv.util.RetrofitManager;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
@@ -26,18 +28,10 @@ public class PathModel implements IModelPager<Path> {
     //通过这个方法访问数据，并采用回调的方式在presenter中处理数据
     @Override
     public void getData(int firstNum, int size, final CallBack<Path> callBack) {
-        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
-        httpClientBuilder.connectTimeout(10, TimeUnit.SECONDS);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(httpClientBuilder.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(BASE_URL)
-                .build();
-        PathPreviewApiService pathPreviewApiService = retrofit.create(PathPreviewApiService.class);
-        Call<PreviewBean<Path>> previewBeanCall = pathPreviewApiService.getPath(firstNum,size);
-        previewBeanCall.enqueue(new Callback<PreviewBean<Path>>() {
+        RetrofitManager.getInstance().createRs(PathPreviewApiService.class)
+        .getPath(firstNum,size)
+        .enqueue(new Callback<PreviewBean<Path>>() {
             @Override
             public void onResponse(@NonNull Call<PreviewBean<Path>> call, @NonNull Response<PreviewBean<Path>> response) {
                 assert response.body() != null;

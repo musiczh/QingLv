@@ -8,12 +8,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qinglv.MainPackage.Adapter.FoodAdapter;
+import com.example.qinglv.MainPackage.View.activity.SearchActivity;
 import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Presentor.FoodPresenter;
@@ -45,16 +49,19 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
         iPresenterPager = new FoodPresenter(this);//建立presenter的实例
 
 
-        //RecyclerView的初始化以及设置适配器
+        //RecyclerView的初始化以及相关配置
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView_pager);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        //设置回调方法，点击子项直接跳转活动查看详情
         FoodAdapter foodAdapter = new FoodAdapter(mList, new RecyclerClickCallback() {
             @Override
-            public void onClick(String id) {
+            public void onClick(int position) {
                 Intent intent = new Intent(getContext(), FoodDetailActivity.class);
-                intent.putExtra("id",id);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("food",mList.get(position));
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
 
@@ -65,10 +72,20 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
         });
         adapterWrapper = new RecyclerViewAdapterWrapper(foodAdapter);
         recyclerView.setAdapter(adapterWrapper);
-
         //给recyclerView设置下拉监听,方法具体在下面
         setRecyclerPullUpListener(recyclerView,adapterWrapper);
 
+        //搜索框的软键盘回车键设置监听。打开另一个活动展示搜索结果
+        EditText editText = view.findViewById(R.id.editText_pager);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                intent.putExtra("text",v.getText());
+                startActivity(intent);
+                return false;
+            }
+        });
 
         //下拉刷新控件的初始化以及设置监听
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout_pager);

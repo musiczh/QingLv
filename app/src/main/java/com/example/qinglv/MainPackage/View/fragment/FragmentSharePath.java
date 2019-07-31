@@ -55,9 +55,8 @@ public class FragmentSharePath extends Fragment implements IViewPreview<Path> {
         recyclerView.setLayoutManager(linearLayoutManager);
         PathAdapter pathAdapter = new PathAdapter(mList, new RecyclerClickCallback() {
             @Override
-            public void onClick(String id) {
+            public void onClick(int position) {
                 Intent intent = new Intent(getContext(), PathDetailActivity.class);
-                intent.putExtra("id",id);
                 startActivity(intent);
             }
 
