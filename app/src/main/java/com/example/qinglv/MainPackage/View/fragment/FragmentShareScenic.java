@@ -56,6 +56,9 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(getContext(), ScenicDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("scenic",mList.get(position));
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
 
