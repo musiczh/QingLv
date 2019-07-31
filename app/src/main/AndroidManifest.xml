@@ -15,7 +15,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".UserPackage.View.LoginActivity"></activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login"></activity>
+        <activity android:name=".UserPackage.View.LoginActivity" />
         <activity android:name=".MainPackage.View.ArticleActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
