@@ -1,32 +1,29 @@
-package com.example.qinglv.AddPackage.view;
-
+package com.example.qinglv.util;
 
 import android.content.Context;
 import android.graphics.Color;
 
+import com.example.qinglv.AddPackage.view.GlideImageLoader;
 import com.example.qinglv.R;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import cn.finalteam.galleryfinal.CoreConfig;
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
-
 import cn.finalteam.galleryfinal.ThemeConfig;
 
-public class Util {
+/**
+ * GalleryFinal 初始化配置的工具类，调用时传入上下文
+ */
 
-   /* public static FunctionConfig functionConfig;
+public class InitGalleryFinal {
 
+    public static FunctionConfig functionConfig;
 
-    /**
-     * GalleryFinal 初始化配置的工具类
-     * @param context
-     */
-    /*public static void initGalleryFinal(Context context){
+    public static void initGalleryFinal(Context context){
         //设置主题
         ThemeConfig theme = new ThemeConfig.Builder()
                 .setTitleBarBgColor(Color.rgb(0xFF,0x57,0x22))
@@ -52,11 +49,7 @@ public class Util {
                 .setForceCropEdit(true)
                 .setMutiSelectMaxSize(18)
                 .build();
-
-
         initImageLoader(context);
-
-
         //配置imageloader
 
         CoreConfig coreConfig = new CoreConfig.Builder(context,new GlideImageLoader(), theme)
@@ -64,10 +57,7 @@ public class Util {
                 .build();
 
         GalleryFinal.init(coreConfig);
-
     }
-
-
     private static void initImageLoader(Context context) {
 
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
@@ -82,7 +72,7 @@ public class Util {
 
 
 
-    }*/
+    }
 
 
 }

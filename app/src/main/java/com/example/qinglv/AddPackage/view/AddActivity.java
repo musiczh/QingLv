@@ -28,13 +28,14 @@ import android.widget.Toast;
 
 import com.example.qinglv.AddPackage.adapter.PhotoListAdapter;
 import com.example.qinglv.R;
+import com.example.qinglv.util.InitGalleryFinal;
 
 import java.util.List;
 
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 
-import static com.example.qinglv.AddPackage.view.Util.initGalleryFinal;
+
 
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener {
@@ -42,6 +43,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private static  final String TAG = "AddActivity";
     private static  final int REQUEST_CODE_GALLERY = 1;  //打开相册
     private static  final int REQUEST_CODE_CAMERA = 2;    //使用拍照
+    private static  final int REQUEST_CODE_CORP = 3;  //使用裁剪
 
 
     private ImageButton mAddPcitureBtn;
@@ -88,7 +90,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         mAddPcitureBtn.setOnClickListener(this);
 
         //初始化图片选择器
-        initGalleryFinal(this);
+        InitGalleryFinal.initGalleryFinal(this);
     }
 
     //弹出菜单选项
@@ -160,14 +162,14 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 }else {
                     //有权限就打开相册
                     Log.d(TAG,"打开了相册");
-                    GalleryFinal.openGalleryMuti(REQUEST_CODE_GALLERY, Util.functionConfig, mOnHanlderResultCallback);
+                    GalleryFinal.openGalleryMuti(REQUEST_CODE_GALLERY, InitGalleryFinal.functionConfig, mOnHanlderResultCallback);
                     mPopWindow.dismiss();
                     mAddPcitureBtn.setVisibility(View.INVISIBLE);
                 }
                 break;
             case R.id.pop_photograph:
                 //拍照
-                GalleryFinal.openCamera(REQUEST_CODE_CAMERA,Util.functionConfig, mOnHanlderResultCallback);
+                GalleryFinal.openCamera(REQUEST_CODE_CAMERA,InitGalleryFinal.functionConfig, mOnHanlderResultCallback);
                 mPopWindow.dismiss();
                 Log.d(TAG,"点击了拍照");
                 break;

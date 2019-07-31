@@ -40,12 +40,12 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private List<PhotoInfo> mList;
     private LayoutInflater mInflater;
-    private int mScreenWidth;
+
 
     public PhotoListAdapter(Activity activity, List<PhotoInfo> list) {
         this.mList = list;
         this.mInflater = LayoutInflater.from(activity);
-        this.mScreenWidth = DeviceUtils.getScreenPix(activity).widthPixels;
+
     }
 
     @Override
@@ -117,8 +117,6 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
-
-
         public ViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_photo);
@@ -130,12 +128,11 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemViewType(int position) {
         if (getContentItemCount() == position) {
-//        底部View
+            //底部View
             return ITEM_TYPE_BOTTOM;
         } else {
             //内容View
             return position;
-//        }
         }
     }
 
