@@ -58,21 +58,20 @@ public class TravelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         context = viewGroup.getContext();
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_travel,viewGroup,false);
-        TravelViewHolder travelViewHolder = new TravelViewHolder(view);
-        final int position = travelViewHolder.getAdapterPosition();
-        travelViewHolder.travelView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mClickCallBack.onClick(String.valueOf(mList.get(position).getId()));
-            }
-        });
-        return travelViewHolder;
+        return new TravelViewHolder(view);
     }
 
     //绑定布局，并传入数据
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         TravelViewHolder travelViewHolder = (TravelViewHolder) viewHolder;
+        final int position = i;
+        travelViewHolder.travelView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickCallBack.onClick(position);
+            }
+        });
         Travel travel = mList.get(i);
         //travelViewHolder.userNameTextView.setText(travel.getNickname());
         travelViewHolder.HeartTextView.setText(travel.getStarNum());

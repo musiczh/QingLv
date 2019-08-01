@@ -43,7 +43,6 @@ public class FragmentMain extends Fragment {
                 new String[]{"路线","景点","美食","游记"}));
         TabLayout tabLayout = view.findViewById(R.id.tab_layout_main);
         tabLayout.setupWithViewPager(viewPager);
-
         return view;
     }
 }

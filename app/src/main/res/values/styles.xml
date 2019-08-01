@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorControlNormal">@color/colorWhite</item>-->
     </style>
 
     <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
@@ -16,5 +17,7 @@
         <item name="android:windowEnterAnimation">@anim/context_photo_enter</item>
         <item name="android:windowExitAnimation">@anim/context_photo_exit</item>
     </style>
+
+
 
 </resources>

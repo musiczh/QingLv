@@ -6,6 +6,8 @@ import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
 import com.example.qinglv.MainPackage.iApiService.ScenicPreviewApiService;
+import com.example.qinglv.util.RetrofitManager;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -23,18 +25,10 @@ public class ScenicModel implements IModelPager<Scenic> {
     //通过这个方法访问数据，并采用回调的方式在presenter中处理数据
     @Override
     public void getData(int firstNum, int size, final IModelPager.CallBack<Scenic> callBack) {
-        OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
-        httpClientBuilder.connectTimeout(10, TimeUnit.SECONDS);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(httpClientBuilder.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(BASE_URL)
-                .build();
-        ScenicPreviewApiService scenicPreviewApiService = retrofit.create(ScenicPreviewApiService.class);
-        Call<PreviewBean<Scenic>> previewBeanCall = scenicPreviewApiService.getScenic(firstNum,size);
-        previewBeanCall.enqueue(new Callback<PreviewBean<Scenic>>() {
+        RetrofitManager.getInstance().createRs(ScenicPreviewApiService.class)
+        .getScenic(firstNum,size)
+        .enqueue(new Callback<PreviewBean<Scenic>>() {
             @Override
             public void onResponse(@NonNull Call<PreviewBean<Scenic>> call, @NonNull Response<PreviewBean<Scenic>> response) {
                 assert response.body() != null;

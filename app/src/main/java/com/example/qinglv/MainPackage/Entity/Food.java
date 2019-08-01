@@ -1,9 +1,11 @@
 package com.example.qinglv.MainPackage.Entity;
 
+import java.io.Serializable;
+
 /**
  * 美食预览图的实体类
  */
-public class Food {
+public class Food implements Serializable {
     private int id;
 
     private String preview;

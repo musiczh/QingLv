@@ -2,6 +2,6 @@
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <cache-path
         name="my_images"
-        path=""/>
+        path="null"/>
 
 </paths>
