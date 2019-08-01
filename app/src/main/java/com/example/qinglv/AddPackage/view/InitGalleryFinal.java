@@ -1,4 +1,4 @@
-package com.example.qinglv.util;
+package com.example.qinglv.AddPackage.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -16,7 +16,7 @@ import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.ThemeConfig;
 
 /**
- * GalleryFinal 初始化配置的工具类，调用时传入上下文
+ * GalleryFinal 初始化配置的工具类，再Activity内调用时传入上下文
  */
 
 public class InitGalleryFinal {

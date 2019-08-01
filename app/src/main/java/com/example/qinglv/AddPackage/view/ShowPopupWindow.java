@@ -1,4 +1,4 @@
-package com.example.qinglv.util;
+package com.example.qinglv.AddPackage.view;
 
 import android.Manifest;
 import android.app.Activity;
@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 
 import com.example.qinglv.AddPackage.adapter.PhotoListAdapter;
-import com.example.qinglv.AddPackage.view.AddActivity;
 import com.example.qinglv.R;
 
 import java.util.List;
@@ -28,7 +27,7 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 
 /**
- * 弹窗拍照的工具类
+ * 用于弹窗拍照的工具类
  */
 
 public class ShowPopupWindow implements View.OnClickListener {
@@ -39,10 +38,6 @@ public class ShowPopupWindow implements View.OnClickListener {
     PopupWindow mPopWindow;
     private static  final int REQUEST_CODE_GALLERY = 1;  //打开相册
     private static  final int REQUEST_CODE_CAMERA = 2;    //使用拍照
-
-
-
-
 
 
 

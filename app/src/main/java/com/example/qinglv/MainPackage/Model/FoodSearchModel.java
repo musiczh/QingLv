@@ -38,4 +38,3 @@ public class FoodSearchModel implements IModelSearch<Food> {
                 });
     }
 }
-

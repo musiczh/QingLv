@@ -2,26 +2,19 @@ package com.example.qinglv.AddPackage.adapter;
 
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import com.example.qinglv.AddPackage.view.AddActivity;
 import com.example.qinglv.R;
-import com.example.qinglv.util.ShowPopupWindow;
+import com.example.qinglv.AddPackage.view.ShowPopupWindow;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -30,7 +23,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 import cn.finalteam.galleryfinal.model.PhotoInfo;
-import cn.finalteam.toolsfinal.DeviceUtils;
 
 /**
  * 相册选择显示的RecyclerView的适配器
