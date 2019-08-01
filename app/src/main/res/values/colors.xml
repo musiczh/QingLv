@@ -2,7 +2,7 @@
 <resources>
 
     <color name="colorPrimary">#e74b37</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#ff303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="black">#000000</color><!--黑色 -->
     <color name="red">#ff0000</color><!--红色 -->
@@ -126,5 +126,4 @@
     <color name="darkviolet">#9400d3</color><!--暗紫罗兰色 -->
     <color name="mediumorchid">#ba55d3</color><!--中粉紫色 -->
 
-    <color name="colorWhite">#ffffff</color>
 </resources>

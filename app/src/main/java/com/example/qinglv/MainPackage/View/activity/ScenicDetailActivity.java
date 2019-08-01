@@ -4,8 +4,13 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.R;
@@ -19,11 +24,32 @@ public class ScenicDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scenic_detail);
+        Toolbar toolbar = findViewById(R.id.toolBar_scenic_detail);
+
+
 
         Scenic scenic = (Scenic) Objects.requireNonNull(getIntent().getExtras()).getSerializable("scenic");
-        WebView webView = findViewById(R.id.webView_share_hdhd);
+        WebView webViewContent = findViewById(R.id.webView_share_content);
+        WebView webViewTraffic = findViewById(R.id.webView_scenic_detail_traffic);
+        ImageView imageView = findViewById(R.id.imageView_scenic_detail_preview);
+        TextView textViewLocation = findViewById(R.id.textView_scenic_detail_location);
+        TextView textViewTime = findViewById(R.id.textView_scenic_detail_time);
         assert scenic != null;
-        String s = scenic.getTrafficInformation();
-        webView.loadDataWithBaseURL("",s,"text/html","UTF-8","");
+        webViewContent.loadDataWithBaseURL("",scenic.getSpotIntroduction(),"text/html","UTF-8","");
+        webViewTraffic.loadDataWithBaseURL("",scenic.getTrafficInformation(),"text/html","UTF-8","");
+        textViewLocation.setText(scenic.getLocation());
+        textViewTime.setText(scenic.getDepositTime());
+        toolbar.setTitle(scenic.getTitle());
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Glide.with(this).load(scenic.getPreview()).into(imageView);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
     }
 }

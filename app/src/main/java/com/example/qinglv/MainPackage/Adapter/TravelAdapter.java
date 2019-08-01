@@ -15,6 +15,7 @@ import com.example.qinglv.MainPackage.View.fragment.FragmentShareTravels;
 import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
 import com.example.qinglv.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,11 +74,15 @@ public class TravelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         });
         Travel travel = mList.get(i);
-        //travelViewHolder.userNameTextView.setText(travel.getNickname());
+        travelViewHolder.userNameTextView.setText(travel.getNickName());
         travelViewHolder.HeartTextView.setText(travel.getStarNum());
         travelViewHolder.tittleTextView.setText(travel.getTitle());
+        List<String> strings = travel.getPhoto();
+        String s;
+        if (strings!=null) { s= strings.get(0);}
+        else s="123";
         Glide.with(context).load(travel.getHeadPortrait()).into(travelViewHolder.userHeadImage);
-        Glide.with(context).load(travel.getPhoto().get(0)).into(travelViewHolder.previewImage);
+        Glide.with(context).load(s).into(travelViewHolder.previewImage);
     }
 
     //获得一共有几项

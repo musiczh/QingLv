@@ -31,7 +31,9 @@
         <activity android:name=".MainPackage.View.activity.SearchActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".MainPackage.View.activity.ScenicDetailActivity"
-            tools:ignore="InnerclassSeparator" />
+            tools:ignore="InnerclassSeparator"
+            android:theme="@style/NewAppTheme">
+        </activity>
         <activity android:name=".MainPackage.View.activity.PathDetailActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".MainPackage.View.activity.FoodDetailActivity"
