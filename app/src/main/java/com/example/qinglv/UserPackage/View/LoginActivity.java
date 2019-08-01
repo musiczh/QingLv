@@ -16,7 +16,7 @@ import com.example.qinglv.UserPackage.Presenter.LoginPresenter;
 public class LoginActivity extends AppCompatActivity implements ILoginContract.View {
 
     private EditText etUsername,etPassword,etVerify;
-    private TextView tvLogin,tvRegister;
+    private TextView tvLogin,tvRegister,tvForget;
     private ImageView ivVerify;
     private LoginPresenter mLoginPresenter = new LoginPresenter();
 
@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginContract.V
     private void initView() {
         tvLogin = findViewById(R.id.tv_login);
         tvRegister = findViewById(R.id.tv_register);
+        tvForget = findViewById(R.id.tv_forget);
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
         etVerify = findViewById(R.id.et_verify);
@@ -37,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginContract.V
         ivVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mLoginPresenter.changeVerify();
             }
         });
         tvLogin.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +54,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginContract.V
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+        tvForget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,ForgetActivity.class);
                 startActivity(intent);
             }
         });

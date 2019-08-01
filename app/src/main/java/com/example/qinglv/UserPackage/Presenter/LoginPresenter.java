@@ -16,6 +16,11 @@ public class LoginPresenter extends BasePresenter<ILoginContract.View> implement
         mModel.login(username, password,verify);
     }
 
+    //显示或更改验证码图片
+    @Override
+    public void changeVerify() {
+        mModel.verify();
+    }
 
     @Override
     public void loginSuccess() {

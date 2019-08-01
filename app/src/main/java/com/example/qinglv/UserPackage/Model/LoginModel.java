@@ -15,5 +15,10 @@ public class LoginModel implements ILoginContract.Model {
 
     }
 
+    @Override
+    public void verify() {
+
+    }
+
 
 }

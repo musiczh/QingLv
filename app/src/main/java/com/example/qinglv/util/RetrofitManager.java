@@ -39,7 +39,9 @@ public class RetrofitManager {
         if (retrofitManager == null){
             retrofitManager = new RetrofitManager();
         }
-        return retrofitManager;
+        return
+
+                retrofitManager;
     }
 
     //利用泛型传入接口class返回接口实例
