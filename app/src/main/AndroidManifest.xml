@@ -4,22 +4,25 @@
     package="com.example.qinglv">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <!--android:roundIcon="@mipmap/ic_launcher_round"-->
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".MainPackage.View.activity.SearchActivity"></activity>
-        <activity android:name=".MainPackage.View.activity.ScenicDetailActivity" />
-        <activity android:name=".MainPackage.View.activity.PathDetailActivity" />
-        <activity android:name=".MainPackage.View.activity.FoodDetailActivity" />
-        <activity android:name=".MainPackage.View.activity.TravelDetailActivity" />
+        <activity android:name=".MainPackage.View.activity.SearchActivity"
+            tools:ignore="InnerclassSeparator" />
+        <activity android:name=".MainPackage.View.activity.ScenicDetailActivity"
+            tools:ignore="InnerclassSeparator" />
+        <activity android:name=".MainPackage.View.activity.PathDetailActivity"
+            tools:ignore="InnerclassSeparator" />
+        <activity android:name=".MainPackage.View.activity.FoodDetailActivity"
+            tools:ignore="InnerclassSeparator" />
+        <activity android:name=".MainPackage.View.activity.TravelDetailActivity"
+            tools:ignore="InnerclassSeparator" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
