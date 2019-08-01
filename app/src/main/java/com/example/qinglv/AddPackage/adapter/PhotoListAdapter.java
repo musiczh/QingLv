@@ -6,15 +6,22 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
+import com.example.qinglv.AddPackage.view.AddActivity;
 import com.example.qinglv.R;
+import com.example.qinglv.util.ShowPopupWindow;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -36,10 +43,10 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int ITEM_TYPE_BOTTOM = 1002;
 
     private ImageView ivPhoto;
-
-
     private List<PhotoInfo> mList;
     private LayoutInflater mInflater;
+    private OnItemLongClickListener mOnItemLongClickListener = null;
+    private OnItemClickListener  mOnItemClickListener = null;
 
 
     public PhotoListAdapter(Activity activity, List<PhotoInfo> list) {
@@ -50,14 +57,10 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
-
         RecyclerView.ViewHolder holder = null;
         View view = null;
-
         if (i == ITEM_TYPE_BOTTOM) {
             Log.d("底部View", "i=" + i);
-//
             view = mInflater.inflate(R.layout.recyclerview_footer, viewGroup, false);
             holder = new FooterViewHolder(view);
         }else {
@@ -65,34 +68,56 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
             setHeight(ivPhoto);
             holder = new ViewHolder(ivPhoto);
         }
-
         return holder;
     }
 
 
     //将数据与界面绑定的操作
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
         Log.d("测试", "i=" + i + "------" + isBottomView(i));
         if (isBottomView(i)) {       //判断是否是最后一个item
 
             if (viewHolder instanceof FooterViewHolder) {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
                 Log.d("向下转型", "成功");
+                footerViewHolder.imageButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //弹出拍照选项
+                        Log.d("footerViewHolder的点击事件","已点击");
+                       new ShowPopupWindow().showPopupWindow(AddActivity.mContext);
+                    }
+                });
 
             } else {
                 Log.d("向下转型", "失败");
             }
-
             Log.d("底部View", "viewHolder instanceof FooterViewHolder----" + i);
-
         } else {
-
+            final ViewHolder holder = (ViewHolder) viewHolder;
             DisplayImageOptions options = new DisplayImageOptions.Builder().build();
             PhotoInfo photoInfo = mList.get(i);
             ImageLoader.getInstance().displayImage("file:/" + photoInfo.getPhotoPath(), ivPhoto, options);
-
             Log.d("适配器", "imageView" + i + "-----------------" + photoInfo.getPhotoPath() + "-------------------");
+
+
+               holder.imageView.setOnClickListener(new View.OnClickListener(){
+                   @Override
+                   public void onClick(View v) {
+                       Log.d("点击事件","已点击"+i);
+//                       mOnItemClickListener.onClick(holder.imageView,i);
+                   }
+               });
+               holder.imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                   @Override
+                   public boolean onLongClick(View v) {
+
+                       Log.d("长按事件","已长按"+i);
+                       return false;
+                   }
+               });
+
         }
     }
 
@@ -101,6 +126,7 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemCount() {
         return getContentItemCount()+1;
     }
+
 
     //底部ViewHolder
     public static class FooterViewHolder extends RecyclerView.ViewHolder {
@@ -152,6 +178,27 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
             convertView.setLayoutParams(new RecyclerView.LayoutParams(400, 400));    //设置宽高
             convertView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         }
+
+    //设置点击事件
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mOnItemClickListener = listener;
+    }
+    //设置长按事件
+    public void setOnItemLongClickListener(OnItemLongClickListener listener){
+        this.mOnItemLongClickListener = listener;
+    }
+    //点击事件接口
+    public interface OnItemClickListener{
+        void onClick(View parent,int position);
+    }
+
+    //长按事件接口
+    public  interface OnItemLongClickListener{
+        boolean onLongClick(View parent,int position);
+    }
+
+
+
 
 
 }
