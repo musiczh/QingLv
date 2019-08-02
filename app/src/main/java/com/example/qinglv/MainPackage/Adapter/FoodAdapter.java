@@ -72,11 +72,10 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         FoodViewHolder foodViewHolder = (FoodViewHolder) viewHolder;
 
-        //设置子项监听，点击子项调用回调方法
-        final int position = i;
+
 
         //绑定数据
-        Food food = mList.get(i);
+        Food food = mList.get(-1);
         String content = food.getContent().substring(0,27)+"......点击查看详情";
         foodViewHolder.timeTextView.setText(food.getDepositTime());
         foodViewHolder.contentTextView.setText(content);
