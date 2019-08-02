@@ -24,6 +24,7 @@ import android.widget.ImageView;
 
 
 import com.example.qinglv.AddPackage.adapter.PhotoListAdapter;
+import com.example.qinglv.AddPackage.contract.NoteTypeContract;
 import com.example.qinglv.R;
 
 import java.util.List;

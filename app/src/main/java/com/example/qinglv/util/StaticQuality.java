@@ -22,7 +22,9 @@ public class StaticQuality {
     //风景的附加网址
     public static final String SCENIC_PREVIEW_URL= "share/scenic/";
 
-    //
+    //获取游记全部分类的附加地址
+    public static final String NOTE_TYPE_URL = "/travel/tabs";
 
-
+    //提交游记的附加地址
+    public static final String SUBMIT_TRAVEL = "/travel/post";
 }

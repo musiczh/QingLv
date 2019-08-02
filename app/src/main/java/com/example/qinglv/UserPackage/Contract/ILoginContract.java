@@ -7,7 +7,7 @@ public class ILoginContract {
     }
 
     public interface Presenter {
-        //View
+        //IView
         void login(String username,String password,String verify);
         //model
         void loginSuccess();

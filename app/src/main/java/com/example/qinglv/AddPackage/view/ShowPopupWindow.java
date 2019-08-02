@@ -27,7 +27,7 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 
 /**
- * 用于弹窗拍照的工具类
+ * 用于弹窗拍照的封装类
  */
 
 public class ShowPopupWindow implements View.OnClickListener {
