@@ -38,6 +38,7 @@
                     android:id="@+id/toolBar_path_detail"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
+                    app:titleTextAppearance="@style/ToolBarTextSize"
                     app:layout_collapseMode="pin">
 
 

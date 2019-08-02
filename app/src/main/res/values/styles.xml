@@ -20,6 +20,10 @@
     <style name="NewAppTheme" parent="AppTheme">
     </style>
 
+    <style name="ToolBarTextSize" >
+        <item name="android:textSize">14sp</item>
+    </style>
+
 
 
 </resources>

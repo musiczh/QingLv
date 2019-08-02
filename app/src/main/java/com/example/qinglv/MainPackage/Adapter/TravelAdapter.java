@@ -59,30 +59,32 @@ public class TravelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         context = viewGroup.getContext();
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_travel,viewGroup,false);
-        return new TravelViewHolder(view);
+        final TravelViewHolder travelViewHolder = new TravelViewHolder(view);
+        travelViewHolder.travelView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = travelViewHolder.getLayoutPosition();
+                mClickCallBack.onClick(position);
+            }
+        });
+        return travelViewHolder;
     }
 
     //绑定布局，并传入数据
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         TravelViewHolder travelViewHolder = (TravelViewHolder) viewHolder;
-        final int position = i;
-        travelViewHolder.travelView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mClickCallBack.onClick(position);
-            }
-        });
         Travel travel = mList.get(i);
         travelViewHolder.userNameTextView.setText(travel.getNickName());
         travelViewHolder.HeartTextView.setText(travel.getStarNum());
         travelViewHolder.tittleTextView.setText(travel.getTitle());
         List<String> strings = travel.getPhoto();
-        String s;
-        if (strings!=null) { s= strings.get(0);}
-        else s="123";
+
+        if (strings!=null) {
+            String s = strings.get(0);
+            Glide.with(context).load(s).into(travelViewHolder.previewImage);
+        }
         Glide.with(context).load(travel.getHeadPortrait()).into(travelViewHolder.userHeadImage);
-        Glide.with(context).load(s).into(travelViewHolder.previewImage);
     }
 
     //获得一共有几项

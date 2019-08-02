@@ -108,5 +108,38 @@
 
     </ScrollView>
 
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_launcher"
+        tools:layout_editor_absoluteX="98dp"
+        tools:layout_editor_absoluteY="489dp" />
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RadioButton"
+        tools:layout_editor_absoluteX="254dp"
+        tools:layout_editor_absoluteY="411dp" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch"
+        tools:layout_editor_absoluteX="79dp"
+        tools:layout_editor_absoluteY="411dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@mipmap/ic_launcher"
+        tools:layout_editor_absoluteX="265dp"
+        tools:layout_editor_absoluteY="594dp" />
+
 
 </android.support.constraint.ConstraintLayout>

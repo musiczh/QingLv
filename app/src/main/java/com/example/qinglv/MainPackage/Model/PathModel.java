@@ -8,6 +8,7 @@ import com.example.qinglv.MainPackage.bean.PreviewBean;
 import com.example.qinglv.MainPackage.iApiService.PathPreviewApiService;
 import com.example.qinglv.util.RetrofitManager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
@@ -34,9 +35,15 @@ public class PathModel implements IModelPager<Path> {
         .enqueue(new Callback<PreviewBean<Path>>() {
             @Override
             public void onResponse(@NonNull Call<PreviewBean<Path>> call, @NonNull Response<PreviewBean<Path>> response) {
-                assert response.body() != null;
-                boolean isMore = response.body().getResult().equals("success");
-                List<Path> list = response.body().getMessage();
+                List<Path> list;
+                boolean isMore;
+                if (response.body() != null) {
+                    isMore = response.body().getResult().equals("success");
+                    list = response.body().getMessage();
+                }else{
+                    isMore = true;
+                    list = new ArrayList<>();
+                }
                 callBack.onSucceed(list,isMore);
             }
 

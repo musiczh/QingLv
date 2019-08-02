@@ -15,6 +15,11 @@ import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.R;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.util.Objects;
 
 public class ScenicDetailActivity extends AppCompatActivity {
@@ -35,7 +40,7 @@ public class ScenicDetailActivity extends AppCompatActivity {
         TextView textViewLocation = findViewById(R.id.textView_scenic_detail_location);
         TextView textViewTime = findViewById(R.id.textView_scenic_detail_time);
         assert scenic != null;
-        webViewContent.loadDataWithBaseURL("",scenic.getSpotIntroduction(),"text/html","UTF-8","");
+        webViewContent.loadDataWithBaseURL("",getNewsContent(scenic.getSpotIntroduction()),"text/html","UTF-8","");
         webViewTraffic.loadDataWithBaseURL("",scenic.getTrafficInformation(),"text/html","UTF-8","");
         textViewLocation.setText(scenic.getLocation());
         textViewTime.setText(scenic.getDepositTime());
@@ -51,5 +56,18 @@ public class ScenicDetailActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home)
             finish();
         return super.onOptionsItemSelected(item);
+    }
+
+    String getNewsContent(String htmlStr){
+        try{
+            Document doc = Jsoup.parse(htmlStr);
+            Elements elements = doc.getElementsByTag("img");
+            for (Element element : elements){
+                element.attr("width","100%").attr("height","auto");
+            }
+            return doc.toString();
+        }catch (Exception e){
+            return htmlStr;
+        }
     }
 }
