@@ -13,14 +13,17 @@ public class StaticQuality {
     //美食搜索的附加地址
     public static final String FOOD_SEARCH_URL = "search/food";
 
-    //路线的附加网址
+    //路线预览的附加网址
     public static final String PATH_PREVIEW_URL= "share/path";
 
+    //路线详情的附加地址
+    public static final String PATH_DETAIL_URL = "share/path/detail";
+
     //游记的附加网址
-    public static final String TRAVEL_PREVIEW_URL= "travel/preview/";
+    public static final String TRAVEL_PREVIEW_URL= "travel/preview";
 
     //风景的附加网址
-    public static final String SCENIC_PREVIEW_URL= "share/scenic/";
+    public static final String SCENIC_PREVIEW_URL= "share/scenic";
 
     //
 

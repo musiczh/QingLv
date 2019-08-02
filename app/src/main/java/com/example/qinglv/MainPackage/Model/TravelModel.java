@@ -18,7 +18,7 @@ public class TravelModel implements IModelPager<Travel> {
     public void getData(int firstNum, int size, final CallBack<Travel> callBack) {
 
         RetrofitManager.getInstance().createRs(TravelPreviewApiService.class)
-        .getPath(firstNum, size,0,null)
+        .getPath(firstNum, size)
         .enqueue(new Callback<PreviewBean<Travel>>() {
             @Override
             public void onResponse(@NonNull Call<PreviewBean<Travel>> call, @NonNull Response<PreviewBean<Travel>> response) {

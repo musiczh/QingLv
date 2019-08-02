@@ -73,14 +73,14 @@ public class FragmentShareTravels extends Fragment implements IViewPreview<Trave
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                iPresenterPager.refreshRecycler(1,10,true);
+                iPresenterPager.refreshRecycler(0,10,true);
             }
         });
 
 
         //第一次进入直接刷新并展示小圆圈提示一下
-        //swipeRefreshLayout.setRefreshing(true);
-        //iPresenterPager.refreshRecycler(1,10,false);
+        swipeRefreshLayout.setRefreshing(true);
+        iPresenterPager.refreshRecycler(0,10,false);
 
 
         return view;

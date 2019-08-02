@@ -55,7 +55,16 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         context = viewGroup.getContext();
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_food,viewGroup,false);
-        return new FoodViewHolder(view);
+        final FoodViewHolder foodViewHolder = new FoodViewHolder(view);
+        foodViewHolder.foodView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = foodViewHolder.getLayoutPosition();
+                mClickCallback.onClick(position);
+            }
+        });
+
+        return foodViewHolder;
     }
 
     //绑定布局，并传入数据
@@ -63,14 +72,7 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         FoodViewHolder foodViewHolder = (FoodViewHolder) viewHolder;
 
-        //设置子项监听，点击子项调用回调方法
-        final int position = i;
-        foodViewHolder.foodView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mClickCallback.onClick(position);
-            }
-        });
+
 
         //绑定数据
         Food food = mList.get(i);
