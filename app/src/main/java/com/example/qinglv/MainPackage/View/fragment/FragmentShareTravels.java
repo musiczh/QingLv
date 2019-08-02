@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.qinglv.MainPackage.Presentor.FoodPresenter;
 import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Adapter.TravelAdapter;
 import com.example.qinglv.MainPackage.Entity.Travel;
@@ -42,7 +44,8 @@ public class FragmentShareTravels extends Fragment implements IViewPreview<Trave
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pager,container,false);
-        iPresenterPager = new TravelPresenter(this);//建立presenter的实例
+        iPresenterPager = new TravelPresenter();//建立presenter的实例
+        ((TravelPresenter) iPresenterPager).attachView(this);//建立与presenter的关联
 
         //RecyclerView的初始化以及设置适配器，设置子项点击监听
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView_pager);
@@ -126,7 +129,12 @@ public class FragmentShareTravels extends Fragment implements IViewPreview<Trave
         adapterWrapper.setItemState(RecyclerViewAdapterWrapper.CONTINUE_DRAG,true);
     }
 
-
+    //销毁view时同时解除引用
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((TravelPresenter) iPresenterPager).detachView();
+    }
 }
 
 

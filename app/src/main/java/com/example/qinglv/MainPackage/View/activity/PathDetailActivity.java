@@ -34,6 +34,7 @@ public class PathDetailActivity extends AppCompatActivity implements IViewPathDe
     private TextView textViewTime;
     private ImageView imageView;
     private Toolbar toolbar;
+    private IPresenterPathDetail iPresenterPathDetail;
 
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -56,7 +57,8 @@ public class PathDetailActivity extends AppCompatActivity implements IViewPathDe
 
 
         Intent intent = getIntent();
-        IPresenterPathDetail iPresenterPathDetail = new PathDetailPresenter(this);
+        iPresenterPathDetail = new PathDetailPresenter();
+        ((PathDetailPresenter) iPresenterPathDetail).attachView(this);
         iPresenterPathDetail.init(intent.getIntExtra("id",1));
 
     }
@@ -98,5 +100,12 @@ public class PathDetailActivity extends AppCompatActivity implements IViewPathDe
         }catch (Exception e){
             return htmlStr;
         }
+    }
+
+    //销毁时同时解除引用
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ((PathDetailPresenter) iPresenterPathDetail).detachView();
     }
 }

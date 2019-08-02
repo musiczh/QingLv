@@ -3,6 +3,7 @@ package com.example.qinglv.MainPackage.Presentor;
 import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.MainPackage.Model.ScenicModel;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
+import com.example.qinglv.MainPackage.Presentor.iPresenter.BasePresenter;
 import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
 import com.example.qinglv.MainPackage.View.iView.IViewPreview;
 
@@ -13,13 +14,11 @@ import static com.example.qinglv.util.NewRecyclerScrollListener.IS_SCROLL;
 /**
  * 风景预览的presenter类
  */
-public class ScenicPresenter implements IPresenterPager {
+public class ScenicPresenter extends BasePresenter<IViewPreview<Scenic>> implements IPresenterPager {
 
-    private IViewPreview<Scenic> mIViewPreview;
     private IModelPager<Scenic> iModelPager;
 
-    public ScenicPresenter(IViewPreview<Scenic> iViewPreview){
-        mIViewPreview = iViewPreview;
+    public ScenicPresenter(){
         iModelPager = new ScenicModel();
     }
 
@@ -29,12 +28,16 @@ public class ScenicPresenter implements IPresenterPager {
         IModelPager.CallBack<Scenic> callBack = new IModelPager.CallBack<Scenic>() {
             @Override
             public void onSucceed(List<Scenic> list, boolean isMore) {
-                mIViewPreview.setList(list,isMore,isRefresh);
+                if (isAttached()) {
+                    getView().setList(list, isMore, isRefresh);
+                }
             }
 
             @Override
             public void onError(String errorType) {
-                mIViewPreview.setErrorToast(errorType);
+                if (isAttached()) {
+                    getView().setErrorToast(errorType);
+                }
             }
         };
 

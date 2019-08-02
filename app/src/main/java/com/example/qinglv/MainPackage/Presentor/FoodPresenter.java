@@ -3,6 +3,7 @@ package com.example.qinglv.MainPackage.Presentor;
 import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Model.FoodModel;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
+import com.example.qinglv.MainPackage.Presentor.iPresenter.BasePresenter;
 import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
 import com.example.qinglv.MainPackage.View.iView.IViewPreview;
 
@@ -13,13 +14,11 @@ import static com.example.qinglv.util.NewRecyclerScrollListener.IS_SCROLL;
 /**
  * 美食预览的presenter类
  */
-public class FoodPresenter implements IPresenterPager {
+public class FoodPresenter extends BasePresenter<IViewPreview<Food>> implements IPresenterPager  {
 
-    private IViewPreview<Food> mIViewPreview;
     private IModelPager<Food> iModelPager;
 
-    public FoodPresenter(IViewPreview<Food> iViewPreview){
-        mIViewPreview = iViewPreview;
+    public FoodPresenter(){
         iModelPager = new FoodModel();
     }
 
@@ -29,12 +28,16 @@ public class FoodPresenter implements IPresenterPager {
         IModelPager.CallBack<Food> callBack = new IModelPager.CallBack<Food>() {
             @Override
             public void onSucceed(List<Food> list, boolean isMore) {
-                mIViewPreview.setList(list,isMore,isRefresh);
+                if (isAttached()) {
+                    getView().setList(list, isMore, isRefresh);
+                }
             }
 
             @Override
             public void onError(String errorType) {
-                mIViewPreview.setErrorToast(errorType);
+                if (isAttached()) {
+                    getView().setErrorToast(errorType);
+                }
             }
         };
 

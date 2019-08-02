@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.qinglv.MainPackage.Adapter.PathAdapter;
+import com.example.qinglv.MainPackage.Presentor.FoodPresenter;
 import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Presentor.PathPresenter;
@@ -45,7 +46,8 @@ public class FragmentSharePath extends Fragment implements IViewPreview<Path> {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pager,container,false);
-        iPresenterPager = new PathPresenter(this);//建立presenter的实例
+        iPresenterPager = new PathPresenter();//建立presenter的实例
+        ((PathPresenter) iPresenterPager).attachView(this);//建立关联
 
 
         //RecyclerView的初始化以及设置适配器
@@ -128,6 +130,13 @@ public class FragmentSharePath extends Fragment implements IViewPreview<Path> {
             swipeRefreshLayout.setRefreshing(false);
         }
         adapterWrapper.setItemState(RecyclerViewAdapterWrapper.CONTINUE_DRAG,true);
+    }
+
+    //销毁view时同时解除引用
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((PathPresenter) iPresenterPager).detachView();
     }
 
 }

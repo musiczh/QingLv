@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.qinglv.MainPackage.Presentor.FoodPresenter;
 import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Adapter.ScenicAdapter;
 import com.example.qinglv.MainPackage.Entity.Scenic;
@@ -43,7 +44,8 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pager,container,false);
-        iPresenterPager = new ScenicPresenter(this);//建立presenter的实例
+        iPresenterPager = new ScenicPresenter();//建立presenter的实例
+        ((ScenicPresenter) iPresenterPager).attachView(this);//建立与presenter的关联
 
 
         //RecyclerView的初始化以及设置适配器
@@ -128,5 +130,12 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
             swipeRefreshLayout.setRefreshing(false);
         }
         adapterWrapper.setItemState(RecyclerViewAdapterWrapper.CONTINUE_DRAG,true);
+    }
+
+    //销毁view时同时解除引用
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((ScenicPresenter) iPresenterPager).detachView();
     }
 }
