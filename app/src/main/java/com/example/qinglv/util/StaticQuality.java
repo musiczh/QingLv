@@ -22,7 +22,11 @@ public class StaticQuality {
     //风景的附加网址
     public static final String SCENIC_PREVIEW_URL= "share/scenic/";
 
-    //
+    //登陆
+    public static final String USER_LOGIN_URL= "user/login/";
+
+    //注册
+    public static final String REGISTER_LOGIN_URL= "user/register/";
 
 
 }
