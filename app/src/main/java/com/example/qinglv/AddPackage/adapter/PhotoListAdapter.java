@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.example.qinglv.AddPackage.view.AddActivity;
+import com.example.qinglv.AddPackage.view.activity.AddActivity;
 import com.example.qinglv.R;
 import com.example.qinglv.AddPackage.view.ShowPopupWindow;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;

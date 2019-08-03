@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.qinglv.AddPackage.entity.NoteType;
+import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
 import com.example.qinglv.R;
 
 import java.util.List;
@@ -15,25 +16,36 @@ import java.util.List;
 public class NoteTypeAdapter extends RecyclerView.Adapter<NoteTypeAdapter.ViewHodel> {
 
     private List<NoteType> mList;
-
-    public NoteTypeAdapter(List<NoteType> list){
+    private RecyclerClickCallback mClickCallback;
+    public NoteTypeAdapter(List<NoteType> list, RecyclerClickCallback clickCallback){
         mList = list;
+        mClickCallback = clickCallback;
     }
 
 
     @NonNull
     @Override
     public ViewHodel onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_note_type,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_note_type,viewGroup,false);
         ViewHodel viewHodel = new ViewHodel(view);
+
+
         return viewHodel;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHodel viewHodel, int i) {
+    public void onBindViewHolder(@NonNull ViewHodel viewHodel,final int i) {
 
         NoteType noteType = mList.get(i);
         viewHodel.textView.setText(noteType.getName());
+
+        viewHodel.textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickCallback.onClick(i);
+            }
+        });
+
     }
 
     @Override
@@ -48,4 +60,5 @@ public class NoteTypeAdapter extends RecyclerView.Adapter<NoteTypeAdapter.ViewHo
             textView = itemView.findViewById(R.id.item_note_type);
         }
     }
+
 }

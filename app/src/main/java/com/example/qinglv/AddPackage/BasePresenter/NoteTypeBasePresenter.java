@@ -1,23 +1,23 @@
 package com.example.qinglv.AddPackage.BasePresenter;
 
-import android.view.View;
 
-public class NoteTypeBasePresenter {
-    private View view;
 
-    protected void attachView(View view){
+public class NoteTypeBasePresenter<V> {
+    private V view;
+
+    public void attachView(V view){
         this.view = view;
     }
 
-    protected void detachView(){
+    public void detachView(){
         view = null;
     }
 
-    protected View getMvpView(){
+    public V getMvpView(){
         return view;
     }
 
-    protected boolean isAttachView(){
+    public boolean isAttachView(){
         return view != null;
     }
 }

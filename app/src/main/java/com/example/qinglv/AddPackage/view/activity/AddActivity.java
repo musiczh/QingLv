@@ -1,29 +1,32 @@
-package com.example.qinglv.AddPackage.view;
+package com.example.qinglv.AddPackage.view.activity;
 
 
 
 import android.app.Activity;
 import android.content.Context;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.StrictMode;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import android.view.View;
 
 import android.widget.ImageView;
-
-
-
+import android.widget.TextView;
 
 
 import com.example.qinglv.AddPackage.adapter.PhotoListAdapter;
+import com.example.qinglv.AddPackage.entity.NoteType;
+import com.example.qinglv.AddPackage.view.InitGalleryFinal;
 import com.example.qinglv.R;
 
 import java.util.List;
@@ -46,6 +49,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private static volatile Activity mCurrentActivity;
 
     private ImageView mBackImage;
+    private TextView mNoteTypeTv;
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -79,11 +83,12 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     public void initalView(){
         mRecyclerView = findViewById(R.id.photo_list_rcyView);
         mBackImage = findViewById(R.id.back_button);
+        mNoteTypeTv = findViewById(R.id.note_type_textView);
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mBackImage.setOnClickListener(this);
-
+        mNoteTypeTv.setOnClickListener(this);
         //获取上下文
         mContext = getBaseContext();
         //初始化图片选择器
@@ -98,11 +103,24 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         return super.onKeyDown(keyCode, event);
     }
 
+    //接受上个活动销毁时返回的数据
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String noteType = data.getStringExtra("noteType");
+        mNoteTypeTv.setText(noteType);
+        Log.d("noteType",""+noteType);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.back_button:
                 finish();
+                break;
+            case  R.id.note_type_textView:
+              Intent intent = new Intent(AddActivity.this, NoteTypeActivity.class);
+              startActivityForResult(intent,0);
                 break;
         }
     }

@@ -30,7 +30,7 @@
 
         <activity android:name=".UserPackage.View.RegisterActivity"
             tools:ignore="InnerclassSeparator" />
-        <activity android:name=".AddPackage.view.AddActivity"
+        <activity android:name=".AddPackage.view.activity.AddActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".UserPackage.View.LoginActivity"
             tools:ignore="InnerclassSeparator" />
@@ -46,6 +46,7 @@
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".MainPackage.View.activity.TravelDetailActivity"
             tools:ignore="InnerclassSeparator" />
+        <activity android:name=".AddPackage.view.activity.NoteTypeActivity"/>
 
         <activity android:name=".MainActivity">
             <intent-filter>
