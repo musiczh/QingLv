@@ -4,13 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,8 @@ public class PathDetailActivity extends AppCompatActivity implements IViewPathDe
     private ImageView imageView;
     private Toolbar toolbar;
     private IPresenterPathDetail iPresenterPathDetail;
+    private ProgressBar progressBar;
+    private CoordinatorLayout coordinatorLayout;
 
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -55,14 +60,19 @@ public class PathDetailActivity extends AppCompatActivity implements IViewPathDe
         webView.getSettings().setJavaScriptEnabled(true);//启用js
         webView.getSettings().setBlockNetworkImage(false);//解决图片不显示
 
+        progressBar = findViewById(R.id.progressBar_path_detail);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout_path_detail);
+        //coordinatorLayout.setVisibility(View.GONE);
 
-        Intent intent = getIntent();
+
+        Intent intent = getIntent();//获取intent中的id
         iPresenterPathDetail = new PathDetailPresenter();
         ((PathDetailPresenter) iPresenterPathDetail).attachView(this);
         iPresenterPathDetail.init(intent.getIntExtra("id",1));
 
     }
 
+    //顶部toolBar返回按钮的监听事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home)
@@ -70,6 +80,7 @@ public class PathDetailActivity extends AppCompatActivity implements IViewPathDe
         return super.onOptionsItemSelected(item);
     }
 
+    //mvp接口方法。将获取到的数据传入
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void setPath(Path path) {
@@ -82,13 +93,29 @@ public class PathDetailActivity extends AppCompatActivity implements IViewPathDe
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Glide.with(this).load(path.getPreview()).into(imageView);
 
+        if (progressBar.getVisibility() != View.GONE){
+            progressBar.setVisibility(View.GONE);
+        }
+
+        if (coordinatorLayout.getVisibility() == View.GONE){
+            coordinatorLayout.setVisibility(View.VISIBLE);
+        }
+
     }
 
+    //mvp接口方法，错误的时候给出提示
     @Override
     public void onError(String errorType) {
         Toast.makeText(this,errorType,Toast.LENGTH_SHORT).show();
+        if (progressBar.getVisibility() != View.GONE){
+            progressBar.setVisibility(View.GONE);
+        }
+        if (coordinatorLayout.getVisibility() == View.GONE){
+            coordinatorLayout.setVisibility(View.VISIBLE);
+        }
     }
 
+    //运用jsoup框架把html数据中的图片以正确的格式显示
     String getNewsContent(String htmlStr){
         try{
             Document doc = Jsoup.parse(htmlStr);
