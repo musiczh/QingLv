@@ -9,9 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.qinglv.R;
 import com.example.qinglv.UserPackage.Contract.ILoginContract;
 import com.example.qinglv.UserPackage.Presenter.LoginPresenter;
+
+import static com.example.qinglv.util.StaticQuality.BASE_URL;
 
 public class LoginActivity extends AppCompatActivity implements ILoginContract.View {
 
@@ -38,7 +41,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginContract.V
         ivVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLoginPresenter.changeVerify();
+                String url = BASE_URL + "user/verifyCode";
+                Glide.with(LoginActivity.this)
+                        .load(url)
+                        .into(ivVerify);
             }
         });
         tvLogin.setOnClickListener(new View.OnClickListener() {

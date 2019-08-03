@@ -9,7 +9,7 @@ import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
-
+//  RSA加密方法
 public class RSAEncrypt {
 
     //公钥加密,传入密码和公钥

@@ -1,7 +1,7 @@
 package com.example.qinglv.UserPackage.IApiSerice;
 
-import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
+import com.example.qinglv.UserPackage.Entity.Login;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -12,6 +12,6 @@ import static com.example.qinglv.util.StaticQuality.REGISTER_LOGIN_URL;
 public interface RegisterApiSerice {
 
     @GET(REGISTER_LOGIN_URL)
-    Call<PreviewBean<Food>> getFood(@Query("userName")String username,
-                                    @Query("password")String password);
+    Call<PreviewBean<Login>> getLogin(@Query("userName")String username,
+                                      @Query("password")String password);
 }
