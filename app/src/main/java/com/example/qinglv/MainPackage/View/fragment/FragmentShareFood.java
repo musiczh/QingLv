@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.qinglv.MainActivity;
 import com.example.qinglv.MainPackage.Adapter.FoodAdapter;
 import com.example.qinglv.MainPackage.Presentor.PathDetailPresenter;
 import com.example.qinglv.MainPackage.View.activity.SearchActivity;
@@ -39,6 +40,7 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<Food> mList = new ArrayList<>();
     private IPresenterPager iPresenterPager;
+    private String query;
 
 
 
@@ -77,17 +79,7 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
         //给recyclerView设置下拉监听,方法具体在下面
         setRecyclerPullUpListener(recyclerView,adapterWrapper);
 
-        //搜索框的软键盘回车键设置监听。打开另一个活动展示搜索结果
-        EditText editText = view.findViewById(R.id.editText_pager);
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
-                intent.putExtra("text",v.getText());
-                startActivity(intent);
-                return false;
-            }
-        });
+
 
         //下拉刷新控件的初始化以及设置监听
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout_pager);
@@ -113,7 +105,11 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
             @Override
             public void onLoadMore(int itemCount) {
                 adapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
+
+                //判断是在搜索列表还是预览展示列表
+                if (getActivity()instanceof MainActivity)
                 iPresenterPager.refreshRecycler(itemCount , 10,false);
+                else iPresenterPager.searchKry(query , itemCount,10);
             }
         });
 
@@ -146,6 +142,12 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
             swipeRefreshLayout.setRefreshing(false);
         }
         adapterWrapper.setItemState(RecyclerViewAdapterWrapper.CONTINUE_DRAG,true);
+    }
+
+    @Override
+    public void setQuery(String string) {
+        query = string;
+        iPresenterPager.searchKry(query , 0,10);
     }
 
     //销毁view时同时解除引用

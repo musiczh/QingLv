@@ -42,4 +42,25 @@ public class PathPresenter extends BasePresenter<IViewPreview<Path>> implements 
 
     }
 
+    @Override
+    public void searchKry(String key, int firstNum, int size) {
+        IS_SCROLL = false;
+        IModelPager.CallBack<Path> callBack = new IModelPager.CallBack<Path>() {
+            @Override
+            public void onSucceed(List<Path> list, boolean isMore) {
+                if (isAttached()) {
+                    getView().setList(list, isMore, false);
+                }
+            }
+
+            @Override
+            public void onError(String errorType) {
+                if (isAttached()) {
+                    getView().setErrorToast(errorType);
+                }
+            }
+        };
+
+        iModelPager.getSearchData(key,firstNum, size, callBack);
+    }
 }

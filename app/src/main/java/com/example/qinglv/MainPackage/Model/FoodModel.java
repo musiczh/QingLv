@@ -6,6 +6,7 @@ import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
 import com.example.qinglv.MainPackage.iApiService.FoodPreviewApiService;
+import com.example.qinglv.MainPackage.iApiService.FoodSearchApiService;
 import com.example.qinglv.util.RetrofitManager;
 
 import java.util.List;
@@ -26,6 +27,26 @@ import static com.example.qinglv.util.StaticQuality.BASE_URL;
  */
 public class FoodModel implements IModelPager<Food> {
 
+    @Override
+    public void getSearchData(String key, int firstNum, int size,final CallBack<Food> callBack) {
+        RetrofitManager.getInstance().createRs(FoodSearchApiService.class)
+                .getFood(key,firstNum,size)
+                .enqueue(new Callback<PreviewBean<Food>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<PreviewBean<Food>> call, @NonNull Response<PreviewBean<Food>> response) {
+                        assert response.body() != null;
+                        boolean isMore = response.body().getResult().equals("success");
+                        List<Food> foodList = response.body().getMessage();
+                        callBack.onSucceed(foodList,isMore);
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<PreviewBean<Food>> call, @NonNull Throwable t) {
+                        callBack.onError("访问服务器错误");
+                    }
+                });
+    }
+
     //通过这个方法访问数据，并采用回调的方式在presenter中处理数据
     @Override
     public void getData(int firstNum, int size, final CallBack<Food> callBack) {
@@ -45,6 +66,8 @@ public class FoodModel implements IModelPager<Food> {
                     callBack.onError("访问服务器错误");
                 }
             });
+
+    }
         /*Observable<PreviewBean<Food>> observable =
                 foodPreviewApiService.getFood(firstNum,size);
 
@@ -66,7 +89,7 @@ public class FoodModel implements IModelPager<Food> {
                         callBack.onSucceed(foodList,isMore);
                     }
                 });*/
-    }
+
 
 
 }

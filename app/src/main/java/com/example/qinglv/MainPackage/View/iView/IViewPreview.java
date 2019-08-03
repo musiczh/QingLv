@@ -10,4 +10,5 @@ import java.util.List;
 public interface IViewPreview<T> {
     public void setList(List<T> list , boolean isMore ,boolean isRefresh);
     public void setErrorToast(String string);
+    public void setQuery(String string);
 }

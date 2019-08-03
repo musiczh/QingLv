@@ -54,17 +54,16 @@
             android:textColor="@drawable/selector_text_color"
             />
 
-        <RadioButton
+
+        <ImageView
             android:id="@+id/radio_button_add"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginBottom="4dp"
             android:button="@null"
-            android:drawableTop="@drawable/img_add"
             android:gravity="center"
-            android:textSize="4sp"
-            android:textColor="@drawable/selector_text_color"
-            />
+            android:src="@drawable/img_add" />
 
         <RadioButton
             android:id="@+id/radio_button_message"

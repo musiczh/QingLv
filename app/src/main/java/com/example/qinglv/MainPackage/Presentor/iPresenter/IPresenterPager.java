@@ -5,4 +5,6 @@ package com.example.qinglv.MainPackage.Presentor.iPresenter;
  */
 public interface IPresenterPager {
     public void refreshRecycler(int firstNum , int size , boolean isRefresh);
+
+    public void searchKry(String key ,int firstNum , int size );
 }

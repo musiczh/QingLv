@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.qinglv.MainActivity;
 import com.example.qinglv.MainPackage.Presentor.FoodPresenter;
 import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Adapter.ScenicAdapter;
@@ -35,6 +36,7 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<Scenic> mList = new ArrayList<>();
     private IPresenterPager iPresenterPager;
+    private String query;
 
 
 
@@ -99,7 +101,10 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
             @Override
             public void onLoadMore(int itemCount) {
                 adapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
-                iPresenterPager.refreshRecycler(itemCount , 10 ,false);
+                //判断是在搜索列表还是预览展示列表
+                if (getActivity()instanceof MainActivity)
+                    iPresenterPager.refreshRecycler(itemCount , 10,false);
+                else iPresenterPager.searchKry(query , itemCount,10);
             }
         });
     }
@@ -130,6 +135,12 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
             swipeRefreshLayout.setRefreshing(false);
         }
         adapterWrapper.setItemState(RecyclerViewAdapterWrapper.CONTINUE_DRAG,true);
+    }
+
+    @Override
+    public void setQuery(String string) {
+        query = string;
+        iPresenterPager.searchKry(query , 0,10);
     }
 
     //销毁view时同时解除引用
