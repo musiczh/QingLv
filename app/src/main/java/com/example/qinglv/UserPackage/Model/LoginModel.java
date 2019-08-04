@@ -1,24 +1,17 @@
 package com.example.qinglv.UserPackage.Model;
 
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
-
-import com.example.qinglv.MainPackage.Entity.Food;
-import com.example.qinglv.MainPackage.bean.PreviewBean;
+import android.graphics.BitmapFactory;
 import com.example.qinglv.UserPackage.Contract.ILoginContract;
 import com.example.qinglv.UserPackage.Entity.Login;
 import com.example.qinglv.UserPackage.IApiSerice.LoginApiSerice;
-import com.example.qinglv.util.RetrofitManager;
 import com.example.qinglv.util.RetrofitManagerAn;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.List;
-
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +50,6 @@ public class LoginModel implements ILoginContract.Model {
                             e.printStackTrace();
                         }
                     }
-
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
 
@@ -65,9 +57,26 @@ public class LoginModel implements ILoginContract.Model {
                 });
     }
 
-    @Override
-    public void verify() {
 
+
+    @Override
+    public Bitmap verify(String url) {
+        Bitmap bmp = null;
+                try {
+                    URL myurl = new URL(url);
+                    // 获得连接
+                    HttpURLConnection conn = (HttpURLConnection) myurl.openConnection();
+                    conn.setConnectTimeout(6000);//设置超时
+                    conn.setDoInput(true);
+                    conn.setUseCaches(false);//不缓存
+                    conn.connect();
+                    InputStream is = conn.getInputStream();//获得图片的数据流
+                    bmp = BitmapFactory.decodeStream(is);
+                    is.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        return bmp;
     }
 
 

@@ -1,5 +1,7 @@
 package com.example.qinglv.UserPackage.Presenter;
 
+import android.graphics.Bitmap;
+
 import com.example.qinglv.UserPackage.Contract.ILoginContract;
 import com.example.qinglv.UserPackage.Model.LoginModel;
 
@@ -18,8 +20,8 @@ public class LoginPresenter extends BasePresenter<ILoginContract.View> implement
 
     //显示或更改验证码图片
     @Override
-    public void changeVerify() {
-        mModel.verify();
+    public Bitmap changeVerify(String url) {
+        return mModel.verify(url);
     }
 
     @Override
