@@ -2,7 +2,6 @@ package com.example.qinglv.AddPackage.presenter;
 
 import android.util.Log;
 
-import com.example.qinglv.AddPackage.BasePresenter.NoteTypeBasePresenter;
 import com.example.qinglv.AddPackage.contract.INoteTypeContract;
 import com.example.qinglv.AddPackage.model.NoteTypeModel;
 import java.util.List;

@@ -23,7 +23,7 @@
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/title_editText"
         android:layout_width="379dp"
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
@@ -35,14 +35,14 @@
         android:ems="10"
         android:hint="@string/title"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/commit_note_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/back_button"
         app:layout_constraintVertical_bias="0.1" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/commit_note_button"
         android:layout_width="241dp"
         android:layout_height="76dp"
         android:layout_marginStart="48dp"
@@ -60,21 +60,21 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <MultiAutoCompleteTextView
-        android:id="@+id/multiAutoCompleteTextView"
-        android:layout_width="384dp"
-        android:layout_height="158dp"
+        android:id="@+id/content_Auto_Text"
+        android:layout_width="387dp"
+        android:layout_height="147dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="260dp"
         android:gravity="start"
         android:hint="@string/mood"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/commit_note_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/title_editText"
         app:layout_constraintVertical_bias="0.0" />
 
     <android.support.v7.widget.RecyclerView
@@ -84,15 +84,15 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="76dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/title_editText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.357" />
 
     <TextView
         android:id="@+id/note_type_textView"
-        android:layout_width="383dp"
-        android:layout_height="35dp"
+        android:layout_width="385dp"
+        android:layout_height="41dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -103,10 +103,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982" />
+        app:layout_constraintVertical_bias="0.957" />
 
     <View
         android:layout_width="0dp"
@@ -115,7 +115,7 @@
         android:background="#C4C4C1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/note_type_textView"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/note_type_textView"
         app:layout_constraintTop_toBottomOf="@+id/note_type_textView"
         app:layout_constraintVertical_bias="0.0" />

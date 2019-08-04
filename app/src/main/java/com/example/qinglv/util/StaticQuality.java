@@ -28,5 +28,8 @@ public class StaticQuality {
     //游记种类的附加地址
     public static final String NOTE_TYPE_URL = "travel/tabs";
 
+    //提交游记的附加地址
+    public static final String NOTE_COMMIT_URL = "travel/post";
+
 
 }

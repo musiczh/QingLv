@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.qinglv.AddPackage.BasePresenter.NoteTypeBasePresenter;
+import com.example.qinglv.AddPackage.presenter.NoteTypeBasePresenter;
 import com.example.qinglv.AddPackage.adapter.NoteTypeAdapter;
 import com.example.qinglv.AddPackage.contract.INoteTypeContract;
 import com.example.qinglv.AddPackage.entity.NoteType;
@@ -61,6 +61,7 @@ public class NoteTypeActivity extends AppCompatActivity implements INoteTypeCont
              Log.d("NoteTypeAdapter","点击了"+position);
              Intent intent = new Intent();
              intent.putExtra("noteType",list.get(position).getName());
+             intent.putExtra("tabId",list.get(position).getId());
              setResult(0,intent);                 //销毁时返回数据
              finish();
          }
