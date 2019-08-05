@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.qinglv.MainPackage.View.fragment.FragmentShareFood;
+import com.example.qinglv.MainPackage.View.fragment.FragmentSharePath;
 import com.example.qinglv.MainPackage.View.fragment.FragmentShareScenic;
 import com.example.qinglv.MainPackage.View.fragment.FragmentShareTravel;
 import com.example.qinglv.MainPackage.View.iView.IViewPreview;
@@ -33,10 +34,10 @@ public class SearchActivity extends AppCompatActivity {
 
         //根据传入来的键值判断要开启哪一个碎片
         switch (intent.getIntExtra("type",1)){
-            case 1: fragment = new FragmentShareFood();break;
+            case 0: fragment = new FragmentSharePath();break;
+            case 1: fragment = new FragmentShareScenic();break;
             case 2: fragment = new FragmentShareFood();break;
-            case 3: fragment = new FragmentShareScenic();break;
-            case 4: fragment = new FragmentShareTravel();break;
+            case 3: fragment = new FragmentShareTravel();break;
         }
 
 
@@ -47,11 +48,18 @@ public class SearchActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+
+        //把搜索关键词传输给碎片
+        String s = intent.getStringExtra("query");
+        Bundle bundle = new Bundle();
+        bundle.putString("query",intent.getStringExtra("query"));
+        ((Fragment)fragment).setArguments(bundle);
         //建立碎片并替换
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout_search,(Fragment)fragment);
         fragmentTransaction.commit();
+
 
         //初始化搜索框
         SearchView searchView = findViewById(R.id.searchView_search);
@@ -62,15 +70,12 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 fragment.setQuery(s);
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                if (s == null){
-                    fragment.setQuery(null);
-                }
-                return false;
+                return true;
             }
         });
 

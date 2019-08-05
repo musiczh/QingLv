@@ -68,15 +68,24 @@ public class FragmentMain extends Fragment {
 
 
 
+
         //搜索框的软键盘回车键设置监听。打开另一个活动展示搜索结果
         EditText editText = view.findViewById(R.id.editText_fragment_main);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                String hint;
+                switch(position){
+                    case 0:hint = "请输入关键词搜索路线";break;
+                    case 1:hint = "请输入关键词搜索景点";break;
+                    case 2:hint = "请输入关键词搜索美食";break;
+                    case 3:hint = "请输入关键词搜索游记";break;
+                    default: hint="";
+                }
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
-                intent.putExtra("query",v.getText());
+                intent.putExtra("query",(v.getText()).toString());
                 intent.putExtra("type",position);
-                intent.putExtra("hint","请输入关键词搜索美食");
+                intent.putExtra("hint",hint);
                 startActivity(intent);
                 return false;
             }

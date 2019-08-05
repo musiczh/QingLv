@@ -31,6 +31,9 @@ public class StaticQuality {
     //风景的附加网址
     public static final String SCENIC_PREVIEW_URL= "share/scenic";
 
+    //风景详情的附加地址
+    public static final String SCENIC_DETAIL_URL = "share/scenic/detail";
+
     //风景搜索的附加地址
     public static final String SCENIC_SEARCH_URL= "search/scenic";
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.qinglv.MainActivity;
 import com.example.qinglv.MainPackage.Presentor.FoodPresenter;
+import com.example.qinglv.MainPackage.View.activity.SearchActivity;
 import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Adapter.ScenicAdapter;
 import com.example.qinglv.MainPackage.Entity.Scenic;
@@ -29,7 +30,6 @@ import com.example.qinglv.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.qinglv.util.NewRecyclerScrollListener.IS_SCROLL;
 
 public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic> {
     private RecyclerViewAdapterWrapper adapterWrapper;
@@ -37,6 +37,7 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
     private List<Scenic> mList = new ArrayList<>();
     private IPresenterPager iPresenterPager;
     private String query;
+    private NewRecyclerScrollListener newRecyclerScrollListener;
 
 
 
@@ -55,27 +56,36 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-
+        //recyclerView子项的点击事件
         ScenicAdapter scenicAdapter = new ScenicAdapter(mList, new RecyclerClickCallback() {
             @Override
             public void onClick(int position) {
+
                 Intent intent = new Intent(getContext(), ScenicDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("scenic",mList.get(position));
-                intent.putExtras(bundle);
+                intent.putExtra("id",mList.get(position).getId());
                 startActivity(intent);
             }
 
             @Override
             public void onLongClick() {
-
             }
         });
+        //给适配器加一层衣服
         adapterWrapper = new RecyclerViewAdapterWrapper(scenicAdapter);
         recyclerView.setAdapter(adapterWrapper);
-
         //给recyclerView设置下拉监听,方法具体在下面
-        setRecyclerPullUpListener(recyclerView,adapterWrapper);
+        newRecyclerScrollListener = new NewRecyclerScrollListener() {
+            @Override
+            public void onLoadMore(int itemCount) {
+                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
+                //判断是在搜索列表还是预览展示列表
+                if (getActivity()instanceof MainActivity)
+                    iPresenterPager.refreshRecycler(itemCount , 10,false);
+                else iPresenterPager.searchKry(query , itemCount,10,false);
+            }
+        };
+        recyclerView.addOnScrollListener(newRecyclerScrollListener);
+
 
 
         //下拉刷新控件的初始化以及设置监听
@@ -91,23 +101,19 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
 
         //第一次进入直接刷新并展示小圆圈提示一下
         swipeRefreshLayout.setRefreshing(true);
-        iPresenterPager.refreshRecycler(0,10 ,false);
-
+        if (!(getActivity() instanceof SearchActivity)) {
+            iPresenterPager.refreshRecycler(0, 10, false);
+        }else {
+            Bundle bundle =  getArguments();
+            if (bundle != null){
+                query = bundle.getString("query");
+            }
+            setQuery(query);
+        }
         return view;
     }
 
-    private void setRecyclerPullUpListener(RecyclerView recyclerView , final RecyclerViewAdapterWrapper adapterWrapper){
-        recyclerView.addOnScrollListener(new NewRecyclerScrollListener() {
-            @Override
-            public void onLoadMore(int itemCount) {
-                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
-                //判断是在搜索列表还是预览展示列表
-                if (getActivity()instanceof MainActivity)
-                    iPresenterPager.refreshRecycler(itemCount , 10,false);
-                else iPresenterPager.searchKry(query , itemCount,10);
-            }
-        });
-    }
+
 
     //接口方法，用于访问数据后更改列表。第二个参数是判断还有没有更多，没有的话最后一项显示到底.IS_SCROLL是不然继续下滑的参数
     @Override
@@ -115,10 +121,10 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
         if(isRefresh) mList.clear();
         mList.addAll(list);
         if (isMore) {
-            IS_SCROLL = true;
+            newRecyclerScrollListener.IS_SCROLL = true;
             adapterWrapper.setItemState(RecyclerViewAdapterWrapper.CONTINUE_DRAG, false);
         }else{
-            IS_SCROLL = false;
+            newRecyclerScrollListener.IS_SCROLL = false;
             adapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_MORE,false);
         }
         if (swipeRefreshLayout.isRefreshing()){
@@ -129,7 +135,7 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
     //出现异常的处理，显示一个Toast
     @Override
     public void setErrorToast(String string) {
-        IS_SCROLL = true;
+        newRecyclerScrollListener.IS_SCROLL = true;
         Toast.makeText(getContext(),string,Toast.LENGTH_SHORT).show();
         if (swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);
@@ -140,7 +146,7 @@ public class FragmentShareScenic extends Fragment implements IViewPreview<Scenic
     @Override
     public void setQuery(String string) {
         query = string;
-        iPresenterPager.searchKry(query , 0,10);
+        iPresenterPager.searchKry(query , 0,10,true);
     }
 
     //销毁view时同时解除引用

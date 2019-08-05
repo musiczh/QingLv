@@ -29,11 +29,8 @@ import com.example.qinglv.MainPackage.View.iView.IViewPreview;
 import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
 import com.example.qinglv.util.NewRecyclerScrollListener;
 import com.example.qinglv.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.qinglv.util.NewRecyclerScrollListener.IS_SCROLL;
 
 public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
     private RecyclerViewAdapterWrapper adapterWrapper;
@@ -41,8 +38,7 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
     private List<Food> mList = new ArrayList<>();
     private IPresenterPager iPresenterPager;
     private String query;
-
-
+    private NewRecyclerScrollListener newRecyclerScrollListener;
 
 
     @Nullable
@@ -51,8 +47,6 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
         View view = inflater.inflate(R.layout.fragment_pager,container,false);
         iPresenterPager = new FoodPresenter();//建立presenter的实例
         ((FoodPresenter) iPresenterPager).attachView(this);//与presenter建立关联
-
-
         //RecyclerView的初始化以及相关配置
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView_pager);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -76,8 +70,20 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
         });
         adapterWrapper = new RecyclerViewAdapterWrapper(foodAdapter);
         recyclerView.setAdapter(adapterWrapper);
-        //给recyclerView设置下拉监听,方法具体在下面
-        setRecyclerPullUpListener(recyclerView,adapterWrapper);
+        //给recyclerView设置下拉监听,
+        //recyclerView上拉监听器
+        newRecyclerScrollListener = new NewRecyclerScrollListener() {
+            @Override
+            public void onLoadMore(int itemCount) {
+                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
+
+                //判断是在搜索列表还是预览展示列表
+                if (getActivity()instanceof MainActivity)
+                    iPresenterPager.refreshRecycler(itemCount , 10,false);
+                else iPresenterPager.searchKry(query , itemCount,10,false);
+            }
+        };
+        recyclerView.addOnScrollListener(newRecyclerScrollListener);
 
 
 
@@ -92,28 +98,24 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
         });
 
 
-        //第一次进入直接刷新并展示小圆圈提示一下
+
         swipeRefreshLayout.setRefreshing(true);
-        iPresenterPager.refreshRecycler(0,10,false);
+        //第一次进入直接刷新并展示小圆圈提示一下(判断一下是在哪个活动中)
+        if (!(getActivity() instanceof SearchActivity)) {
+            iPresenterPager.refreshRecycler(0, 10, false);
+        }else {
+            Bundle bundle =  getArguments();
+            if (bundle != null){
+                query = bundle.getString("query");
+            }
+            setQuery(query);
+        }
+
 
 
         return view;
     }
 
-    private void setRecyclerPullUpListener(RecyclerView recyclerView , final RecyclerViewAdapterWrapper adapterWrapper){
-        recyclerView.addOnScrollListener(new NewRecyclerScrollListener() {
-            @Override
-            public void onLoadMore(int itemCount) {
-                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
-
-                //判断是在搜索列表还是预览展示列表
-                if (getActivity()instanceof MainActivity)
-                iPresenterPager.refreshRecycler(itemCount , 10,false);
-                else iPresenterPager.searchKry(query , itemCount,10);
-            }
-        });
-
-    }
 
 
     //接口方法，用于访问数据后更改列表。第二个参数是判断还有没有更多，没有的话最后一项显示到底.IS_SCROLL是不然继续下滑的参数
@@ -122,10 +124,10 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
         if (isRefresh) mList.clear();
         mList.addAll(list);
         if (isMore) {
-            IS_SCROLL = true;
+            newRecyclerScrollListener.IS_SCROLL = true;
             adapterWrapper.setItemState(RecyclerViewAdapterWrapper.CONTINUE_DRAG, false);
         }else{
-            IS_SCROLL = false;
+            newRecyclerScrollListener.IS_SCROLL = false;
             adapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_MORE,false);
         }
         if (swipeRefreshLayout.isRefreshing()){
@@ -136,7 +138,7 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
     //出现异常的处理，显示一个Toast
     @Override
     public void setErrorToast(String string) {
-        IS_SCROLL = true;
+        newRecyclerScrollListener.IS_SCROLL = true;
         Toast.makeText(getContext(),string,Toast.LENGTH_SHORT).show();
         if (swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);
@@ -147,7 +149,7 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
     @Override
     public void setQuery(String string) {
         query = string;
-        iPresenterPager.searchKry(query , 0,10);
+        iPresenterPager.searchKry(query , 0,10,true);
     }
 
     //销毁view时同时解除引用

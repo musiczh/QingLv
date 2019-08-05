@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RadioGroup radioGroup;          //底部导航按钮组
     private ImageView imageViewAdd;  //底部添加的image
-
     private FragmentMain fragmentMain;
     private FragmentMessage fragmentMessage;
     private FragmentMy fragmentMy;
@@ -201,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
+
 
 
 }

@@ -7,7 +7,6 @@ import com.example.qinglv.MainPackage.Presentor.iPresenter.BasePresenter;
 import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
 import com.example.qinglv.MainPackage.View.iView.IViewPreview;
 import java.util.List;
-import static com.example.qinglv.util.NewRecyclerScrollListener.IS_SCROLL;
 
 /**
  * 路线预览的presenter类
@@ -19,48 +18,35 @@ public class PathPresenter extends BasePresenter<IViewPreview<Path>> implements 
         iModelPager = new PathModel();
     }
 
+    private boolean mIsRefresh = true;
+
+    private IModelPager.CallBack<Path> callBack = new IModelPager.CallBack<Path>() {
+        @Override
+        public void onSucceed(List<Path> list, boolean isMore) {
+            if (isAttached()) {
+                getView().setList(list, isMore, mIsRefresh);
+            }
+        }
+
+        @Override
+        public void onError(String errorType) {
+            if (isAttached()) {
+                getView().setErrorToast(errorType);
+            }
+        }
+    };
+
+
     @Override
     public void refreshRecycler(int firstNum, int size , final boolean isRefresh) {
-        IS_SCROLL = false;
-        IModelPager.CallBack<Path> callBack = new IModelPager.CallBack<Path>() {
-            @Override
-            public void onSucceed(List<Path> list, boolean isMore) {
-                if (isAttached()) {
-                    getView().setList(list, isMore, isRefresh);
-                }
-            }
-
-            @Override
-            public void onError(String errorType) {
-                if (isAttached()) {
-                    getView().setErrorToast(errorType);
-                }
-            }
-        };
-
+        mIsRefresh = isRefresh;
         iModelPager.getData(firstNum, size, callBack);
 
     }
 
     @Override
-    public void searchKry(String key, int firstNum, int size) {
-        IS_SCROLL = false;
-        IModelPager.CallBack<Path> callBack = new IModelPager.CallBack<Path>() {
-            @Override
-            public void onSucceed(List<Path> list, boolean isMore) {
-                if (isAttached()) {
-                    getView().setList(list, isMore, false);
-                }
-            }
-
-            @Override
-            public void onError(String errorType) {
-                if (isAttached()) {
-                    getView().setErrorToast(errorType);
-                }
-            }
-        };
-
+    public void searchKry(String key, int firstNum, int size ,boolean isRefresh) {
+        mIsRefresh = isRefresh;
         iModelPager.getSearchData(key,firstNum, size, callBack);
     }
 }

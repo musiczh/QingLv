@@ -1,5 +1,5 @@
 package com.example.qinglv.MainPackage.Presentor.iPresenter;
 
-public interface IPresenterPathDetail {
+public interface IPresenterDetail {
     public void init(int id);
 }

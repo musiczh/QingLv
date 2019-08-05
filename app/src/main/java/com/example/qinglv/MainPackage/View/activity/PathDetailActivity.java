@@ -19,25 +19,23 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.qinglv.MainPackage.Entity.Path;
-import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.MainPackage.Presentor.PathDetailPresenter;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPathDetail;
+import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterDetail;
 import com.example.qinglv.R;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.w3c.dom.Text;
 
 import java.util.Objects;
 
-public class PathDetailActivity extends AppCompatActivity implements IViewPathDetail{
+public class PathDetailActivity extends AppCompatActivity implements IViewDetail<Path> {
     private WebView webView;
     private TextView textViewTime;
     private ImageView imageView;
     private Toolbar toolbar;
-    private IPresenterPathDetail iPresenterPathDetail;
+    private IPresenterDetail iPresenterDetail;
     private ProgressBar progressBar;
     private CoordinatorLayout coordinatorLayout;
 
@@ -66,9 +64,9 @@ public class PathDetailActivity extends AppCompatActivity implements IViewPathDe
 
 
         Intent intent = getIntent();//获取intent中的id
-        iPresenterPathDetail = new PathDetailPresenter();
-        ((PathDetailPresenter) iPresenterPathDetail).attachView(this);
-        iPresenterPathDetail.init(intent.getIntExtra("id",1));
+        iPresenterDetail = new PathDetailPresenter();
+        ((PathDetailPresenter) iPresenterDetail).attachView(this);
+        iPresenterDetail.init(intent.getIntExtra("id",1));
 
     }
 
@@ -83,7 +81,7 @@ public class PathDetailActivity extends AppCompatActivity implements IViewPathDe
     //mvp接口方法。将获取到的数据传入
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    public void setPath(Path path) {
+    public void setDetail(Path path) {
         String s = getNewsContent(path.getContent());
         webView.loadDataWithBaseURL("",s,"text/html","UTF-8","");
         textViewTime.setText(path.getDepositTime());
@@ -133,6 +131,6 @@ public class PathDetailActivity extends AppCompatActivity implements IViewPathDe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ((PathDetailPresenter) iPresenterPathDetail).detachView();
+        ((PathDetailPresenter) iPresenterDetail).detachView();
     }
 }

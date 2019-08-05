@@ -3,28 +3,30 @@ package com.example.qinglv.MainPackage.Model;
 import android.support.annotation.NonNull;
 
 import com.example.qinglv.MainPackage.Entity.Path;
-import com.example.qinglv.MainPackage.Model.iModel.IModelPathDetail;
+import com.example.qinglv.MainPackage.Model.iModel.IModelDetail;
 import com.example.qinglv.MainPackage.bean.DetailBean;
 import com.example.qinglv.MainPackage.iApiService.PathDetailApiService;
-import com.example.qinglv.MainPackage.iApiService.PathPreviewApiService;
 import com.example.qinglv.util.RetrofitManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PathDetailModel implements IModelPathDetail {
+public class PathDetailModel implements IModelDetail<Path> {
     @Override
-    public void getData(int id , final CallBack callBack) {
+    public void getData(int id , final CallBack<Path> callBack) {
         RetrofitManager.getInstance().createRs(PathDetailApiService.class)
                 .getPath(id)
                 .enqueue(new Callback<DetailBean<Path>>() {
                     @Override
                     public void onResponse(@NonNull Call<DetailBean<Path>> call,
                                            @NonNull Response<DetailBean<Path>> response) {
-                        assert response.body() != null;
-                        Path path = response.body().getMessage();
-                        callBack.onSucceed(response.body().getMessage());
+                        if (response.body() != null) {
+                            Path path = response.body().getMessage();
+                            callBack.onSucceed(response.body().getMessage());
+                        }else{
+                            callBack.onError("好像出了一点小问题");
+                        }
                     }
 
                     @Override
