@@ -16,6 +16,11 @@ public class LoginPresenter extends BasePresenter<ILoginContract.View> implement
         mModel.login(username, password,verify);
     }
 
+    @Override
+    public String getKey() {
+        return mModel.getKey();
+    }
+
 
     @Override
     public void loginSuccess() {

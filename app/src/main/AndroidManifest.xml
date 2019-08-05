@@ -27,7 +27,6 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-
         <activity android:name=".UserPackage.View.RegisterActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".AddPackage.view.AddActivity"
@@ -46,6 +45,8 @@
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".MainPackage.View.activity.TravelDetailActivity"
             tools:ignore="InnerclassSeparator" />
+
+        <activity android:name=".UserPackage.View.ForgetActivity"></activity>
 
         <activity android:name=".MainActivity">
             <intent-filter>
