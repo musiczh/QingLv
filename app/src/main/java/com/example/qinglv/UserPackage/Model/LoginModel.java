@@ -1,17 +1,15 @@
 package com.example.qinglv.UserPackage.Model;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import com.example.qinglv.MainPackage.bean.PreviewBean;
 import com.example.qinglv.UserPackage.Contract.ILoginContract;
 import com.example.qinglv.UserPackage.Entity.Login;
+import com.example.qinglv.UserPackage.IApiSerice.KeyApiSerice;
 import com.example.qinglv.UserPackage.IApiSerice.LoginApiSerice;
+import com.example.qinglv.util.RetrofitManager;
 import com.example.qinglv.util.RetrofitManagerAn;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,7 +19,7 @@ public class LoginModel implements ILoginContract.Model {
 
     private ILoginContract.Presenter mPresenter;
     private Login login;
-
+    String key;
     public LoginModel(ILoginContract.Presenter presenter){
         mPresenter = presenter;
     }
@@ -52,31 +50,29 @@ public class LoginModel implements ILoginContract.Model {
                     }
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        mPresenter.loginError("访问服务器错误");
                     }
                 });
     }
 
+    public String getKey(){
 
+        RetrofitManager.getInstance().createRs(KeyApiSerice.class)
+                .getKey()
+                .enqueue(new Callback<PreviewBean<String>>() {
 
-    @Override
-    public Bitmap verify(String url) {
-        Bitmap bmp = null;
-                try {
-                    URL myurl = new URL(url);
-                    // 获得连接
-                    HttpURLConnection conn = (HttpURLConnection) myurl.openConnection();
-                    conn.setConnectTimeout(6000);//设置超时
-                    conn.setDoInput(true);
-                    conn.setUseCaches(false);//不缓存
-                    conn.connect();
-                    InputStream is = conn.getInputStream();//获得图片的数据流
-                    bmp = BitmapFactory.decodeStream(is);
-                    is.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-        return bmp;
+                    @Override
+                    public void onResponse(Call<PreviewBean<String>> call, Response<PreviewBean<String>> response) {
+                        assert response.body() != null;
+                       key = response.body().getMessage().get(0);
+                    }
+
+                    @Override
+                    public void onFailure(Call<PreviewBean<String>> call, Throwable t) {
+
+                    }
+                });
+        return key;
     }
 
 

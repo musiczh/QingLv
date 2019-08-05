@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.qinglv.R;
 import com.example.qinglv.UserPackage.Contract.ILoginContract;
 import com.example.qinglv.UserPackage.Presenter.LoginPresenter;
+import com.example.qinglv.util.RSAEncrypt;
 
 import static com.example.qinglv.util.StaticQuality.BASE_URL;
 
@@ -61,7 +62,12 @@ public class LoginActivity extends AppCompatActivity implements ILoginContract.V
             @Override
             public void onClick(View v) {
                 String username = etUsername.getText().toString().trim();
-                String password = etPassword.getText().toString().trim();
+                String password = null;
+                try {
+                    password = RSAEncrypt.publicEncrypt(etPassword.getText().toString().trim(),mLoginPresenter.getKey());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 String verify = etVerify.getText().toString().trim();
                 mLoginPresenter.login(username,password,verify);
             }

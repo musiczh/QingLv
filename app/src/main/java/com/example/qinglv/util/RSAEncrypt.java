@@ -45,6 +45,7 @@ public class RSAEncrypt {
 
     //Base64编码转字节数组
     public static byte[] base642Byte(String base64Key) throws IOException {
+        assert base64Key != null;
         String str2 = new String(Base64.decode(base64Key.getBytes(), Base64.DEFAULT));
         return str2.getBytes();
     }
