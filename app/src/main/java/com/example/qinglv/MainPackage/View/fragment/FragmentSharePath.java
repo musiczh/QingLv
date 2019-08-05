@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.qinglv.MainActivity;
 import com.example.qinglv.MainPackage.Adapter.PathAdapter;
+import com.example.qinglv.MainPackage.View.activity.SearchActivity;
 import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Presentor.PathPresenter;
@@ -27,7 +29,6 @@ import com.example.qinglv.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.qinglv.util.NewRecyclerScrollListener.IS_SCROLL;
 
 /**
  * 主页用户发布游记友圈碎片，放在viewPager中
@@ -39,13 +40,16 @@ public class FragmentSharePath extends Fragment implements IViewPreview<Path> {
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<Path> mList = new ArrayList<>();
     private IPresenterPager iPresenterPager;
+    private String query;
+    private NewRecyclerScrollListener newRecyclerScrollListener;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pager,container,false);
-        iPresenterPager = new PathPresenter(this);//建立presenter的实例
+        iPresenterPager = new PathPresenter();//建立presenter的实例
+        ((PathPresenter) iPresenterPager).attachView(this);//建立关联
 
 
         //RecyclerView的初始化以及设置适配器
@@ -57,7 +61,7 @@ public class FragmentSharePath extends Fragment implements IViewPreview<Path> {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(getContext(), PathDetailActivity.class);
-                intent.putExtra("id",position+1);
+                intent.putExtra("id",mList.get(position).getId());
                 startActivity(intent);
             }
 
@@ -69,8 +73,19 @@ public class FragmentSharePath extends Fragment implements IViewPreview<Path> {
         adapterWrapper = new RecyclerViewAdapterWrapper(pathAdapter);
         recyclerView.setAdapter(adapterWrapper);
 
-        //给recyclerView设置下拉监听,方法具体在下面
-        setRecyclerPullUpListener(recyclerView,adapterWrapper);
+        //给recyclerView设置下拉监听
+        newRecyclerScrollListener = new NewRecyclerScrollListener() {
+            @Override
+            public void onLoadMore(int itemCount) {
+                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
+                //判断是在搜索列表还是预览展示列表
+                if (getActivity()instanceof MainActivity)
+                    iPresenterPager.refreshRecycler(itemCount , 10,false);
+                else iPresenterPager.searchKry(query , itemCount,10,false);
+            }
+        };
+        recyclerView.addOnScrollListener(newRecyclerScrollListener );
+
 
 
         //下拉刷新控件的初始化以及设置监听
@@ -86,20 +101,19 @@ public class FragmentSharePath extends Fragment implements IViewPreview<Path> {
 
         //第一次进入直接刷新并展示小圆圈提示一下
         swipeRefreshLayout.setRefreshing(true);
-        iPresenterPager.refreshRecycler(0,10 ,false);
-
+        if (!(getActivity() instanceof SearchActivity)) {
+            iPresenterPager.refreshRecycler(0, 10, false);
+        }else {
+            Bundle bundle =  getArguments();
+            if (bundle != null){
+                query = bundle.getString("query");
+            }
+            setQuery(query);
+        }
         return view;
     }
 
-    private void setRecyclerPullUpListener(RecyclerView recyclerView , final RecyclerViewAdapterWrapper adapterWrapper){
-        recyclerView.addOnScrollListener(new NewRecyclerScrollListener() {
-            @Override
-            public void onLoadMore(int itemCount) {
-                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
-                iPresenterPager.refreshRecycler(itemCount , 10 ,false);
-            }
-        });
-    }
+
 
 
     //接口方法，用于访问数据后更改列表。第二个参数是判断还有没有更多，没有的话最后一项显示到底.IS_SCROLL是不然继续下滑的参数
@@ -108,10 +122,10 @@ public class FragmentSharePath extends Fragment implements IViewPreview<Path> {
         if (isRefresh) mList.clear();
         mList.addAll(list);
         if (isMore) {
-            IS_SCROLL = true;
+            newRecyclerScrollListener.IS_SCROLL = true;
             adapterWrapper.setItemState(RecyclerViewAdapterWrapper.CONTINUE_DRAG, false);
         }else{
-            IS_SCROLL = false;
+            newRecyclerScrollListener.IS_SCROLL = false;
             adapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_MORE,false);
         }
         if (swipeRefreshLayout.isRefreshing()){
@@ -122,12 +136,25 @@ public class FragmentSharePath extends Fragment implements IViewPreview<Path> {
     //出现异常的处理，显示一个Toast
     @Override
     public void setErrorToast(String string) {
-        IS_SCROLL = true;
+        newRecyclerScrollListener.IS_SCROLL = true;
         Toast.makeText(getContext(),string,Toast.LENGTH_SHORT).show();
         if (swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);
         }
         adapterWrapper.setItemState(RecyclerViewAdapterWrapper.CONTINUE_DRAG,true);
+    }
+
+    @Override
+    public void setQuery(String string) {
+        query = string;
+        iPresenterPager.searchKry(query , 0,10,true);
+    }
+
+    //销毁view时同时解除引用
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((PathPresenter) iPresenterPager).detachView();
     }
 
 }

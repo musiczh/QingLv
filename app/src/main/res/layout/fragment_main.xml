@@ -1,27 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout_main"
         android:layout_width="0dp"
         android:layout_height="32dp"
-
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorHeight="1.5dp"
-
         app:tabMaxWidth="50dp"
         app:tabTextAppearance="@style/TabLayoutTextStyle">
 
     </android.support.design.widget.TabLayout>
+
+    <EditText
+        android:id="@+id/editText_fragment_main"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="#f3f3f3"
+        android:drawableStart="@drawable/img_search"
+        android:drawableLeft="@drawable/img_search"
+        android:drawablePadding="12dp"
+        android:imeOptions="actionSearch"
+        android:importantForAutofill="no"
+        android:inputType="none"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="4dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textColor="#707070"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout_main"
+        tools:ignore="LabelFor,UnusedAttribute" />
 
 
     <android.support.v4.view.ViewPager
@@ -31,7 +55,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tab_layout_main">
+        app:layout_constraintTop_toBottomOf="@+id/editText_fragment_main">
 
 
     </android.support.v4.view.ViewPager>

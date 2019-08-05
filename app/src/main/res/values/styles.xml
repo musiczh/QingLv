@@ -8,6 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="NewAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
     <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
         <item name = "android:textSize">50sp</item>
     </style>
@@ -17,8 +25,7 @@
         <item name="android:windowExitAnimation">@anim/context_photo_exit</item>
     </style>
 
-    <style name="NewAppTheme" parent="AppTheme">
-    </style>
+
 
     <style name="ToolBarTextSize" >
         <item name="android:textSize">14sp</item>

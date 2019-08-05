@@ -16,5 +16,5 @@ import static com.example.qinglv.util.StaticQuality.TRAVEL_PREVIEW_URL;
 public interface TravelPreviewApiService {
     //这里需要两个参数，一个是从哪项开始找，另一个是需要多少项
     @GET(TRAVEL_PREVIEW_URL)
-    Call<PreviewBean<Travel>> getPath(@Query("num")int firstNum, @Query("size")int size);
+    Call<PreviewBean<Travel>> getTravel(@Query("num")int firstNum, @Query("size")int size);
 }

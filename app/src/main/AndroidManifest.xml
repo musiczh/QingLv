@@ -40,7 +40,8 @@
             android:theme="@style/NewAppTheme">
         </activity>
         <activity android:name=".MainPackage.View.activity.PathDetailActivity"
-            tools:ignore="InnerclassSeparator" />
+            tools:ignore="InnerclassSeparator"
+            android:theme="@style/NewAppTheme"/>
         <activity android:name=".MainPackage.View.activity.FoodDetailActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".MainPackage.View.activity.TravelDetailActivity"
