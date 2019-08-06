@@ -1,6 +1,4 @@
-package com.example.qinglv.MainPackage.Model.iModel;
-
-import com.example.qinglv.MainPackage.Entity.Food;
+package com.example.qinglv.MainPackage.inter.iApiMvp;
 
 import java.util.List;
 

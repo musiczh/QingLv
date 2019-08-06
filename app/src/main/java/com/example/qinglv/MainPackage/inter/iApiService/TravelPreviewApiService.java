@@ -1,4 +1,4 @@
-package com.example.qinglv.MainPackage.iApiService;
+package com.example.qinglv.MainPackage.inter.iApiService;
 
 
 import com.example.qinglv.MainPackage.Entity.Travel;

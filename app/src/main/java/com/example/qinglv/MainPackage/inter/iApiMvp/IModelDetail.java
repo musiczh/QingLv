@@ -1,6 +1,4 @@
-package com.example.qinglv.MainPackage.Model.iModel;
-
-import com.example.qinglv.MainPackage.Entity.Path;
+package com.example.qinglv.MainPackage.inter.iApiMvp;
 
 public interface IModelDetail<T> {
     public void getData(int id , CallBack<T> callBack);

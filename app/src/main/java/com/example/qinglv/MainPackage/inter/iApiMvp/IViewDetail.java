@@ -1,6 +1,4 @@
-package com.example.qinglv.MainPackage.View.activity;
-
-import com.example.qinglv.MainPackage.Entity.Path;
+package com.example.qinglv.MainPackage.inter.iApiMvp;
 
 public interface IViewDetail<T> {
     public void setDetail(T detail);

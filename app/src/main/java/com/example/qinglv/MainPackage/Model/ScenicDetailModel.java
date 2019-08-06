@@ -1,14 +1,9 @@
 package com.example.qinglv.MainPackage.Model;
 
-import android.support.annotation.NonNull;
-
-import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Entity.Scenic;
-import com.example.qinglv.MainPackage.Model.iModel.IModelDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IModelDetail;
 import com.example.qinglv.MainPackage.bean.DetailBean;
-import com.example.qinglv.MainPackage.iApiService.PathDetailApiService;
-import com.example.qinglv.MainPackage.iApiService.ScenicDetailApiService;
-import com.example.qinglv.MainPackage.iApiService.ScenicSearchApiService;
+import com.example.qinglv.MainPackage.inter.iApiService.ScenicDetailApiService;
 import com.example.qinglv.util.RetrofitManager;
 
 import org.jetbrains.annotations.NotNull;

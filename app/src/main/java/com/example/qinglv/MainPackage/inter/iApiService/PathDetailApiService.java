@@ -1,15 +1,12 @@
-package com.example.qinglv.MainPackage.iApiService;
+package com.example.qinglv.MainPackage.inter.iApiService;
 
-import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.bean.DetailBean;
-import com.example.qinglv.MainPackage.bean.PreviewBean;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-import static com.example.qinglv.util.StaticQuality.FOOD_SEARCH_URL;
 import static com.example.qinglv.util.StaticQuality.PATH_DETAIL_URL;
 
 /**

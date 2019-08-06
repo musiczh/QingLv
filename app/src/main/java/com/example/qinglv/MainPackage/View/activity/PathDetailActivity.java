@@ -20,7 +20,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Presentor.PathDetailPresenter;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IViewDetail;
 import com.example.qinglv.R;
 
 import org.jsoup.Jsoup;
@@ -45,7 +46,7 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_path_detail);
+        setContentView(R.layout.activity_detail_path);
         toolbar = findViewById(R.id.toolBar_path_detail);
         webView = findViewById(R.id.webView_path_detail_content);
         textViewTime = findViewById(R.id.textView_path_detail_time);

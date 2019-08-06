@@ -3,24 +3,17 @@ package com.example.qinglv.MainPackage.Model;
 import android.support.annotation.NonNull;
 
 import com.example.qinglv.MainPackage.Entity.Path;
-import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
-import com.example.qinglv.MainPackage.iApiService.PathPreviewApiService;
-import com.example.qinglv.MainPackage.iApiService.PathSearchApiService;
+import com.example.qinglv.MainPackage.inter.iApiService.PathPreviewApiService;
+import com.example.qinglv.MainPackage.inter.iApiService.PathSearchApiService;
 import com.example.qinglv.util.RetrofitManager;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import okhttp3.OkHttpClient;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.example.qinglv.util.StaticQuality.BASE_URL;
 
 /**
  * 美食预览界面model层
@@ -43,14 +36,14 @@ public class PathModel implements IModelPager<Path> {
                             }
                             callBack.onSucceed(list, isMore);
                         }else {
-                            callBack.onError("没有查询到相关内容");
+                            callBack.onError("好像出了点小问题");
                         }
 
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<PreviewBean<Path>> call, @NonNull Throwable t) {
-                        callBack.onError("好像出了点小问题");
+                        callBack.onError("，没有查询到相关内容");
                     }
                 });
     }

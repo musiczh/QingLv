@@ -1,4 +1,4 @@
-package com.example.qinglv.MainPackage.Presentor.iPresenter;
+package com.example.qinglv.MainPackage.inter.iApiMvp;
 
 /**
  * 美食预览界面的presenter接口

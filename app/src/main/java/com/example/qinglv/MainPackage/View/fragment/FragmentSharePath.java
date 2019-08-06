@@ -19,10 +19,10 @@ import com.example.qinglv.MainPackage.View.activity.SearchActivity;
 import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Presentor.PathPresenter;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterPager;
 import com.example.qinglv.MainPackage.View.activity.PathDetailActivity;
-import com.example.qinglv.MainPackage.View.iView.IViewPreview;
-import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IViewPreview;
+import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerClickCallback;
 import com.example.qinglv.util.NewRecyclerScrollListener;
 import com.example.qinglv.R;
 

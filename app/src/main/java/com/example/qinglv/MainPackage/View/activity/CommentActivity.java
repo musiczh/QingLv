@@ -2,18 +2,13 @@ package com.example.qinglv.MainPackage.View.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import com.example.qinglv.R;
 
-
-public class TravelDetailActivity extends AppCompatActivity {
+public class CommentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_travel);
-
-//        ShineButton shineButton = findViewById(R.id.shineButton_article_good);
-//        shineButton.init(this);
+        setContentView(R.layout.activity_comment);
     }
 }

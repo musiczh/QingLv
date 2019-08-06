@@ -17,11 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Entity.Scenic;
-import com.example.qinglv.MainPackage.Presentor.PathDetailPresenter;
 import com.example.qinglv.MainPackage.Presentor.ScenicDetailPresenter;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IViewDetail;
 import com.example.qinglv.R;
 
 import org.jsoup.Jsoup;
@@ -31,7 +30,7 @@ import org.jsoup.select.Elements;
 
 import java.util.Objects;
 
-public class ScenicDetailActivity extends AppCompatActivity implements IViewDetail<Scenic>{
+public class ScenicDetailActivity extends AppCompatActivity implements IViewDetail<Scenic> {
     private ProgressBar progressBar;
     private WebView webViewContent;
     private WebView webViewTraffic;
@@ -47,7 +46,7 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scenic_detail);
+        setContentView(R.layout.activity_detail_scenic);
 
 
         //控件属性初始化

@@ -1,4 +1,4 @@
-package com.example.qinglv.MainPackage.Model.iModel;
+package com.example.qinglv.MainPackage.inter.iApiMvp;
 
 import java.util.List;
 
