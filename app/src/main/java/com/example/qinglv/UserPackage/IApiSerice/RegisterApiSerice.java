@@ -1,19 +1,19 @@
 package com.example.qinglv.UserPackage.IApiSerice;
 
-import com.example.qinglv.MainPackage.bean.PreviewBean;
-import com.example.qinglv.UserPackage.Entity.Login;
 import com.example.qinglv.UserPackage.Entity.register;
 
-import okhttp3.ResponseBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 import static com.example.qinglv.util.StaticQuality.REGISTER_LOGIN_URL;
 
 public interface RegisterApiSerice {
 
-    @GET(REGISTER_LOGIN_URL)
-    Call<ResponseBody> getRsgister(@Query("userName")String username,
-                                @Query("password")String password);
+    @POST(REGISTER_LOGIN_URL)
+    @Multipart
+    Call<register> getRsgister(@Part("userName") RequestBody username,
+                               @Part("password") RequestBody password);
 }

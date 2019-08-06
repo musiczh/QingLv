@@ -2,12 +2,13 @@ package com.example.qinglv.util;
 
 
 import android.util.Base64;
+
 import java.io.IOException;
-import javax.crypto.Cipher;
-import java.math.BigInteger;
-import java.security.*;
-import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.KeyFactory;
+import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
+
+import javax.crypto.Cipher;
 
 //  RSA加密方法
 public class RSAEncrypt {
@@ -46,8 +47,8 @@ public class RSAEncrypt {
     //Base64编码转字节数组
     public static byte[] base642Byte(String base64Key) throws IOException {
         assert base64Key != null;
-        String str2 = new String(Base64.decode(base64Key.getBytes(), Base64.DEFAULT));
-        return str2.getBytes();
+        byte[] contentByte = Base64.decode(base64Key, Base64.DEFAULT);
+        return contentByte;
     }
 }
 
