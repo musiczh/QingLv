@@ -55,7 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
                 RetrofitManager.getInstance().createRs(RegisterApiSerice.class)
                         .getRsgister(username,pass)
                         .enqueue(new Callback<register>() {
-
                             @Override
                             public void onResponse(Call<register> call, Response<register> response) {
                                 Log.v("444","565656486486486486");

@@ -26,7 +26,7 @@ public class StaticQuality {
     public static final String USER_LOGIN_URL= "user/login/";
 
     //注册
-    public static final String REGISTER_LOGIN_URL= "user/register";
+    public static final String REGISTER_LOGIN_URL= "user/register/";
 
 
 }

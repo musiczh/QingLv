@@ -40,7 +40,6 @@ public class RetrofitManager {
             retrofitManager = new RetrofitManager();
         }
         return
-
                 retrofitManager;
     }
 
