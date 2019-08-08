@@ -18,6 +18,7 @@ public class LoginPresenter extends BasePresenter<ILoginContract.View> implement
 
     @Override
     public String getKey() {
+//        Log.v("111111",mModel.getKey());
         return mModel.getKey();
     }
 

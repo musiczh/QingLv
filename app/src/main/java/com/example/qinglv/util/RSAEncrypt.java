@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
-
 import javax.crypto.Cipher;
 
 //  RSA加密方法
@@ -33,6 +32,7 @@ public class RSAEncrypt {
     //公钥加密
     private static byte[] publicEncrypt(byte[] content, PublicKey publicKey) throws Exception{
         Cipher cipher = Cipher.getInstance("RSA");
+        cipher= Cipher.getInstance("RSA/ECB/PKCS1Padding");
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         byte[] bytes = cipher.doFinal(content);
         return bytes;
@@ -40,14 +40,15 @@ public class RSAEncrypt {
 
     //字节数组转Base64编码
     public static String byte2Base64(byte[] bytes){
-        String strBase64 = Base64.encodeToString(bytes, Base64.DEFAULT);
+        String strBase64 = Base64.encodeToString(bytes, Base64.NO_WRAP);
         return strBase64;
     }
 
     //Base64编码转字节数组
     public static byte[] base642Byte(String base64Key) throws IOException {
         assert base64Key != null;
-        byte[] contentByte = Base64.decode(base64Key, Base64.DEFAULT);
+        byte[] contentByte = Base64.decode(base64Key, Base64.NO_WRAP);
+//        byte[] contentByte = Base64.decode(base64Key, Base64.NO_WRAP);
         return contentByte;
     }
 }

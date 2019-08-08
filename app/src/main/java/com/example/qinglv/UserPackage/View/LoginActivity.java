@@ -1,9 +1,8 @@
 package com.example.qinglv.UserPackage.View;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,7 +14,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.qinglv.R;
 import com.example.qinglv.UserPackage.Contract.ILoginContract;
 import com.example.qinglv.UserPackage.Presenter.LoginPresenter;
-import com.example.qinglv.util.RSAEncrypt;
 
 import static com.example.qinglv.util.StaticQuality.BASE_URL;
 
@@ -64,10 +62,14 @@ public class LoginActivity extends AppCompatActivity implements ILoginContract.V
                 String username = etUsername.getText().toString().trim();
                 String password = null;
                 try {
-                    password = RSAEncrypt.publicEncrypt(etPassword.getText().toString().trim(),mLoginPresenter.getKey());
+//                    String k = mLoginPresenter.getKey();
+//                    System.out.println(k);
+//                    password = RSAEncrypt.publicEncrypt(etPassword.getText().toString().trim(),"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh2wXYiWpCnJCOzvzgjP6p4Y+C75jD92+SmIRPcYwWKyfqXtw1XBaGE/EVHb4ypS+Ugfh6+AAKOi9udBQClI5QIkoIGA8r3i6Ald9lKakeXrcBkm1M3Kgb4V8n1QENNfAyPizewJTF7VWxTtaPHWJzTf+f/njXV2mOiZY4nLcdEQs/GgXm9H++bFcS+OEj/MWjxdiB1jG5Fv1acSf9+hkpP2tZT7rloQW/BanmGUX0Awd4r6G5tcjDnMs9bx0s9jDslOngqxqMHj8GQ2JUBrd03OP+tk8IXlHl3qYPpi32CwTztGZvS9L797cHBBesg9rhrjkdGBae9sVZIG9OLRMZQIDAQAB\n" +
+//                            "V/123567: 111111");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                password = etPassword.getText().toString().trim();
                 String verify = etVerify.getText().toString().trim();
                 mLoginPresenter.login(username,password,verify);
             }
