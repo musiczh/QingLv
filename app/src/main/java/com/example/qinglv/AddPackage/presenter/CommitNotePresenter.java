@@ -4,6 +4,7 @@ import com.example.qinglv.AddPackage.contract.ICommitNoteContract;
 import com.example.qinglv.AddPackage.model.CommitNoteModel;
 
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 
@@ -31,8 +32,9 @@ public class CommitNotePresenter extends CommitNoteBasePresenter<ICommitNoteCont
     }
 
     @Override
-    public void commitNote(int id, String title, List photos, String content, int tabId) {
-        mModel.commitNote(id,title,photos,content,tabId);
-
+    public void commitNote(Map params, List files) {
+        mModel.commitNote(params,files);
     }
+
+
 }

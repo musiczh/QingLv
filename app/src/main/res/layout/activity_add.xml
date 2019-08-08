@@ -24,7 +24,7 @@
 
     <EditText
         android:id="@+id/title_editText"
-        android:layout_width="379dp"
+        android:layout_width="382dp"
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -37,6 +37,7 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/commit_note_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/back_button"
         app:layout_constraintVertical_bias="0.1" />
@@ -72,7 +73,6 @@
         android:hint="@string/mood"
         app:layout_constraintBottom_toTopOf="@+id/commit_note_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_editText"
         app:layout_constraintVertical_bias="0.0" />
@@ -91,8 +91,8 @@
 
     <TextView
         android:id="@+id/note_type_textView"
-        android:layout_width="385dp"
-        android:layout_height="41dp"
+        android:layout_width="389dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -106,7 +106,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.957" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <View
         android:layout_width="0dp"

@@ -3,18 +3,25 @@ package com.example.qinglv.AddPackage.model;
 import android.util.Log;
 
 import com.example.qinglv.AddPackage.contract.ICommitNoteContract;
+import com.example.qinglv.AddPackage.entity.NoteType;
 import com.example.qinglv.AddPackage.iApiService.CommitNoteApiService;
+import com.example.qinglv.MainPackage.bean.PreviewBean;
 import com.example.qinglv.util.RetrofitManager;
+import com.nostra13.universalimageloader.utils.L;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.qinglv.util.StaticQuality.BASE_URL;
 
@@ -32,35 +39,27 @@ public class CommitNoteModel implements ICommitNoteContract.IModel {
     }
 
 
+
     @Override
-    public void commitNote(int id, String title, List<MultipartBody.Part> photos, String content, final int tabId) {
-        //1.创建Retrofit对象
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .build();
+    public void commitNote(final Map<String, RequestBody> params, List<MultipartBody.Part> files) {
+        RetrofitManager.getInstance().createRs(CommitNoteApiService.class)
+                .commitNote(params,files)
+                .enqueue(new Callback<PreviewBean<NoteType>>() {
 
-        //2.获取MyServer接口服务对象
-        CommitNoteApiService apiService = retrofit.create(CommitNoteApiService.class);
+                    @Override
+                    public void onResponse(Call<PreviewBean<NoteType>> call, Response<PreviewBean<NoteType>> response) {
+                        Log.d("CommitNote","上传成功"+response.message()+response);
+                        Log.d("id","------"+params.get("id"));
+                        Log.d("tabId","------");
+                    }
 
-        //3.获取Call对象
-        //方式一
-        Call<ResponseBody> call = apiService.commitNote(id,title, photos,content, tabId);
+                    @Override
+                    public void onFailure(Call<PreviewBean<NoteType>> call, Throwable t) {
 
-        //4.Call对象执行请求
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                mPresenter.onSuccess();
-                Log.d("CommitNoteModel","网络请求成功"+tabId);
-            }
+                    }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-
+                });
+    }
     }
 
-}
 

@@ -39,7 +39,9 @@ import java.lang.reflect.Array;
 import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import cn.finalteam.galleryfinal.model.PhotoInfo;
@@ -72,6 +74,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private  String mTitle = null;
     private  int mId = 0;
     private List<MultipartBody.Part> photos = new ArrayList<>();
+    private List<File> files = new ArrayList<>();
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -102,6 +105,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         setCurrentActivity(this);          //获取当前活动的上下文
     }
 
+    //初始化布局
     public void initalView(){
         mRecyclerView = findViewById(R.id.photo_list_rcyView);
         mBackImage = findViewById(R.id.back_button);
@@ -109,7 +113,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         mCommitNoteBtn = findViewById(R.id.commit_note_button);
         mTitleEditText = findViewById(R.id.title_editText);
         mContentEditText = findViewById(R.id.content_Auto_Text);
-
+        //初始化RecyclerView
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -126,10 +130,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return super.onKeyDown(keyCode, event);
-    }
+
 
     //接受上个活动销毁时返回的数据
     @Override
@@ -138,7 +139,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         mNoteType = data.getStringExtra("noteType");
         mTabId = data.getIntExtra("tabId",1);
         mNoteTypeTv.setText(mNoteType);
-        Log.d("noteType",""+mNoteType+"-----------");
     }
 
     @Override
@@ -156,24 +156,50 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 mTitle = mTitleEditText.getText().toString();
                 mContent = mContentEditText.getText().toString();
 
-
-
-
+                for (int i =0;i<list.size();i++){
+                    File f = new File(list.get(i).getPhotoPath());
+                    files.add(f);
+                }
+                //多文件上传的参数值
+                photos = filesToMultipartBodyParts(files);
+                //给参数赋值
+                Map<String,RequestBody> params = new HashMap<>();
+                params.put("title",toRequestBody(mTitle));
+                params.put("content",toRequestBody(mContent));
+                Map<Integer,RequestBody> bodyMap = new HashMap<>();
+                params.put("id",toRequestBody(String.valueOf(mId)));
+                params.put("tabId",toRequestBody(String.valueOf(mTabId)));
                 presenter = new CommitNotePresenter();
-                ((CommitNotePresenter) presenter).commitNote(mId,mTitle,photos,mContent,mTabId);
+                ((CommitNotePresenter) presenter).commitNote(params,photos);
                 presenter.attachView(this);
+                Log.d("AddActivity","----"+mId+mTabId);
+                Log.d("id","------"+params.get("id"));
+                Log.d("tabId","------"+params.get("tabId"));
+                Log.d("photos","------"+photos.size());
+                Log.d("title","-------"+mTitle);
+                Log.d("content","-------"+mContent);
                 break;
         }
     }
 
-    private String guessMimeType(String path) {
-        FileNameMap fileNameMap = URLConnection.getFileNameMap();
-        String contentTypeFor = fileNameMap.getContentTypeFor(path);
-        if (contentTypeFor == null) {
 
+    //图片文件转为多文件上传参数的方法
+    public static List<MultipartBody.Part> filesToMultipartBodyParts(List<File> files) {
+        List<MultipartBody.Part> parts = new ArrayList<>(files.size());
+        for (File file : files) {
+            RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), file);
+            MultipartBody.Part part = MultipartBody.Part.createFormData("aFile", file.getName(), requestBody);
+            parts.add(part);
         }
-        return contentTypeFor;
+        return parts;
     }
+    //多参数+多文件上传key值转为参数的方法
+    public static RequestBody toRequestBody(String value){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),value);
+        return requestBody;
+    }
+
+
 
 
 
