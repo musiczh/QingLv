@@ -72,8 +72,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private  int mTabId;
     private  String mContent = null;
     private  String mTitle = null;
-    private  int mId = 0;
-    private List<MultipartBody.Part> photos = new ArrayList<>();
+    private static int mId = 0;
+
     private List<File> files = new ArrayList<>();
 
 
@@ -155,28 +155,33 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 //提交游记
                 mTitle = mTitleEditText.getText().toString();
                 mContent = mContentEditText.getText().toString();
-
                 for (int i =0;i<list.size();i++){
                     File f = new File(list.get(i).getPhotoPath());
                     files.add(f);
                 }
                 //多文件上传的参数值
+                List<MultipartBody.Part> photos = new ArrayList<>();
                 photos = filesToMultipartBodyParts(files);
+
+
+
                 //给参数赋值
                 Map<String,RequestBody> params = new HashMap<>();
                 params.put("title",toRequestBody(mTitle));
                 params.put("content",toRequestBody(mContent));
-                Map<Integer,RequestBody> bodyMap = new HashMap<>();
                 params.put("id",toRequestBody(String.valueOf(mId)));
                 params.put("tabId",toRequestBody(String.valueOf(mTabId)));
+
                 presenter = new CommitNotePresenter();
                 ((CommitNotePresenter) presenter).commitNote(params,photos);
                 presenter.attachView(this);
+
+
                 Log.d("AddActivity","----"+mId+mTabId);
                 Log.d("id","------"+params.get("id"));
-                Log.d("tabId","------"+params.get("tabId"));
+                Log.d("tabId","------"+params.get("tabId").toString());
                 Log.d("photos","------"+photos.size());
-                Log.d("title","-------"+mTitle);
+                Log.d("title","-------"+params.get("title"));
                 Log.d("content","-------"+mContent);
                 break;
         }
@@ -193,6 +198,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         }
         return parts;
     }
+
     //多参数+多文件上传key值转为参数的方法
     public static RequestBody toRequestBody(String value){
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),value);
@@ -202,6 +208,51 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
 
 
+    public void  addParams(){
+
+        for (int i =0;i<list.size();i++){
+            File f = new File(list.get(i).getPhotoPath());
+            files.add(f);
+        }
+        //多文件上传的参数值
+        List<MultipartBody.Part> photos = new ArrayList<>();
+        photos = filesToMultipartBodyParts(files);
 
 
+
+        //给参数赋值
+        Map<String,RequestBody> params = new HashMap<>();
+        params.put("title",toRequestBody(mTitle));
+        params.put("content",toRequestBody(mContent));
+        params.put("id",toRequestBody(String.valueOf(mId)));
+        params.put("tabId",toRequestBody(String.valueOf(mTabId)));
+
+        for(int i =0;i<files.size();i++){
+
+            RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), files.get(i));
+            MultipartBody.Part part = MultipartBody.Part.createFormData("aFile", files.get(i).getName(), requestBody);
+
+
+        }
+
+
+        RequestBody body = new MultipartBody.Builder()
+                .addFormDataPart("id", String.valueOf(mId))
+                .addFormDataPart("tabId", String.valueOf(mTabId))
+                .addFormDataPart("title",mTitle)
+                .addFormDataPart("content",mContent)
+                .build();
+
+        presenter = new CommitNotePresenter();
+        ((CommitNotePresenter) presenter).commitNote(params,photos);
+        presenter.attachView(this);
+
+
+        Log.d("AddActivity","----"+mId+mTabId);
+        Log.d("id","------"+params.get("id"));
+        Log.d("tabId","------"+params.get("tabId").toString());
+        Log.d("photos","------"+photos.size());
+        Log.d("title","-------"+params.get("title"));
+        Log.d("content","-------"+mContent);
+    }
 }

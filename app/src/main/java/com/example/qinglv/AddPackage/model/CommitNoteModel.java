@@ -55,9 +55,8 @@ public class CommitNoteModel implements ICommitNoteContract.IModel {
 
                     @Override
                     public void onFailure(Call<PreviewBean<NoteType>> call, Throwable t) {
-
+                        Log.d("failure","------"+t.toString());
                     }
-
                 });
     }
     }
