@@ -18,7 +18,7 @@ import android.support.v7.widget.RecyclerView;
 
 public abstract class NewRecyclerScrollListener extends RecyclerView.OnScrollListener {
     //这个参数设置是否可以继续下滑，当到底的时候就不可以继续下滑了
-    public static Boolean IS_SCROLL = true;
+    public  Boolean IS_SCROLL = true;
     //判断是否在向上滑动
     private Boolean isDragUp = false;
 

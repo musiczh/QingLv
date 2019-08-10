@@ -8,6 +8,15 @@
     tools:context=".MainPackage.View.activity.ScenicDetailActivity"
     android:fitsSystemWindows="true">
 
+    <ProgressBar
+        android:id="@+id/progressBar_scenic_detail"
+        style="?android:attr/progressBarStyle"
+        android:layout_marginTop="250dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true" />
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,6 +51,7 @@
 
 
                 </android.support.v7.widget.Toolbar>
+
 
 
 

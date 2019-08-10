@@ -16,11 +16,17 @@ public class StaticQuality {
     //路线预览的附加网址
     public static final String PATH_PREVIEW_URL= "share/path";
 
+    //路线搜索的附加地址
+    public static final String PATH_SEARCH_URL= "search/path";
+
     //路线详情的附加地址
     public static final String PATH_DETAIL_URL = "share/path/detail";
 
     //游记的附加网址
     public static final String TRAVEL_PREVIEW_URL= "travel/preview";
+
+    //游记搜索的附加地址
+    public static final String TRAVEL_SEARCH_URL= "search/travel";
 
     //风景的附加网址
     public static final String SCENIC_PREVIEW_URL= "share/scenic";
@@ -30,6 +36,17 @@ public class StaticQuality {
 
     //提交游记的附加地址
     public static final String NOTE_COMMIT_URL = "travel/post";
+    //登陆
+    public static final String USER_LOGIN_URL= "user/login/";
 
+    //注册
+    public static final String REGISTER_LOGIN_URL= "user/register/";
+
+    //风景详情的附加地址
+    public static final String SCENIC_DETAIL_URL = "share/scenic/detail";
+
+
+    //风景搜索的附加地址
+    public static final String SCENIC_SEARCH_URL= "search/scenic";
 
 }

@@ -5,32 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editText_pager"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:background="#f3f3f3"
-        android:drawableStart="@drawable/img_search"
-        android:drawableLeft="@drawable/img_search"
-        android:drawablePadding="12dp"
-        android:imeOptions="actionSearch"
-        android:importantForAutofill="no"
-        android:inputType="none"
-        android:paddingLeft="8dp"
-        android:paddingTop="4dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="4dp"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:textColor="#707070"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="LabelFor,UnusedAttribute" />
+
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout_pager"
@@ -44,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_pager">
+        >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView_pager"

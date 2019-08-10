@@ -27,7 +27,6 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-
         <activity android:name=".UserPackage.View.RegisterActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".AddPackage.view.activity.AddActivity"
@@ -41,12 +40,15 @@
             android:theme="@style/NewAppTheme">
         </activity>
         <activity android:name=".MainPackage.View.activity.PathDetailActivity"
-            tools:ignore="InnerclassSeparator" />
+            tools:ignore="InnerclassSeparator"
+            android:theme="@style/NewAppTheme"/>
         <activity android:name=".MainPackage.View.activity.FoodDetailActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".MainPackage.View.activity.TravelDetailActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".AddPackage.view.activity.NoteTypeActivity"/>
+
+        <activity android:name=".UserPackage.View.ForgetActivity"></activity>
 
         <activity android:name=".MainActivity">
             <intent-filter>

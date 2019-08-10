@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -26,16 +28,18 @@ import java.io.IOException;
 
 /**
  * 主函数，主界面
+ * 注释隐藏了商家界面以及好友界面
  */
 
 public class MainActivity extends AppCompatActivity {
 
     private RadioGroup radioGroup;          //底部导航按钮组
-
+    private ImageView imageViewAdd;  //底部添加的image
     private FragmentMain fragmentMain;
-    private FragmentMessage fragmentMessage;
+    //private FragmentMessage fragmentMessage;
     private FragmentMy fragmentMy;
-    private FragmentShop fragmentShop;
+    //private FragmentShop fragmentShop;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,15 +68,15 @@ public class MainActivity extends AppCompatActivity {
     //初始化界面数据
     private void initView(){
         //设置底部导航栏图标的规格为60dp
-        setImgSize(R.id.radio_button_main,R.drawable.selector_main,55);
-        setImgSize(R.id.radio_button_shop,R.drawable.selector_shop,55);
-        setImgSize(R.id.radio_button_message,R.drawable.selector_message,55);
-        setImgSize(R.id.radio_button_my,R.drawable.selector_my,55);
-        setImgSize(R.id.radio_button_add,R.drawable.img_add,90);
+        setImgSize(R.id.radio_button_main,R.drawable.selector_main);
+        //setImgSize(R.id.radio_button_shop,R.drawable.selector_shop);
+        //setImgSize(R.id.radio_button_message,R.drawable.selector_message);
+        setImgSize(R.id.radio_button_my,R.drawable.selector_my);
 
 
         //获取底部导航栏实例
         radioGroup = findViewById(R.id.radio_group_main);
+        imageViewAdd = findViewById(R.id.radio_button_add);
 
         //首次进入直接进入主页
         if (fragmentMain == null){ fragmentMain = new FragmentMain(); }
@@ -90,16 +94,13 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                hideFragment(transaction);    //隐藏所有的碎片
+                if (checkedId != R.id.radio_button_add) {
+                    hideFragment(transaction);    //隐藏所有的碎片
+                }
                 //判断碎片是否存在，存在则直接展示，不存在则新建实例后再展示
                 switch (checkedId){
                     case R.id.radio_button_main :
                         transaction.show(fragmentMain);
-                        break;
-                    case R.id.radio_button_add :
-;
-                        Intent intent = new Intent(MainActivity.this, AddActivity.class);
-                        startActivity(intent);
                         break;
                     case R.id.radio_button_my :
                         if (fragmentMy == null){
@@ -109,16 +110,13 @@ public class MainActivity extends AppCompatActivity {
                             transaction.show(fragmentMy);
                         }
                         break;
-                    case R.id.radio_button_shop :
+                    /*case R.id.radio_button_shop :
                         if (fragmentShop == null){
                             fragmentShop = new FragmentShop();
                             transaction.add(R.id.layout_frame_main,fragmentShop);
                         }else {
                             transaction.show(fragmentShop);
                         }
-                        //changeFragment(fragmentShop);
-//                        Intent intent2 = new Intent(MainActivity.this, ArticleActivity.class);
-//                        startActivity(intent2);
                         break;
                     case R.id.radio_button_message :
                         if (fragmentMessage == null){
@@ -127,32 +125,42 @@ public class MainActivity extends AppCompatActivity {
                         }else {
                             transaction.show(fragmentMessage);
                         }
-                        break;
+                        break;*/
 
                 }
                 //最后提交所有的修改
                 transaction.commit();
             }
         });
+
+
+        //给添加的图片设置监听打开添加活动
+        imageViewAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
     //设置底部导航栏的图标大小，传入两个参数，一个是图标id，一个是selector的id
-    private void setImgSize(int buttonId,int selectorId,int size){
+    private void setImgSize(int buttonId, int selectorId){
         RadioButton radioButton =findViewById(buttonId);
         //定义底部标签图片大小和位置
         Drawable drawable_news = getResources().getDrawable(selectorId);
         //当这个图片被绘制时，给他绑定一个矩形 ltrb规定这个矩形
-        drawable_news.setBounds(0, 0, size, size);
+        drawable_news.setBounds(0, 0, 55, 55);
         radioButton.setCompoundDrawables(null,drawable_news,null,null);
     }
 
     //隐藏所有的碎片
     private void hideFragment(FragmentTransaction transaction){
         if (fragmentMain!=null) transaction.hide(fragmentMain);
-        if (fragmentMessage!=null) transaction.hide(fragmentMessage);
+        //if (fragmentMessage!=null) transaction.hide(fragmentMessage);
         if (fragmentMy!=null) transaction.hide(fragmentMy);
-        if (fragmentShop!=null) transaction.hide(fragmentShop);
+        //if (fragmentShop!=null) transaction.hide(fragmentShop);
     }
 
 
@@ -193,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
+
 
 
 }

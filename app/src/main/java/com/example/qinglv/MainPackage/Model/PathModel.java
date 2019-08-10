@@ -6,6 +6,7 @@ import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
 import com.example.qinglv.MainPackage.iApiService.PathPreviewApiService;
+import com.example.qinglv.MainPackage.iApiService.PathSearchApiService;
 import com.example.qinglv.util.RetrofitManager;
 
 import java.util.ArrayList;
@@ -26,30 +27,58 @@ import static com.example.qinglv.util.StaticQuality.BASE_URL;
  */
 public class PathModel implements IModelPager<Path> {
 
+
+    @Override
+    public void getSearchData(String key, int firstNum, final int size, final CallBack<Path> callBack) {
+        RetrofitManager.getInstance().createRs(PathSearchApiService.class)
+                .getPath(key,firstNum,size)
+                .enqueue(new Callback<PreviewBean<Path>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<PreviewBean<Path>> call, @NonNull Response<PreviewBean<Path>> response) {
+                        if (response.body()!=null) {
+                            boolean isMore = true;
+                            List<Path> list = response.body().getMessage();
+                            if (list.size() < size || response.body().getResult().equals("noMore")) {
+                                isMore = false;
+                            }
+                            callBack.onSucceed(list, isMore);
+                        }else {
+                            callBack.onError("没有查询到相关内容");
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<PreviewBean<Path>> call, @NonNull Throwable t) {
+                        callBack.onError("好像出了点小问题");
+                    }
+                });
+    }
+
     //通过这个方法访问数据，并采用回调的方式在presenter中处理数据
     @Override
-    public void getData(int firstNum, int size, final CallBack<Path> callBack) {
+    public void getData(int firstNum, final int size, final CallBack<Path> callBack) {
 
         RetrofitManager.getInstance().createRs(PathPreviewApiService.class)
         .getPath(firstNum,size)
         .enqueue(new Callback<PreviewBean<Path>>() {
             @Override
             public void onResponse(@NonNull Call<PreviewBean<Path>> call, @NonNull Response<PreviewBean<Path>> response) {
-                List<Path> list;
-                boolean isMore;
-                if (response.body() != null) {
-                    isMore = response.body().getResult().equals("success");
-                    list = response.body().getMessage();
-                }else{
-                    isMore = true;
-                    list = new ArrayList<>();
+                if (response.body()!=null) {
+                    boolean isMore = true;
+                    List<Path> list = response.body().getMessage();
+                    if (list.size() < size || response.body().getResult().equals("noMore")) {
+                        isMore = false;
+                    }
+                    callBack.onSucceed(list, isMore);
+                }else {
+                    callBack.onError("好像出了点小问题");
                 }
-                callBack.onSucceed(list,isMore);
             }
 
             @Override
             public void onFailure(@NonNull Call<PreviewBean<Path>> call, @NonNull Throwable t) {
-                callBack.onError("访问服务器错误");
+                callBack.onError("好像出了点小问题");
             }
         });
         /*Observable<PreviewBean<Path>> observable =

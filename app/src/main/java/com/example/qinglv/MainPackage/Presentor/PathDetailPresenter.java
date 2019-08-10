@@ -2,28 +2,33 @@ package com.example.qinglv.MainPackage.Presentor;
 
 import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Model.PathDetailModel;
-import com.example.qinglv.MainPackage.Model.iModel.IModelPathDetail;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPathDetail;
-import com.example.qinglv.MainPackage.View.activity.IViewPathDetail;
+import com.example.qinglv.MainPackage.Model.iModel.IModelDetail;
+import com.example.qinglv.MainPackage.Presentor.iPresenter.BasePresenter;
+import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterDetail;
+import com.example.qinglv.MainPackage.View.activity.IViewDetail;
 
-public class PathDetailPresenter implements IPresenterPathDetail{
-    private IViewPathDetail iViewPathDetail;
-    private IModelPathDetail iModelPathDetail = new PathDetailModel();
+/**
+ * 路线详情页的presenter
+ */
+public class PathDetailPresenter extends BasePresenter<IViewDetail<Path>> implements IPresenterDetail {
+    private IModelDetail<Path> iModelDetail = new PathDetailModel();
 
-    public PathDetailPresenter(IViewPathDetail iViewPathDetail){
-        this.iViewPathDetail = iViewPathDetail;
-    }
+
     @Override
-    public void init(final int id) {
-        iModelPathDetail.getData(id, new IModelPathDetail.CallBack() {
+    public void init( int id) {
+        iModelDetail.getData(id, new IModelDetail.CallBack<Path>() {
             @Override
-            public void onSucceed(Path path) {
-                iViewPathDetail.setPath(path);
+            public void onSucceed(Path detail) {
+                if (isAttached()) {
+                    getView().setDetail(detail);
+                }
             }
 
             @Override
             public void onError(String errorType) {
-                iViewPathDetail.onError(errorType);
+                if (isAttached()) {
+                    getView().onError(errorType);
+                }
             }
         });
     }

@@ -11,11 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.qinglv.MainPackage.Entity.Travel;
-import com.example.qinglv.MainPackage.View.fragment.FragmentShareTravels;
 import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
 import com.example.qinglv.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
