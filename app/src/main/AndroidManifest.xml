@@ -28,12 +28,13 @@
 
         <activity android:name=".MainPackage.View.activity.CommentActivity"
             tools:ignore="InnerclassSeparator" />
+
+        <activity android:name=".AddPackage.view.activity.AddActivity"/>
         <activity
             android:name=".UserPackage.View.RegisterActivity"
+
             tools:ignore="InnerclassSeparator" />
-        <activity
-            android:name=".AddPackage.view.AddActivity"
-            tools:ignore="InnerclassSeparator" />
+
         <activity
             android:name=".UserPackage.View.LoginActivity"
             tools:ignore="InnerclassSeparator" />
@@ -54,6 +55,7 @@
         <activity
             android:name=".MainPackage.View.activity.TravelDetailActivity"
             tools:ignore="InnerclassSeparator" />
+        <activity android:name=".AddPackage.view.activity.NoteTypeActivity"/>
 
         <activity android:name=".UserPackage.View.ForgetActivity"
             tools:ignore="InnerclassSeparator" />

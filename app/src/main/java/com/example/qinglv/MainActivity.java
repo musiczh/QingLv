@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.qinglv.AddPackage.view.AddActivity;
+import com.example.qinglv.AddPackage.view.activity.AddActivity;
 
 import com.example.qinglv.MainPackage.View.fragment.FragmentMain;
 import com.example.qinglv.MessagePackage.FragmentMessage;

@@ -1,13 +1,13 @@
 package com.example.qinglv.AddPackage.iApiService;
 
 import com.example.qinglv.AddPackage.entity.NoteType;
-import com.example.qinglv.MainPackage.Entity.Food;
+
 import com.example.qinglv.MainPackage.bean.PreviewBean;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-
+import static com.example.qinglv.util.StaticQuality.NOTE_TYPE_URL;
 
 
 /**
@@ -16,7 +16,7 @@ import retrofit2.http.GET;
 
 public interface NoteTypeApiService {
 
-    @GET()
+    @GET(NOTE_TYPE_URL)
     Call<PreviewBean<NoteType>> getNoteType();
 
 }

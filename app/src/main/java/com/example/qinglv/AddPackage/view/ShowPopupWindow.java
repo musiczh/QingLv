@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 
 import com.example.qinglv.AddPackage.adapter.PhotoListAdapter;
+import com.example.qinglv.AddPackage.view.activity.AddActivity;
 import com.example.qinglv.R;
 
 import java.util.List;
