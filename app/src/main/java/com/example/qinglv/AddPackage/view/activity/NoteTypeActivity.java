@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.example.qinglv.AddPackage.presenter.NoteTypeBasePresenter;
@@ -51,7 +52,7 @@ public class NoteTypeActivity extends AppCompatActivity implements INoteTypeCont
 
     }
 
-
+    //recyclerView的点击事件
     @Override
     public void setList(final List<NoteType> list) {
         Log.d("mRecyclerView","是否为空"+mRecyclerView);
@@ -72,6 +73,17 @@ public class NoteTypeActivity extends AppCompatActivity implements INoteTypeCont
          }
      });
      mRecyclerView.setAdapter(adapter);
+    }
+
+
+    //返回时显示默认信息
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Intent intent = new Intent();
+        intent.putExtra("default","点击此处添加分类");
+        setResult(2,intent);
+        finish();
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

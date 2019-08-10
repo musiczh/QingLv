@@ -3,8 +3,10 @@ package com.example.qinglv.AddPackage.view.activity;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.StrictMode;
@@ -25,13 +27,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.qinglv.AddPackage.adapter.PhotoListAdapter;
+import com.example.qinglv.AddPackage.contract.ICommitNoteContract;
 import com.example.qinglv.AddPackage.entity.NoteType;
 import com.example.qinglv.AddPackage.presenter.CommitNoteBasePresenter;
 import com.example.qinglv.AddPackage.presenter.CommitNotePresenter;
 import com.example.qinglv.AddPackage.view.InitGalleryFinal;
+import com.example.qinglv.MainActivity;
 import com.example.qinglv.R;
 
 import java.io.File;
@@ -45,16 +50,15 @@ import java.util.Map;
 
 
 import cn.finalteam.galleryfinal.model.PhotoInfo;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 
-public class AddActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddActivity extends AppCompatActivity implements View.OnClickListener , ICommitNoteContract.IView {
 
     private static  final String TAG = "AddActivity";
-
-
     public static RecyclerView mRecyclerView;
 
     public static List<PhotoInfo> list =null;
@@ -136,15 +140,24 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mNoteType = data.getStringExtra("noteType");
-        mTabId = data.getIntExtra("tabId",1);
-        mNoteTypeTv.setText(mNoteType);
+        switch (resultCode){
+            case 0:
+                mNoteType = data.getStringExtra("noteType");
+                mTabId = data.getIntExtra("tabId",1);
+                mNoteTypeTv.setText(mNoteType);
+                break;
+            case 2:
+                String defaultTv = data.getStringExtra("default");
+                mNoteTypeTv.setText(defaultTv);
+        }
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.back_button:
+                //返回
                 finish();
                 break;
             case  R.id.note_type_textView:
@@ -155,104 +168,93 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 //提交游记
                 mTitle = mTitleEditText.getText().toString();
                 mContent = mContentEditText.getText().toString();
+
+                if(list!=null)
                 for (int i =0;i<list.size();i++){
                     File f = new File(list.get(i).getPhotoPath());
                     files.add(f);
                 }
                 //多文件上传的参数值
                 List<MultipartBody.Part> photos = new ArrayList<>();
-                photos = filesToMultipartBodyParts(files);
-
-
-
-                //给参数赋值
+                photos = filesToMultipartBodyParts(files,"photo");
+                //有照片时的参数
                 Map<String,RequestBody> params = new HashMap<>();
                 params.put("title",toRequestBody(mTitle));
                 params.put("content",toRequestBody(mContent));
                 params.put("id",toRequestBody(String.valueOf(mId)));
                 params.put("tabId",toRequestBody(String.valueOf(mTabId)));
 
+                //无照片时的参数
+                FormBody body = new FormBody.Builder()
+                        .add("id", String.valueOf(mId))
+                        .add("tabId", String.valueOf(mTabId))
+                        .add("content",mContent)
+                        .add("title",mTitle)
+                        .build();
                 presenter = new CommitNotePresenter();
-                ((CommitNotePresenter) presenter).commitNote(params,photos);
+                if(mTitle!=null&mContent!=null&mNoteType!=null)                //判断必要的参数是否填入
+                {
+                    if (list != null) {
+                        ((CommitNotePresenter) presenter).commitNote(body);
+                    } else {
+                        ((CommitNotePresenter) presenter).commitPhotoNote(params, photos);
+                    }
+                }else {
+                    Toast.makeText(AddActivity.this,"请填入必要的信息",Toast.LENGTH_LONG).show();
+                }
                 presenter.attachView(this);
-
-
-                Log.d("AddActivity","----"+mId+mTabId);
-                Log.d("id","------"+params.get("id"));
-                Log.d("tabId","------"+params.get("tabId").toString());
-                Log.d("photos","------"+photos.size());
-                Log.d("title","-------"+params.get("title"));
-                Log.d("content","-------"+mContent);
                 break;
         }
     }
 
 
-    //图片文件转为多文件上传参数的方法
-    public static List<MultipartBody.Part> filesToMultipartBodyParts(List<File> files) {
+    /**
+     * 将文件路径数组封装为{@link List<MultipartBody.Part>}
+     * @param files
+     * @param key  对应请求正文中name的值。目前服务器给出的接口中，所有图片文件使用<br>同一个name值，实际情况中有可能需要多个
+     * @return
+     */
+    public static List<MultipartBody.Part> filesToMultipartBodyParts(List<File> files,String key) {
         List<MultipartBody.Part> parts = new ArrayList<>(files.size());
         for (File file : files) {
             RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), file);
-            MultipartBody.Part part = MultipartBody.Part.createFormData("aFile", file.getName(), requestBody);
+            MultipartBody.Part part = MultipartBody.Part.createFormData(key, file.getName(), requestBody);
             parts.add(part);
         }
         return parts;
     }
 
-    //多参数+多文件上传key值转为参数的方法
+    //将参数封装成requestBody形式上传参数
     public static RequestBody toRequestBody(String value){
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),value);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"),value);
         return requestBody;
     }
 
 
-
-
-    public void  addParams(){
-
-        for (int i =0;i<list.size();i++){
-            File f = new File(list.get(i).getPhotoPath());
-            files.add(f);
-        }
-        //多文件上传的参数值
-        List<MultipartBody.Part> photos = new ArrayList<>();
-        photos = filesToMultipartBodyParts(files);
-
-
-
-        //给参数赋值
-        Map<String,RequestBody> params = new HashMap<>();
-        params.put("title",toRequestBody(mTitle));
-        params.put("content",toRequestBody(mContent));
-        params.put("id",toRequestBody(String.valueOf(mId)));
-        params.put("tabId",toRequestBody(String.valueOf(mTabId)));
-
-        for(int i =0;i<files.size();i++){
-
-            RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), files.get(i));
-            MultipartBody.Part part = MultipartBody.Part.createFormData("aFile", files.get(i).getName(), requestBody);
-
-
-        }
-
-
-        RequestBody body = new MultipartBody.Builder()
-                .addFormDataPart("id", String.valueOf(mId))
-                .addFormDataPart("tabId", String.valueOf(mTabId))
-                .addFormDataPart("title",mTitle)
-                .addFormDataPart("content",mContent)
-                .build();
-
-        presenter = new CommitNotePresenter();
-        ((CommitNotePresenter) presenter).commitNote(params,photos);
-        presenter.attachView(this);
-
-
-        Log.d("AddActivity","----"+mId+mTabId);
-        Log.d("id","------"+params.get("id"));
-        Log.d("tabId","------"+params.get("tabId").toString());
-        Log.d("photos","------"+photos.size());
-        Log.d("title","-------"+params.get("title"));
-        Log.d("content","-------"+mContent);
+    @Override
+    public void setErrorToast(String string) {
+        Toast.makeText(AddActivity.this,string,Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void onSuccess() {
+        dialogBox();
+    }
+
+    //弹出对话框
+    private void dialogBox() {
+        AlertDialog.Builder bb = new AlertDialog.Builder(this);
+        bb.setMessage("笔记已成功发布");
+        bb.setTitle("提示");
+        bb.setCancelable(true);
+        bb.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        bb.show();
+    }
+
 }

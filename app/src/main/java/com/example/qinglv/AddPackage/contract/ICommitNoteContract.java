@@ -13,7 +13,7 @@ import okhttp3.RequestBody;
 public class ICommitNoteContract {
 
   public   interface IView<T> {
-        void commitNote(Map<String, RequestBody> params,List<MultipartBody.Part> files);
+
         void setErrorToast(String string);
         void onSuccess();
     }
@@ -21,11 +21,13 @@ public class ICommitNoteContract {
         //view层调用
         void onSuccess();
         void setErrorToast(String string);
-        //model层调用
-        void commitNote(Map<String, RequestBody> params,List<MultipartBody.Part>  files);
+        //model层调用,
+        void commitPhotoNote(Map<String, RequestBody> params,List<MultipartBody.Part>  files);
+      void commitNote(RequestBody body);
     }
     public interface IModel {
-        void commitNote(Map<String, RequestBody> params, List<MultipartBody.Part> files);
+        void commitPhotoNote(Map<String, RequestBody> params, List<MultipartBody.Part> files);
+        void commitNote(RequestBody body);
 
     }
 }
