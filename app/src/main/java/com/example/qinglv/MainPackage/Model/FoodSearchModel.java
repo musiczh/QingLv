@@ -3,10 +3,10 @@ package com.example.qinglv.MainPackage.Model;
 import android.support.annotation.NonNull;
 
 import com.example.qinglv.MainPackage.Entity.Food;
-import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
-import com.example.qinglv.MainPackage.Model.iModel.IModelSearch;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
-import com.example.qinglv.MainPackage.iApiService.FoodSearchApiService;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IModelPager;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IModelSearch;
+import com.example.qinglv.MainPackage.inter.iApiService.FoodSearchApiService;
 import com.example.qinglv.util.RetrofitManager;
 
 import java.util.List;

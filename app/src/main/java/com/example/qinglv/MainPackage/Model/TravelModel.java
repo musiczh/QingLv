@@ -2,12 +2,11 @@ package com.example.qinglv.MainPackage.Model;
 
 import android.support.annotation.NonNull;
 
-import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.MainPackage.Entity.Travel;
-import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IModelPager;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
-import com.example.qinglv.MainPackage.iApiService.TravelPreviewApiService;
-import com.example.qinglv.MainPackage.iApiService.TravelSearchApiService;
+import com.example.qinglv.MainPackage.inter.iApiService.TravelPreviewApiService;
+import com.example.qinglv.MainPackage.inter.iApiService.TravelSearchApiService;
 import com.example.qinglv.util.RetrofitManager;
 import java.util.List;
 import retrofit2.Call;

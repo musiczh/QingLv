@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.qinglv.MainPackage.Entity.Path;
-import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
+import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerClickCallback;
 import com.example.qinglv.R;
 import java.util.List;
 

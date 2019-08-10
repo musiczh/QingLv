@@ -14,7 +14,8 @@ import com.example.qinglv.AddPackage.adapter.NoteTypeAdapter;
 import com.example.qinglv.AddPackage.contract.INoteTypeContract;
 import com.example.qinglv.AddPackage.entity.NoteType;
 import com.example.qinglv.AddPackage.presenter.NoteTypePresenter;
-import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
+
+import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerClickCallback;
 import com.example.qinglv.R;
 
 import java.util.ArrayList;

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * 1.viewPager对应碎片的适配器
+ * 1.首页viewPager对应碎片的适配器
  * 2.主要增加对应TabLayout标题
  * 3.构造器传入三个参数，FragmentManager，fragmentList，和String[],最后一个参数是标题栏的名字
  */

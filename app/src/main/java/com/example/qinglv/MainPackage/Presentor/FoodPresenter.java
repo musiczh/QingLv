@@ -2,10 +2,10 @@ package com.example.qinglv.MainPackage.Presentor;
 
 import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Model.FoodModel;
-import com.example.qinglv.MainPackage.Model.iModel.IModelPager;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.BasePresenter;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
-import com.example.qinglv.MainPackage.View.iView.IViewPreview;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IModelPager;
+import com.example.qinglv.MainPackage.inter.iApiMvp.BasePresenter;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterPager;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IViewPreview;
 
 import java.util.List;
 
