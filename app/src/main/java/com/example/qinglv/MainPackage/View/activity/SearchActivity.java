@@ -16,7 +16,7 @@ import com.example.qinglv.MainPackage.View.fragment.FragmentShareFood;
 import com.example.qinglv.MainPackage.View.fragment.FragmentSharePath;
 import com.example.qinglv.MainPackage.View.fragment.FragmentShareScenic;
 import com.example.qinglv.MainPackage.View.fragment.FragmentShareTravel;
-import com.example.qinglv.MainPackage.View.iView.IViewPreview;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IViewPreview;
 import com.example.qinglv.R;
 
 import java.util.Objects;

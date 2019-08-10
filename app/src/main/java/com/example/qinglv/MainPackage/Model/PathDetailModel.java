@@ -3,9 +3,9 @@ package com.example.qinglv.MainPackage.Model;
 import android.support.annotation.NonNull;
 
 import com.example.qinglv.MainPackage.Entity.Path;
-import com.example.qinglv.MainPackage.Model.iModel.IModelDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IModelDetail;
 import com.example.qinglv.MainPackage.bean.DetailBean;
-import com.example.qinglv.MainPackage.iApiService.PathDetailApiService;
+import com.example.qinglv.MainPackage.inter.iApiService.PathDetailApiService;
 import com.example.qinglv.util.RetrofitManager;
 
 import retrofit2.Call;
@@ -22,7 +22,6 @@ public class PathDetailModel implements IModelDetail<Path> {
                     public void onResponse(@NonNull Call<DetailBean<Path>> call,
                                            @NonNull Response<DetailBean<Path>> response) {
                         if (response.body() != null) {
-                            Path path = response.body().getMessage();
                             callBack.onSucceed(response.body().getMessage());
                         }else{
                             callBack.onError("好像出了一点小问题");

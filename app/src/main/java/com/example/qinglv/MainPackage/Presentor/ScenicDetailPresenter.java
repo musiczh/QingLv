@@ -2,10 +2,10 @@ package com.example.qinglv.MainPackage.Presentor;
 
 import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.MainPackage.Model.ScenicDetailModel;
-import com.example.qinglv.MainPackage.Model.iModel.IModelDetail;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.BasePresenter;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterDetail;
-import com.example.qinglv.MainPackage.View.activity.IViewDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IModelDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.BasePresenter;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IViewDetail;
 
 /**
  * 风景详情页的presenter

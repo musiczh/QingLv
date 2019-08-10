@@ -25,6 +25,9 @@ public class StaticQuality {
     //游记的附加网址
     public static final String TRAVEL_PREVIEW_URL= "travel/preview";
 
+    //游记的详情附加地址
+    public static final String TRAVEL_DETAIL_URL= "travel/detail/{id}";
+
     //游记搜索的附加地址
     public static final String TRAVEL_SEARCH_URL= "search/travel";
 
@@ -43,5 +46,8 @@ public class StaticQuality {
 
     //风景搜索的附加地址
     public static final String SCENIC_SEARCH_URL= "search/scenic";
+
+    //图片前缀
+    public static final String PREFIX_IMAGE = "http://47.112.212.177/requireImage/";
 
 }

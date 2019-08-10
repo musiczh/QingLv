@@ -14,20 +14,21 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.qinglv.MainActivity;
-import com.example.qinglv.MainPackage.Presentor.FoodPresenter;
 import com.example.qinglv.MainPackage.View.activity.SearchActivity;
 import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Adapter.TravelAdapter;
 import com.example.qinglv.MainPackage.Entity.Travel;
 import com.example.qinglv.MainPackage.Presentor.TravelPresenter;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterPager;
 import com.example.qinglv.MainPackage.View.activity.TravelDetailActivity;
-import com.example.qinglv.MainPackage.View.iView.IViewPreview;
-import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IViewPreview;
+import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerClickCallback;
 import com.example.qinglv.util.NewRecyclerScrollListener;
 import com.example.qinglv.R;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.qinglv.util.StaticQuality.PREFIX_IMAGE;
 
 /**
  * 游记预览展示那一页的碎片
@@ -45,7 +46,7 @@ public class FragmentShareTravel extends Fragment implements IViewPreview<Travel
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pager,container,false);
         iPresenterPager = new TravelPresenter();//建立presenter的实例
         ((TravelPresenter) iPresenterPager).attachView(this);//建立与presenter的关联
@@ -59,6 +60,11 @@ public class FragmentShareTravel extends Fragment implements IViewPreview<Travel
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(getContext(), TravelDetailActivity.class);
+                Travel travel = mList.get(position);
+                intent.putExtra("nickName",travel.getNickName());
+                intent.putExtra("headPortrait",PREFIX_IMAGE+ travel.getHeadPortrait());
+                intent.putExtra("tittle",travel.getTitle());
+                intent.putExtra("id",travel.getId());
                 startActivity(intent);
             }
 
