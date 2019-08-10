@@ -44,7 +44,7 @@
             android:contentDescription="@string/no_picture"
             app:layout_constraintBottom_toTopOf="@+id/textView_item_scenic_location"
             app:layout_constraintStart_toEndOf="@+id/imageView_item_scenic_preview"
-            app:srcCompat="@drawable/img_comment" />
+            app:srcCompat="@drawable/img_comment_button" />
 
         <TextView
             android:id="@+id/textView_item_scenic_comment"

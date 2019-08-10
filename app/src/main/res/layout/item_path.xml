@@ -47,7 +47,7 @@
             android:contentDescription="@string/no_picture"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView_item_path_preview"
-            app:srcCompat="@drawable/img_comment" />
+            app:srcCompat="@drawable/img_comment_button" />
 
         <TextView
             android:id="@+id/textView_item_path_comment"

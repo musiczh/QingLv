@@ -18,7 +18,7 @@
         android:layout_marginBottom="35dp"
         android:backgroundTint="#e74b37"
         android:clickable="true"
-        app:srcCompat="@drawable/img_comment"
+        app:srcCompat="@drawable/img_comment_button"
         app:fabSize="mini"
         android:layout_marginEnd="35dp" />
 
