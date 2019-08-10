@@ -22,7 +22,6 @@ public class PathDetailModel implements IModelDetail<Path> {
                     public void onResponse(@NonNull Call<DetailBean<Path>> call,
                                            @NonNull Response<DetailBean<Path>> response) {
                         if (response.body() != null) {
-                            Path path = response.body().getMessage();
                             callBack.onSucceed(response.body().getMessage());
                         }else{
                             callBack.onError("好像出了一点小问题");

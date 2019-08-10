@@ -16,6 +16,8 @@ import com.example.qinglv.R;
 
 import java.util.List;
 
+import static com.example.qinglv.util.StaticQuality.PREFIX_IMAGE;
+
 /**
  * 游记预览页recyclerView的适配器
  */
@@ -82,7 +84,7 @@ public class TravelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             String s = strings.get(0);
             Glide.with(context).load(s).into(travelViewHolder.previewImage);
         }
-        Glide.with(context).load(travel.getHeadPortrait()).into(travelViewHolder.userHeadImage);
+        Glide.with(context).load(PREFIX_IMAGE+travel.getHeadPortrait()).into(travelViewHolder.userHeadImage);
     }
 
     //获得一共有几项

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -47,6 +48,7 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_scenic);
+        final Intent intent = getIntent();
 
 
         //控件属性初始化
@@ -58,12 +60,23 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
         textViewTime = findViewById(R.id.textView_scenic_detail_time);
         progressBar = findViewById(R.id.progressBar_scenic_detail);
 
+
         //设置支持http协议图片混合的数据
         supportHttpMix(webViewContent);
         supportHttpMix(webViewTraffic);
 
+        //悬浮按钮设置监听
+        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton_detail_scenic);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(ScenicDetailActivity.this,CommentActivity.class);
+                intent1.putExtra("id",intent.getIntExtra("id",1));
+                startActivity(intent1);
+            }
+        });
+
         //刷新数据
-        Intent intent = getIntent();
         iPresenterDetail = new ScenicDetailPresenter();
         ((ScenicDetailPresenter) iPresenterDetail).attachView(this);
         iPresenterDetail.init(intent.getIntExtra("id",1));

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -64,7 +65,20 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
         //coordinatorLayout.setVisibility(View.GONE);
 
 
-        Intent intent = getIntent();//获取intent中的id
+        final Intent intent = getIntent();//获取intent
+
+        //悬浮按钮设置监听
+        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton_detail_path);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(PathDetailActivity.this,CommentActivity.class);
+                intent1.putExtra("id",intent.getIntExtra("id",1));
+                startActivity(intent1);
+            }
+        });
+
+        //初始化数据
         iPresenterDetail = new PathDetailPresenter();
         ((PathDetailPresenter) iPresenterDetail).attachView(this);
         iPresenterDetail.init(intent.getIntExtra("id",1));

@@ -16,5 +16,5 @@ public interface PathDetailApiService {
 
     //这里需要一个参数，也是路线的id
     @GET(PATH_DETAIL_URL)
-    Call<DetailBean<Path>> getPath(@Query("id")int size);
+    Call<DetailBean<Path>> getPath(@Query("id")int id);
 }
