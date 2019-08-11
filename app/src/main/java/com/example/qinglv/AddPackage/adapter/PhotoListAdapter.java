@@ -83,29 +83,27 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
                 });
 
             } else {
-                Log.d("向下转型", "失败");
+
             }
-            Log.d("底部View", "viewHolder instanceof FooterViewHolder----" + i);
+
         } else {
             final ViewHolder holder = (ViewHolder) viewHolder;
             DisplayImageOptions options = new DisplayImageOptions.Builder().build();
             PhotoInfo photoInfo = mList.get(i);
             ImageLoader.getInstance().displayImage("file:/" + photoInfo.getPhotoPath(), ivPhoto, options);
-            Log.d("适配器", "imageView" + i + "-----------------" + photoInfo.getPhotoPath() + "-------------------");
 
-
+              //单击事件
                holder.imageView.setOnClickListener(new View.OnClickListener(){
                    @Override
                    public void onClick(View v) {
-                       Log.d("点击事件","已点击"+i);
-//                       mOnItemClickListener.onClick(holder.imageView,i);
+                       mOnItemClickListener.onClick(holder.imageView,i);
                    }
                });
+               //长按事件
                holder.imageView.setOnLongClickListener(new View.OnLongClickListener() {
                    @Override
                    public boolean onLongClick(View v) {
-
-                       Log.d("长按事件","已长按"+i);
+                       mOnItemLongClickListener.onLongClick(holder.imageView,i);
                        return false;
                    }
                });
@@ -187,6 +185,14 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
     //长按事件接口
     public  interface OnItemLongClickListener{
         boolean onLongClick(View parent,int position);
+    }
+
+
+    //删除条目
+    public void removeList(int position){
+        mList.remove(position);//删除数据源,移除集合中当前下标的数据
+        notifyItemRemoved(position);//刷新被删除的地方
+        notifyItemRangeChanged(position, getItemCount()); //刷新被删除数据，以及其后面的数据
     }
 
 

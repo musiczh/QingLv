@@ -45,9 +45,9 @@ public class InitGalleryFinal {
                 .setEnableCrop(true)
                 .setEnableRotate(true)
                 .setCropSquare(true)
-                .setEnablePreview(true)
+                .setEnablePreview(false)
                 .setForceCropEdit(true)
-                .setMutiSelectMaxSize(18)
+                .setMutiSelectMaxSize(9)
                 .build();
         initImageLoader(context);
         //配置imageloader

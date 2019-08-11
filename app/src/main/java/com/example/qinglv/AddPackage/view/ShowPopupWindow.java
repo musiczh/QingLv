@@ -37,8 +37,8 @@ public class ShowPopupWindow implements View.OnClickListener {
     TextView photographTv;
     TextView cancelTv;
     PopupWindow mPopWindow;
-    private static  final int REQUEST_CODE_GALLERY = 1;  //打开相册
-    private static  final int REQUEST_CODE_CAMERA = 2;    //使用拍照
+    private static  final int REQUEST_CODE_GALLERY = 1001;  //打开相册
+    private static  final int REQUEST_CODE_CAMERA = 1002;    //使用拍照
 
 
 
@@ -71,15 +71,15 @@ public class ShowPopupWindow implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Activity currentActivity = AddActivity.getCurrentActivity();
 
         switch (v.getId()) {
 
             case R.id.pop_photo:
-                Activity currentActivity = AddActivity.getCurrentActivity();
                 if (ContextCompat.checkSelfPermission(v.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     //没有权限就申请
                     ActivityCompat.requestPermissions(currentActivity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                    Toast.makeText(AddActivity.mContext,"请打开权限后再试",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddActivity.mContext,"请打开权限后再试",Toast.LENGTH_SHORT).show();
                     mPopWindow.dismiss();
                 } else {
                     //有权限就打开相册
@@ -89,10 +89,15 @@ public class ShowPopupWindow implements View.OnClickListener {
                 }
                 break;
             case R.id.pop_photograph:
-                //拍照
-                GalleryFinal.openCamera(REQUEST_CODE_CAMERA,InitGalleryFinal.functionConfig, mOnHanlderResultCallback);
-                mPopWindow.dismiss();
-
+                if (PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(v.getContext(), android.Manifest.permission.CAMERA)) {
+                    GalleryFinal.openCamera(REQUEST_CODE_CAMERA, InitGalleryFinal.functionConfig, mOnHanlderResultCallback);
+                    mPopWindow.dismiss();
+                } else {
+                    //提示用户开户权限 拍照和读写sd卡权限
+                    String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+                    ActivityCompat.requestPermissions(currentActivity, perms, 0);
+                    mPopWindow.dismiss();
+                }
                 break;
             case R.id.pop_cancel:
                 //取消
@@ -104,7 +109,7 @@ public class ShowPopupWindow implements View.OnClickListener {
         /**
          * 选择图片结果回调
          */
-        public  GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback = new GalleryFinal.OnHanlderResultCallback() {
+        public static GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback = new GalleryFinal.OnHanlderResultCallback() {
             @Override
             public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
                 Activity currentActivity = AddActivity.getCurrentActivity();
@@ -116,7 +121,11 @@ public class ShowPopupWindow implements View.OnClickListener {
                         AddActivity.mRecyclerView.setAdapter(adapter);
                     }else if(reqeustCode == REQUEST_CODE_CAMERA){
                         Log.d("showPopupWindow","打开相机后回调");
+                        AddActivity.list=resultList;
+                        PhotoListAdapter adapter = new PhotoListAdapter(currentActivity,resultList);
+                        AddActivity.mRecyclerView.setAdapter(adapter);
                     }
+
                 }
             }
 
@@ -126,5 +135,7 @@ public class ShowPopupWindow implements View.OnClickListener {
                 Log.d("showPopupWindow","errorMsg"+errorMsg);
             }
         };
+
+
 
     }
