@@ -55,4 +55,13 @@ public class StaticQuality {
     //图片前缀
     public static final String PREFIX_IMAGE = "http://47.112.212.177/requireImage/";
 
+    //景点评论的附加地址
+    public static final String SCENIC_COMMENT_URL = "comment/scenic";
+
+    //路线评论的附加地址
+    public static final String PATH_COMMENT_URL = "comment/path";
+
+    //游记评论的附加地址
+    public static final String TRAVEL_COMMENT_URL = "comment/travel";
+
 }

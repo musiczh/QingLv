@@ -72,6 +72,8 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
             public void onClick(View v) {
                 Intent intent1 = new Intent(ScenicDetailActivity.this,CommentActivity.class);
                 intent1.putExtra("id",intent.getIntExtra("id",1));
+                intent1.putExtra("articleType",CommentActivity.SCENIC);
+
                 startActivity(intent1);
             }
         });

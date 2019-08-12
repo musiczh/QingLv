@@ -74,6 +74,7 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
             public void onClick(View v) {
                 Intent intent1 = new Intent(PathDetailActivity.this,CommentActivity.class);
                 intent1.putExtra("id",intent.getIntExtra("id",1));
+                intent1.putExtra("articleType",CommentActivity.PATH);
                 startActivity(intent1);
             }
         });

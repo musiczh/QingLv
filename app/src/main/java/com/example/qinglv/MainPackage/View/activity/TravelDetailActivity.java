@@ -63,6 +63,8 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
             public void onClick(View v) {
                 Intent intent1 = new Intent(TravelDetailActivity.this,CommentActivity.class);
                 intent1.putExtra("id",intent.getIntExtra("id",1));
+                intent1.putExtra("articleType",CommentActivity.TRAVEL);
+
                 startActivity(intent1);
             }
         });
