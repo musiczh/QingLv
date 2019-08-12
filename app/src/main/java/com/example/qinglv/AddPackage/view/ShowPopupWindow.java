@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.qinglv.AddPackage.adapter.PhotoListAdapter;
 import com.example.qinglv.AddPackage.view.activity.AddActivity;
+import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerClickCallback;
 import com.example.qinglv.R;
 
 import java.util.List;
@@ -117,12 +118,12 @@ public class ShowPopupWindow implements View.OnClickListener {
                     if(reqeustCode == REQUEST_CODE_GALLERY){
                         Log.d("showPopupWindow","打开相册后回调"+resultList.size());
                         AddActivity.list=resultList;
-                        PhotoListAdapter adapter = new PhotoListAdapter(currentActivity,resultList);
+                        PhotoListAdapter adapter = new PhotoListAdapter(currentActivity, resultList);
                         AddActivity.mRecyclerView.setAdapter(adapter);
                     }else if(reqeustCode == REQUEST_CODE_CAMERA){
                         Log.d("showPopupWindow","打开相机后回调");
                         AddActivity.list=resultList;
-                        PhotoListAdapter adapter = new PhotoListAdapter(currentActivity,resultList);
+                        PhotoListAdapter adapter = new PhotoListAdapter(currentActivity, resultList);
                         AddActivity.mRecyclerView.setAdapter(adapter);
                     }
 

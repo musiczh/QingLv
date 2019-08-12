@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/iv_photo"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="4dp"
-    android:scaleType="centerInside"
-    android:src="@drawable/ic_gf_default_photo"
-    />
+    >
 
+  <ImageView
+      android:id="@+id/item_photo_iv"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginLeft="4dp"
+
+      android:layout_marginRight="4dp"
+      android:layout_marginBottom="8dp"
+      android:background="#FFFAF0"
+      android:scaleType="centerInside"
+      android:src="@drawable/ic_gf_default_photo"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="MissingConstraints" />
+
+  <ImageButton
+      android:id="@+id/item_delete_photo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="#FFFAF0"
+      android:visibility="gone"
+      android:src="@drawable/delete_photo" />
+</LinearLayout>

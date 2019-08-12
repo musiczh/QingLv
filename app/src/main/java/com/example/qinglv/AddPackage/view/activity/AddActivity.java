@@ -38,6 +38,7 @@ import com.example.qinglv.AddPackage.presenter.CommitNoteBasePresenter;
 import com.example.qinglv.AddPackage.presenter.CommitNotePresenter;
 import com.example.qinglv.AddPackage.view.InitGalleryFinal;
 import com.example.qinglv.MainActivity;
+import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerClickCallback;
 import com.example.qinglv.R;
 
 import java.io.File;
@@ -133,7 +134,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         //初始化图片选择器
         InitGalleryFinal.initGalleryFinal(this);
         //初始化RecyclerView
-        PhotoListAdapter adapter = new PhotoListAdapter(AddActivity.this,list);
+        PhotoListAdapter adapter = new PhotoListAdapter(AddActivity.this, list);
         mRecyclerView.setAdapter(adapter);
 
     }
@@ -199,11 +200,11 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 presenter = new CommitNotePresenter();
                 if(mTitle!=null&mContent!=null&mNoteType!=null)                //判断必要的参数是否填入
                 {
-                    if (list != null) {
-                        ((CommitNotePresenter) presenter).commitNote(body);
-                    } else {
+//                    if (list != null) {
+//                        ((CommitNotePresenter) presenter).commitNote(body);
+//                    } else {
                         ((CommitNotePresenter) presenter).commitPhotoNote(params, photos);
-                    }
+//                    }
                 }else {
                     Toast.makeText(AddActivity.this,"请填入必要的信息",Toast.LENGTH_LONG).show();
                 }
@@ -279,7 +280,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 break;
             case 0:
                 GalleryFinal.openCamera(1002, InitGalleryFinal.functionConfig, mOnHanlderResultCallback);
-
                 break;
         }
 
