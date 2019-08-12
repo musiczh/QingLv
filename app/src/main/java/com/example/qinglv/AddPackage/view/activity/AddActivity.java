@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 
@@ -49,11 +50,14 @@ import java.util.List;
 import java.util.Map;
 
 
+import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+
+import static com.example.qinglv.AddPackage.view.ShowPopupWindow.mOnHanlderResultCallback;
 
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener , ICommitNoteContract.IView {
@@ -158,6 +162,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         switch (v.getId()){
             case R.id.back_button:
                 //返回
+                list =null;
                 finish();
                 break;
             case  R.id.note_type_textView:
@@ -207,6 +212,12 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    //重写返回，清空照片
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        list = null;
+        return super.onKeyDown(keyCode, event);
+    }
 
     /**
      * 将文件路径数组封装为{@link List<MultipartBody.Part>}
@@ -250,6 +261,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         bb.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                list = null;
                 finish();
             }
         });
@@ -257,4 +269,19 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         bb.show();
     }
 
+    //权限申请后的处理
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 1:
+                GalleryFinal.openGalleryMuti(1001, InitGalleryFinal.functionConfig, mOnHanlderResultCallback);
+                break;
+            case 0:
+                GalleryFinal.openCamera(1002, InitGalleryFinal.functionConfig, mOnHanlderResultCallback);
+
+                break;
+        }
+
+    }
 }

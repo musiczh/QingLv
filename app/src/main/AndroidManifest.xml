@@ -29,7 +29,9 @@
         <activity android:name=".MainPackage.View.activity.CommentActivity"
             tools:ignore="InnerclassSeparator" />
 
-        <activity android:name=".AddPackage.view.activity.AddActivity"/>
+        <activity android:name=".AddPackage.view.activity.AddActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
         <activity
             android:name=".UserPackage.View.RegisterActivity"
 
