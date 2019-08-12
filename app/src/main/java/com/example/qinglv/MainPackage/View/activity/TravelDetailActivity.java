@@ -99,10 +99,11 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
     public void setDetail(TravelDetail travelDetail) {
         textViewTime.setText(travelDetail.getPublishedTime());
         textViewContent.setText(travelDetail.getContent());
-        ViewPagerAdapterImage viewPagerAdapterImage = new ViewPagerAdapterImage(travelDetail.getPhoto(),
-                this);
-        viewPager.setAdapter(viewPagerAdapterImage);
-
+        if (travelDetail.getPhoto()!=null) {
+            ViewPagerAdapterImage viewPagerAdapterImage = new ViewPagerAdapterImage(travelDetail.getPhoto(),
+                    this);
+            viewPager.setAdapter(viewPagerAdapterImage);
+        }
         if (progressBar.getVisibility() != View.GONE){
             progressBar.setVisibility(View.GONE);
         }
