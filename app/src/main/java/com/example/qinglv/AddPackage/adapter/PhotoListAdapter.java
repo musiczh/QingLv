@@ -17,23 +17,27 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.qinglv.AddPackage.view.ShowEditPhotoPopupWindow;
 import com.example.qinglv.AddPackage.view.activity.AddActivity;
+import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerClickCallback;
 import com.example.qinglv.R;
-import com.example.qinglv.AddPackage.view.ShowPopupWindow;
+import com.example.qinglv.AddPackage.view.ShowPhotoPopupWindow;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 
-import java.util.HashMap;
 import java.util.List;
 
+import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
+
+
 
 /**
  * 相册选择显示的RecyclerView的适配器
  */
 
-public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private static final int ITEM_TYPE_CONTRNT = 1001;
@@ -42,6 +46,8 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
     private ImageView ivPhoto;
     private List<PhotoInfo> mList;
     private LayoutInflater mInflater;
+    private boolean isShow;
+    private RecyclerClickCallback mCallback;
 
 
 
@@ -49,6 +55,7 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
     public PhotoListAdapter(Activity activity, List<PhotoInfo> list) {
         this.mList = list;
         this.mInflater = LayoutInflater.from(activity);
+
     }
 
     @SuppressLint("ResourceType")
@@ -66,6 +73,8 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
             holder = new ViewHolder(view);
             setHeight(((ViewHolder) holder).imageView);
         }
+
+
         return holder;
     }
 
@@ -73,7 +82,7 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
     //将数据与界面绑定的操作
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
-        Log.d("测试", "i=" + i + "------" + isBottomView(i));
+
         if (isBottomView(i)) {       //判断是否是最后一个item
             if (viewHolder instanceof FooterViewHolder) {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
@@ -82,7 +91,7 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
                     public void onClick(View v) {
                         //弹出拍照选项
                         Log.d("footerViewHolder的点击事件","已点击");
-                       new ShowPopupWindow().showPopupWindow(AddActivity.mContext);
+                       new ShowPhotoPopupWindow().showPopupWindow(AddActivity.mContext);
                     }
                 });
             }
@@ -96,24 +105,22 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
                holder.imageView.setOnClickListener(new View.OnClickListener(){
                    @Override
                    public void onClick(View v) {
+                       Activity currentActivity = AddActivity.getCurrentActivity();
+                       new ShowEditPhotoPopupWindow().showPopupWindow(currentActivity, i, mList, new RecyclerClickCallback() {
+                           @Override
+                           public void onClick(int position) {
+                               removeList(i);
+                           }
 
+                           @Override
+                           public void onLongClick() {
+
+                           }
+                       });
                    }
                });
-               //长按事件
-               holder.imageView.setOnLongClickListener(new View.OnLongClickListener() {
-                   @Override
-                   public boolean onLongClick(View v) {
-                       holder.deletePhotoBtn.setVisibility(View.VISIBLE);
-                       return true;
-                   }
-               });
-               //删除图片
-            holder.deletePhotoBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    removeList(i);
-                }
-            });
+
+
         }
     }
 
@@ -134,13 +141,13 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     //自定义ViewHolder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-       static   ImageView imageView;
-        static ImageButton deletePhotoBtn;
+    public  class ViewHolder extends RecyclerView.ViewHolder {
+          ImageView imageView;
+
         public ViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.item_photo_iv);
-            deletePhotoBtn = itemView.findViewById(R.id.item_delete_photo);
+
         }
     }
 
@@ -195,6 +202,12 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
         mList.remove(position);//删除数据源,移除集合中当前下标的数据
         notifyItemRemoved(position);//刷新被删除的地方
         notifyItemRangeChanged(position, getItemCount()); //刷新被删除数据，以及其后面的数据
+    }
+
+    //改变显示删除的imageview，通过定义变量isShow去接收变量isDelete
+    public void changetShowDelImage(boolean isShow) {
+        this.isShow = isShow;
+        notifyDataSetChanged();
     }
 }
 

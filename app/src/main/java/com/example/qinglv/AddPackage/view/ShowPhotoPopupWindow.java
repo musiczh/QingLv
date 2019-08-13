@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.example.qinglv.AddPackage.adapter.PhotoListAdapter;
 import com.example.qinglv.AddPackage.view.activity.AddActivity;
-import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerClickCallback;
 import com.example.qinglv.R;
 
 import java.util.List;
@@ -29,18 +28,22 @@ import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 
 /**
- * 用于弹窗拍照的工具类
+ * 用于弹窗拍照的封装类
  */
 
-public class ShowPopupWindow implements View.OnClickListener {
+public class ShowPhotoPopupWindow implements View.OnClickListener {
 
-    TextView photoTv;
-    TextView photographTv;
-    TextView cancelTv;
-    PopupWindow mPopWindow;
+   private TextView photoTv;
+   private TextView photographTv;
+   private TextView cancelTv;
+   private PopupWindow mPopWindow;
     private static  final int REQUEST_CODE_GALLERY = 1001;  //打开相册
     private static  final int REQUEST_CODE_CAMERA = 1002;    //使用拍照
-
+    private static final int REQUEST_CODE_EDIT = 1005;
+    private static List<PhotoInfo> albumList;
+    private static List<PhotoInfo> photoList;
+    private static List<PhotoInfo> editList;
+    private static List<PhotoInfo> myList;
 
 
     //弹出菜单选项
@@ -52,8 +55,8 @@ public class ShowPopupWindow implements View.OnClickListener {
                 ConstraintLayout.LayoutParams.WRAP_CONTENT,true);
         mPopWindow.setContentView(contentView);
         //设置各个控件的点击事件
-        photoTv = contentView.findViewById(R.id.pop_photo);
-        photographTv = contentView.findViewById(R.id.pop_photograph);
+        photoTv = contentView.findViewById(R.id.pop_delete);
+        photographTv = contentView.findViewById(R.id.pop_edit);
         cancelTv = contentView.findViewById(R.id.pop_cancel);
         photoTv.setOnClickListener(this);
         photographTv.setOnClickListener(this);
@@ -76,7 +79,7 @@ public class ShowPopupWindow implements View.OnClickListener {
 
         switch (v.getId()) {
 
-            case R.id.pop_photo:
+            case R.id.pop_delete:
                 if (ContextCompat.checkSelfPermission(v.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     //没有权限就申请
                     ActivityCompat.requestPermissions(currentActivity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -89,7 +92,7 @@ public class ShowPopupWindow implements View.OnClickListener {
 
                 }
                 break;
-            case R.id.pop_photograph:
+            case R.id.pop_edit:
                 if (PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(v.getContext(), android.Manifest.permission.CAMERA)) {
                     GalleryFinal.openCamera(REQUEST_CODE_CAMERA, InitGalleryFinal.functionConfig, mOnHanlderResultCallback);
                     mPopWindow.dismiss();
@@ -114,18 +117,25 @@ public class ShowPopupWindow implements View.OnClickListener {
             @Override
             public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
                 Activity currentActivity = AddActivity.getCurrentActivity();
-                if(resultList!=null){
-                    if(reqeustCode == REQUEST_CODE_GALLERY){
-                        Log.d("showPopupWindow","打开相册后回调"+resultList.size());
-                        AddActivity.list=resultList;
+                if(resultList!=null) {
+                    if (reqeustCode == REQUEST_CODE_GALLERY) {         //打开相册回调
+//                        AddActivity.list = resultList;
+                        albumList = resultList;
                         PhotoListAdapter adapter = new PhotoListAdapter(currentActivity, resultList);
                         AddActivity.mRecyclerView.setAdapter(adapter);
-                    }else if(reqeustCode == REQUEST_CODE_CAMERA){
-                        Log.d("showPopupWindow","打开相机后回调");
-                        AddActivity.list=resultList;
-                        PhotoListAdapter adapter = new PhotoListAdapter(currentActivity, resultList);
-                        AddActivity.mRecyclerView.setAdapter(adapter);
+                    }else if(reqeustCode == REQUEST_CODE_CAMERA){          //打开相机回调
+                        if(albumList == null){
+                            PhotoListAdapter adapter = new PhotoListAdapter(currentActivity, resultList);
+                            AddActivity.mRecyclerView.setAdapter(adapter);
+                        }else {
+                            albumList.add(resultList.get(0));
+                            PhotoListAdapter adapter = new PhotoListAdapter(currentActivity, albumList);
+                            AddActivity.mRecyclerView.setAdapter(adapter);
+                        }
+                    }else if(reqeustCode == REQUEST_CODE_EDIT){           //打开编辑图片回调
+
                     }
+
 
                 }
             }

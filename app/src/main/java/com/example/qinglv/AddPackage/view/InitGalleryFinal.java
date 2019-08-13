@@ -37,10 +37,10 @@ public class InitGalleryFinal {
                 .setIconRotate(R.mipmap.ic_action_repeat)
                 .setIconCrop(R.mipmap.ic_action_crop)
                 .setIconCamera(R.mipmap.ic_action_camera)
+                .setIconDelete(R.drawable.ic_delete_photo)
                 .build();
         //配置功能
         functionConfig= new FunctionConfig.Builder()
-                .setEnableCamera(true)
                 .setEnableEdit(true)
                 .setEnableCrop(true)
                 .setEnableRotate(true)

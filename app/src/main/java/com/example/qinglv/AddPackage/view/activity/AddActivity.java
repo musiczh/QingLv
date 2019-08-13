@@ -18,14 +18,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 
 import android.view.View;
 
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,18 +31,12 @@ import android.widget.Toast;
 
 import com.example.qinglv.AddPackage.adapter.PhotoListAdapter;
 import com.example.qinglv.AddPackage.contract.ICommitNoteContract;
-import com.example.qinglv.AddPackage.entity.NoteType;
 import com.example.qinglv.AddPackage.presenter.CommitNoteBasePresenter;
 import com.example.qinglv.AddPackage.presenter.CommitNotePresenter;
 import com.example.qinglv.AddPackage.view.InitGalleryFinal;
-import com.example.qinglv.MainActivity;
-import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerClickCallback;
 import com.example.qinglv.R;
 
 import java.io.File;
-import java.lang.reflect.Array;
-import java.net.FileNameMap;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +50,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-import static com.example.qinglv.AddPackage.view.ShowPopupWindow.mOnHanlderResultCallback;
+import static com.example.qinglv.AddPackage.view.ShowPhotoPopupWindow.mOnHanlderResultCallback;
 
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener , ICommitNoteContract.IView {
