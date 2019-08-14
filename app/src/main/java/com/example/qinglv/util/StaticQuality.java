@@ -7,6 +7,7 @@ public class StaticQuality {
     //所有网址的前缀
     public static final String BASE_URL = "http://47.112.212.177/qinglv/";
 
+
     //美食的附加网址
     public static final String FOOD_PREVIEW_URL= "share/food";
 
