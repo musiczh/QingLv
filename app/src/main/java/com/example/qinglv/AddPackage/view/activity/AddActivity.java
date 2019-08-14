@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import android.view.View;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +68,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private TextView mNoteTypeTv;
     private Button mCommitNoteBtn;
     private EditText mTitleEditText,mContentEditText;
+    private ProgressBar mProgressBar;
 
 
     private CommitNoteBasePresenter presenter;
@@ -114,6 +117,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         mCommitNoteBtn = findViewById(R.id.commit_note_button);
         mTitleEditText = findViewById(R.id.title_editText);
         mContentEditText = findViewById(R.id.content_Auto_Text);
+        mProgressBar = findViewById(R.id.progressbar);
         //初始化RecyclerView
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -167,6 +171,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 mTitle = mTitleEditText.getText().toString();
                 mContent = mContentEditText.getText().toString();
 
+                Log.d("测试","list "+ list);
                 if(list!=null)
                 for (int i =0;i<list.size();i++){
                     File f = new File(list.get(i).getPhotoPath());
@@ -195,7 +200,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 //                    if (list != null) {
 //                        ((CommitNotePresenter) presenter).commitNote(body);
 //                    } else {
+                        mCommitNoteBtn.setEnabled(false);
                         ((CommitNotePresenter) presenter).commitPhotoNote(params, photos);
+                        mProgressBar.setVisibility(View.VISIBLE);
 //                    }
                 }else {
                     Toast.makeText(AddActivity.this,"请填入必要的信息",Toast.LENGTH_LONG).show();
@@ -242,6 +249,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onSuccess() {
+        mProgressBar.setVisibility(View.GONE);
+        mCommitNoteBtn.setEnabled(true);
         dialogBox();
     }
 

@@ -17,7 +17,7 @@
 
       android:layout_marginRight="4dp"
       android:layout_marginBottom="8dp"
-      android:background="#FFFAF0"
+      android:background="#F0F8FF"
       android:scaleType="centerInside"
       android:src="@drawable/ic_gf_default_photo"
       app:layout_constraintBottom_toBottomOf="parent"

@@ -119,7 +119,7 @@ public class ShowPhotoPopupWindow implements View.OnClickListener {
                 Activity currentActivity = AddActivity.getCurrentActivity();
                 if(resultList!=null) {
                     if (reqeustCode == REQUEST_CODE_GALLERY) {         //打开相册回调
-//                        AddActivity.list = resultList;
+                        AddActivity.list = resultList;
                         albumList = resultList;
                         PhotoListAdapter adapter = new PhotoListAdapter(currentActivity, resultList);
                         AddActivity.mRecyclerView.setAdapter(adapter);
@@ -129,6 +129,7 @@ public class ShowPhotoPopupWindow implements View.OnClickListener {
                             AddActivity.mRecyclerView.setAdapter(adapter);
                         }else {
                             albumList.add(resultList.get(0));
+                            AddActivity.list = albumList;
                             PhotoListAdapter adapter = new PhotoListAdapter(currentActivity, albumList);
                             AddActivity.mRecyclerView.setAdapter(adapter);
                         }
