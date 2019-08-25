@@ -32,5 +32,16 @@ public class CommentPresenter extends BasePresenter<IViewComment> implements IPr
 
     @Override
     public void postComment(int articleId, String commentString , int articleType) {
+        iModelComment.postComment(articleId, commentString, articleType, new IModelComment.CallBackPost() {
+            @Override
+            public void onSucceed(String result) {
+                if (isAttached()) getView().setToast(result);
+            }
+
+            @Override
+            public void onError(String error) {
+                if (isAttached()) getView().setToast(error);
+            }
+        });
     }
 }

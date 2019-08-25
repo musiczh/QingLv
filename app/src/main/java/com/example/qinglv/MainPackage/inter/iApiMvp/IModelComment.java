@@ -6,9 +6,13 @@ import java.util.List;
 
 public interface IModelComment  {
     public void getData(int articleId , int firstNum , int size , int articleType, CallBack<Comment> callBack );
-    public void postComment(int articleId , String commentString, int articleType, CallBack<String> callBack );
+    public void postComment(int articleId , String commentString, int articleType, CallBackPost callBack );
     interface CallBack<T>{
         void onSucceed(List<T> list , boolean isMare);
         void onError(String errorType);
+    }
+    interface CallBackPost{
+        void onSucceed(String result);
+        void onError(String error);
     }
 }

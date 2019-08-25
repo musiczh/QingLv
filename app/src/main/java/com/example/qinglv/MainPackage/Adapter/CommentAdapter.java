@@ -16,6 +16,9 @@ import com.example.qinglv.R;
 
 import java.util.List;
 
+/**
+ * 评论子项recyclerView适配器
+ */
 public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Comment> mList;
     private Context mContext;
