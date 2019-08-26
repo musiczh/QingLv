@@ -6,6 +6,7 @@ import com.example.qinglv.MainPackage.bean.PostCommentBackBean;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
 
 import retrofit2.Call;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
@@ -18,5 +19,6 @@ import static com.example.qinglv.util.StaticQuality.SCENIC_COMMENT_URL;
 public interface ScenicPostCommentApiService {
     //这里需要两个个参数，一个是文章id，一个是评论内容
     @POST(SCENIC_COMMENT_URL)
+    @Multipart
     Call<PostCommentBackBean> postScenic(@Part("articleId")int articleId , @Part("content")String content);
 }

@@ -53,7 +53,7 @@ public class CommentModel implements IModelComment {
                         boolean isMore = list.size()>=size;
                         callBack.onSucceed(list,isMore);
                     }else{
-                        callBack.onError("好像出了点小问题");
+                        callBack.onError("该文章暂时没有评论");
                     }
                 }
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -34,6 +35,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView textViewContent;
         ImageView imageViewHeadPortrait;
         ImageView imageViewStar;
+        LinearLayout linearLayout;
 
         CommentViewHolder(View itemView){
             super(itemView);
@@ -41,6 +43,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             textViewUserName = itemView.findViewById(R.id.textView_item_comment_userName);
             imageViewHeadPortrait = itemView.findViewById(R.id.imageView_item_comment_head);
             imageViewStar = itemView.findViewById(R.id.imageView_item_comment_star);
+            linearLayout = itemView.findViewById(R.id.line_comment_item);
 
         }
 
@@ -87,6 +90,8 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Glide.with(mContext).load(comment.getHeadPortrait()).into(commentViewHolder.imageViewHeadPortrait);
         if (mClickCallback.isStar(comment.getId())) commentViewHolder.imageViewStar.setImageResource(R.drawable.img_heart_red);
         else commentViewHolder.imageViewStar.setImageResource(R.drawable.img_heart);
+
+        if (position == (mList.size()-1)) ((CommentViewHolder) holder).linearLayout.setVisibility(View.GONE);
     }
 
     @Override

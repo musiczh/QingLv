@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:text="@string/user_name"
         android:textSize="12sp"
+        android:textStyle="bold"
         android:layout_marginTop="2dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
@@ -47,7 +48,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView_item_comment_content"
         android:textSize="14sp"
-        android:textStyle="bold"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:text="@string/content"
@@ -55,4 +55,14 @@
         app:layout_constraintLeft_toRightOf="@+id/imageView_item_comment_head"
         app:layout_constraintRight_toLeftOf="@id/imageView_item_comment_star"
         android:layout_marginStart="4dp" />
+
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@id/textView_item_comment_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:id="@+id/line_comment_item"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 </android.support.constraint.ConstraintLayout>

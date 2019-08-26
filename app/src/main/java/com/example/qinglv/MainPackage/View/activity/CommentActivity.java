@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -60,6 +61,9 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
         iPresenterComment = new CommentPresenter();
         progressBar = findViewById(R.id.progressBar_comment);
         RecyclerView recyclerView = findViewById(R.id.recyclerView_comment);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
         //评论列表子项监听
         CommentAdapter commentAdapter = new CommentAdapter(mList, new RecyclerCommentClickCallBack() {
             @Override
