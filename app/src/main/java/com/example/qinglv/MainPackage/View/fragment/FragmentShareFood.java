@@ -72,7 +72,6 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
             @Override
             public void onLoadMore(int itemCount) {
                 adapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
-
                 //判断是在搜索列表还是预览展示列表
                 if (getActivity()instanceof MainActivity)
                     iPresenterPager.refreshRecycler(itemCount , 10,false);
