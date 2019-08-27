@@ -1,7 +1,6 @@
 package com.example.qinglv.UserPackage.View;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -20,18 +19,17 @@ import com.example.qinglv.UserPackage.Contract.ILoginContract;
 import com.example.qinglv.UserPackage.Entity.Login;
 import com.example.qinglv.UserPackage.IApiSerice.LoginApiSerice;
 import com.example.qinglv.UserPackage.IApiSerice.VerifyCodeApiSerice;
+import com.example.qinglv.util.AddCookiesInterceptor;
 import com.example.qinglv.util.RSAEncrypt;
+import com.example.qinglv.util.ReceivedCookiesInterceptor;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -128,9 +126,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginContract.V
             }}
     };
 
+
     OkHttpClient client = new OkHttpClient.Builder()
-            .addInterceptor(new ReceivedCookiesInterceptor())//将请求图片验证码的cookie提取出来
-            .addInterceptor(new AddCookiesInterceptor()) //将提取的cookie放入
+            .addInterceptor(new ReceivedCookiesInterceptor(LoginActivity.this))//将请求图片验证码的cookie提取出来
+            .addInterceptor(new AddCookiesInterceptor(LoginActivity.this)) //将提取的cookie放入
             .build();
     Retrofit retrofit = new Retrofit.Builder()
             .client(client)
@@ -198,43 +197,43 @@ public class LoginActivity extends AppCompatActivity implements ILoginContract.V
             }
         });
     }
-    public class AddCookiesInterceptor implements Interceptor {
-
-        @Override
-        public okhttp3.Response intercept(Chain chain) throws IOException {
-            Request.Builder builder = chain.request().newBuilder();
-            HashSet<String> preferences = (HashSet) LoginActivity.this.getSharedPreferences("config",
-                    MODE_PRIVATE).getStringSet("cookie", null);
-            if (preferences != null) {
-                for (String cookie : preferences) {
-                    builder.addHeader("Cookie", cookie);
-                    Log.v("OkHttp", "Adding Header: " + cookie); // This is done so I know which headers are being added; this interceptor is used after the normal logging of OkHttp
-                }
-            }
-            return chain.proceed(builder.build());
-        }
-    }
-    public class ReceivedCookiesInterceptor implements Interceptor {
-        @Override
-        public okhttp3.Response intercept(Chain chain) throws IOException {
-            okhttp3.Response originalResponse = chain.proceed(chain.request());
-
-            if (!originalResponse.headers("Set-Cookie").isEmpty()) {
-                HashSet<String> cookies = new HashSet<>();
-
-                for (String header : originalResponse.headers("Set-Cookie")) {
-                    cookies.add(header);
-                }
-
-                SharedPreferences.Editor config = LoginActivity.this.getSharedPreferences("config", MODE_PRIVATE)
-                        .edit();
-                config.putStringSet("cookie", cookies);
-                config.apply();
-            }
-
-            return originalResponse;
-        }
-    }
+//    public class AddCookiesInterceptor implements Interceptor {
+//
+//        @Override
+//        public okhttp3.Response intercept(Chain chain) throws IOException {
+//            Request.Builder builder = chain.request().newBuilder();
+//            HashSet<String> preferences = (HashSet) LoginActivity.this.getSharedPreferences("config",
+//                    MODE_PRIVATE).getStringSet("cookie", null);
+//            if (preferences != null) {
+//                for (String cookie : preferences) {
+//                    builder.addHeader("Cookie", cookie);
+//                    Log.v("OkHttp", "Adding Header: " + cookie); // This is done so I know which headers are being added; this interceptor is used after the normal logging of OkHttp
+//                }
+//            }
+//            return chain.proceed(builder.build());
+//        }
+//    }
+//    public class ReceivedCookiesInterceptor implements Interceptor {
+//        @Override
+//        public okhttp3.Response intercept(Chain chain) throws IOException {
+//            okhttp3.Response originalResponse = chain.proceed(chain.request());
+//
+//            if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+//                HashSet<String> cookies = new HashSet<>();
+//
+//                for (String header : originalResponse.headers("Set-Cookie")) {
+//                    cookies.add(header);
+//                }
+//
+//                SharedPreferences.Editor config = LoginActivity.this.getSharedPreferences("config", MODE_PRIVATE)
+//                        .edit();
+//                config.putStringSet("cookie", cookies);
+//                config.apply();
+//            }
+//
+//            return originalResponse;
+//        }
+//    }
 
 }
 //    public class AddCookiesInterceptor implements Interceptor {
