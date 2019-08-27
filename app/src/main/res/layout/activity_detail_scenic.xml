@@ -112,7 +112,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginLeft="8dp"
                     android:contentDescription="@string/content"
-                    android:id="@+id/imageView_detail_scenic_star"
+                    android:id="@+id/imageView_detail_scenic_heart"
                     android:src="@drawable/img_heart"
                     app:layout_constraintRight_toLeftOf="@+id/imageView_detail_scenic_collection"
                     app:layout_constraintTop_toBottomOf="@+id/textView_scenic_detail_time"

@@ -1,5 +1,6 @@
 package com.example.qinglv.MainPackage.View.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -10,33 +11,32 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.qinglv.MainPackage.Adapter.ViewPagerAdapterImage;
-import com.example.qinglv.MainPackage.Entity.Path;
-import com.example.qinglv.MainPackage.Entity.Travel;
 import com.example.qinglv.MainPackage.Entity.TravelDetail;
-import com.example.qinglv.MainPackage.Presentor.PathDetailPresenter;
 import com.example.qinglv.MainPackage.Presentor.TravelDetailPresenter;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterDetail;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IViewDetail;
 import com.example.qinglv.R;
-import com.wx.goodview.GoodView;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerClickListener;
+import com.youth.banner.loader.ImageLoader;
 
+import java.util.List;
 import java.util.Objects;
 
 
 public class TravelDetailActivity extends AppCompatActivity implements IViewDetail<TravelDetail> {
-    private ViewPager viewPager;
+    private Banner banner;
     private TextView textViewContent;
     private TextView textViewTime;
     private ProgressBar progressBar;
+    private List<String> imageList;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -46,7 +46,21 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
 
         //控件初始化
         Toolbar toolbar = findViewById(R.id.toolbar_detail_travel);
-        viewPager = findViewById(R.id.viewPager_detail_travel_photo);
+
+        banner = findViewById(R.id.banner_detail_travel_photo);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner.setIndicatorGravity(BannerConfig.CENTER);
+        banner.setImageLoader(new GlideImageLoader());
+        banner.setOnBannerClickListener(new OnBannerClickListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Intent intent = new Intent(TravelDetailActivity.this,ImageActivity.class);
+                intent.putExtra("image",imageList.get(position-1));
+                startActivity(intent);
+            }
+        });
+        banner.isAutoPlay(false);
+
         ImageView imageViewAuthor = findViewById(R.id.imageView_detail_travel_author);
         textViewContent = findViewById(R.id.textView_detail_travel_content);
         TextView textViewNickName = findViewById(R.id.textView_detail_travel_author);
@@ -87,6 +101,15 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
 
     }
 
+    //内部类banner图片加载
+    class GlideImageLoader extends ImageLoader{
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            Glide.with(context).load(path).into(imageView);
+        }
+    }
+
+
     //顶部toolBar返回按钮的监听事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -101,9 +124,9 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
     public void setDetail(TravelDetail travelDetail) {
         textViewTime.setText(travelDetail.getPublishedTime());
         textViewContent.setText(travelDetail.getContent());
-        ViewPagerAdapterImage viewPagerAdapterImage = new ViewPagerAdapterImage(travelDetail.getPhoto(),
-                this);
-        viewPager.setAdapter(viewPagerAdapterImage);
+
+        banner.setImages(travelDetail.getPhoto());
+        banner.start();
 
         if (progressBar.getVisibility() != View.GONE){
             progressBar.setVisibility(View.GONE);

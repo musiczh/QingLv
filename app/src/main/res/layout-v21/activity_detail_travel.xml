@@ -14,12 +14,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
         android:layout_marginBottom="35dp"
         android:backgroundTint="#e74b37"
         android:clickable="true"
         app:srcCompat="@drawable/img_comment_button"
         app:fabSize="mini"
-        android:layout_marginEnd="35dp" />
+        android:layout_marginEnd="35dp"
+        android:focusable="true" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_detail_travel"
@@ -48,13 +50,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewPager_detail_travel_photo"
-                android:layout_width="match_parent"
-                android:layout_marginTop="4dp"
-                android:layout_height="200dp">
+            <com.youth.banner.Banner
+            android:id="@+id/banner_detail_travel_photo"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_height="300dp"/>
 
-            </android.support.v4.view.ViewPager>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -136,7 +140,7 @@
                    android:layout_marginRight="8dp"
                    android:layout_marginLeft="8dp"
                    android:contentDescription="@string/content"
-                   android:id="@+id/imageView_detail_travel_heart"
+                   android:id="@+id/imageView_detail_travel_star"
                    android:src="@drawable/img_heart"
                    app:layout_constraintRight_toLeftOf="@+id/imageView_detail_travel_collection"
                    app:layout_constraintTop_toTopOf="parent"

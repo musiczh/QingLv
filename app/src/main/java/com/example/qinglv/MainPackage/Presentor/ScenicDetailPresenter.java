@@ -29,5 +29,6 @@ public class ScenicDetailPresenter extends BasePresenter<IViewDetail<Scenic>> im
             }
         });
 
+
     }
 }

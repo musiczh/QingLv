@@ -114,7 +114,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginLeft="8dp"
                     android:contentDescription="@string/content"
-                    android:id="@+id/imageView_detail_path_star"
+                    android:id="@+id/imageView_detail_path_heart"
                     android:src="@drawable/img_heart"
                     app:layout_constraintRight_toLeftOf="@+id/imageView_detail_path_collection"
                     app:layout_constraintTop_toBottomOf="@+id/textView_path_detail_time"
