@@ -124,8 +124,9 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
     public void setDetail(TravelDetail travelDetail) {
         textViewTime.setText(travelDetail.getPublishedTime());
         textViewContent.setText(travelDetail.getContent());
+        imageList = travelDetail.getPhoto();
 
-        banner.setImages(travelDetail.getPhoto());
+        banner.setImages(imageList);
         banner.start();
 
         if (progressBar.getVisibility() != View.GONE){
@@ -141,6 +142,16 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
         if (progressBar.getVisibility() != View.GONE){
             progressBar.setVisibility(View.GONE);
         }
+
+    }
+
+    @Override
+    public void setHeart(boolean isHeart) {
+
+    }
+
+    @Override
+    public void setStar(boolean isStar) {
 
     }
 }

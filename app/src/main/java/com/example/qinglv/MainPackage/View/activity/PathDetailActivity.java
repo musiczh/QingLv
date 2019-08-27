@@ -149,4 +149,14 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
         super.onDestroy();
         ((PathDetailPresenter) iPresenterDetail).detachView();
     }
+
+    @Override
+    public void setHeart(boolean isHeart) {
+
+    }
+
+    @Override
+    public void setStar(boolean isStar) {
+
+    }
 }

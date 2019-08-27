@@ -35,4 +35,5 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="comment_content">说点什么呢...</string>
+    <string name="imageDetail">图片详情</string>
 </resources>
