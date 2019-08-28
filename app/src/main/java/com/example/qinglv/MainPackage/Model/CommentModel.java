@@ -4,6 +4,7 @@ import com.example.qinglv.MainPackage.Entity.Comment;
 import com.example.qinglv.MainPackage.Entity.Scenic;
 import com.example.qinglv.MainPackage.Entity.Travel;
 import com.example.qinglv.MainPackage.View.activity.CommentActivity;
+import com.example.qinglv.MainPackage.bean.CommentPostBean;
 import com.example.qinglv.MainPackage.bean.PostCommentBackBean;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IModelComment;
@@ -53,13 +54,13 @@ public class CommentModel implements IModelComment {
                         boolean isMore = list.size()>=size;
                         callBack.onSucceed(list,isMore);
                     }else{
-                        callBack.onError("该文章暂时没有评论");
+                        callBack.onError("好像出了点小问题");
                     }
                 }
 
                 @Override
                 public void onFailure(@NotNull Call<PreviewBean<Comment>> call, @NotNull Throwable t) {
-                    callBack.onError("好像出了点小问题");
+                    callBack.onError("该文章暂时没有评论");
                 }
             });
         }
@@ -70,19 +71,23 @@ public class CommentModel implements IModelComment {
     @Override
     public void postComment(int articleId, String commentString, int articleType, final CallBackPost callBack ) {
         Call<PostCommentBackBean> call = null;
+        CommentPostBean commentPostBean = new CommentPostBean();
+        commentPostBean.setArticleId(articleId);
+        commentPostBean.setContent(commentString);
         boolean hasType = true;
         switch (articleType){
             case CommentActivity.PATH:
                 call = RetrofitManager.getInstance().createRs(PathPostCommentApiService.class)
-                        .postPath(articleId,commentString);
+                        .postPath(commentPostBean);
                 break;
             case CommentActivity.SCENIC:
+
                 call = RetrofitManager.getInstance().createRs(ScenicPostCommentApiService.class)
-                        .postScenic(articleId,commentString);
+                        .postScenic(commentPostBean);
                 break;
             case CommentActivity.TRAVEL:
                 call = RetrofitManager.getInstance().createRs(TravelPostCommentApiService.class)
-                        .postTravel(articleId,commentString);
+                        .postTravel(commentPostBean);
                 break;
             default:hasType = false;
         }

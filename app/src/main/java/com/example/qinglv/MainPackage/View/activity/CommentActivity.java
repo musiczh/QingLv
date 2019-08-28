@@ -94,7 +94,7 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
         newRecyclerScrollListener = new NewRecyclerScrollListener() {
             @Override
             public void onLoadMore(int itemCount) {
-                iPresenterComment.refreshList(articleId,itemCount,10 , articleType);
+                iPresenterComment.refreshList(articleId,itemCount,10 , articleType,false);
                 recyclerViewAdapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
             }
         };
@@ -112,7 +112,7 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
 
         //第一次进入刷新的逻辑
         ((CommentPresenter)iPresenterComment).attachView(this);
-        iPresenterComment.refreshList(articleId, 0,10,articleType);
+        iPresenterComment.refreshList(articleId, 0,10,articleType,false);
 
     }
 
@@ -127,7 +127,8 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
 
     //mvp的View层刷新列表方法
     @Override
-    public void setComment(List<Comment> list, boolean isMore) {
+    public void setComment(List<Comment> list, boolean isMore , boolean isClear) {
+        if (isClear)  mList.clear();
         mList.addAll(list);
         if (isMore) {
             newRecyclerScrollListener.IS_SCROLL = true;

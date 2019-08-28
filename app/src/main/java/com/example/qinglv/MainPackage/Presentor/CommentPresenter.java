@@ -16,11 +16,11 @@ public class CommentPresenter extends BasePresenter<IViewComment> implements IPr
     private IModelComment iModelComment = new CommentModel();
 
     @Override
-    public void refreshList(int articleId, int firstNum, int size , int articleType) {
+    public void refreshList(int articleId, int firstNum, int size , int articleType , final boolean isClear) {
         iModelComment.getData(articleId, firstNum, size, articleType, new IModelComment.CallBack<Comment>() {
             @Override
             public void onSucceed(List<Comment> list , boolean isMore) {
-                if (isAttached()) getView().setComment(list , isMore);
+                if (isAttached()) getView().setComment(list , isMore , isClear);
             }
 
             @Override
@@ -31,11 +31,13 @@ public class CommentPresenter extends BasePresenter<IViewComment> implements IPr
     }
 
     @Override
-    public void postComment(int articleId, String commentString , int articleType) {
+    public void postComment(final int articleId, String commentString ,final int articleType) {
         iModelComment.postComment(articleId, commentString, articleType, new IModelComment.CallBackPost() {
             @Override
             public void onSucceed(String result) {
                 if (isAttached()) getView().setToast(result);
+                refreshList(articleId,0,10,articleType,true);
+
             }
 
             @Override

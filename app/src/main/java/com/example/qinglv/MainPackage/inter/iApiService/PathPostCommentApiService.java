@@ -1,10 +1,13 @@
 package com.example.qinglv.MainPackage.inter.iApiService;
 
 import com.example.qinglv.MainPackage.Entity.Path;
+import com.example.qinglv.MainPackage.bean.CommentPostBean;
 import com.example.qinglv.MainPackage.bean.PostCommentBackBean;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -21,6 +24,5 @@ public interface PathPostCommentApiService {
 
     //这里需要两个个参数，一个是文章id，一个是评论内容
     @POST(PATH_COMMENT_URL)
-    @Multipart
-    Call<PostCommentBackBean> postPath(@Part("articleId")int articleId , @Part("content")String content);
+    Call<PostCommentBackBean> postPath(@Body CommentPostBean commentPostBean);
 }
