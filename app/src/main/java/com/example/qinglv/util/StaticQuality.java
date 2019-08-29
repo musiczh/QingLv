@@ -53,7 +53,7 @@ public class StaticQuality {
     public static final String SCENIC_SEARCH_URL= "search/scenic";
 
     //图片前缀
-    public static final String PREFIX_IMAGE = "http://47.112.212.177/requireImage/";
+    public static final String PREFIX_IMAGE = "http://47.102.212.18/requireImage/";
 
     //景点评论的附加地址
     public static final String SCENIC_COMMENT_URL = "comment/scenic";

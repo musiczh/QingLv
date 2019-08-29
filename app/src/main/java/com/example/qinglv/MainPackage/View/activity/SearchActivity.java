@@ -1,5 +1,6 @@
 package com.example.qinglv.MainPackage.View.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.qinglv.MainPackage.View.fragment.FragmentShareFood;
 import com.example.qinglv.MainPackage.View.fragment.FragmentSharePath;
@@ -70,6 +72,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 fragment.setQuery(s);
+                //收起软键盘
+                hideSoftKeyboard();
                 return false;
             }
 
@@ -78,6 +82,8 @@ public class SearchActivity extends AppCompatActivity {
                 return true;
             }
         });
+        searchView.clearFocus();
+        hideSoftKeyboard();
 
 
 
@@ -89,5 +95,13 @@ public class SearchActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home)
             finish();
         return super.onOptionsItemSelected(item);
+    }
+
+    //收起软键盘
+    private void hideSoftKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) SearchActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isActive()) inputMethodManager
+                .hideSoftInputFromWindow(SearchActivity.this.getWindow().getDecorView().getApplicationWindowToken(),
+                        0);
     }
 }

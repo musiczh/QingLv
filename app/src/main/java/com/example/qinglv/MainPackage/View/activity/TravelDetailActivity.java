@@ -27,6 +27,7 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerClickListener;
 import com.youth.banner.loader.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,7 +37,7 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
     private TextView textViewContent;
     private TextView textViewTime;
     private ProgressBar progressBar;
-    private List<String> imageList;
+    private List<String> imageList = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -126,8 +127,10 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
         textViewContent.setText(travelDetail.getContent());
         imageList = travelDetail.getPhoto();
 
-        banner.setImages(imageList);
-        banner.start();
+        if (imageList != null && (!imageList.isEmpty())) {
+            banner.setImages(imageList);
+            banner.start();
+        }
 
         if (progressBar.getVisibility() != View.GONE){
             progressBar.setVisibility(View.GONE);

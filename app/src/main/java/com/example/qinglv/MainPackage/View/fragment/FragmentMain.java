@@ -1,5 +1,6 @@
 package com.example.qinglv.MainPackage.View.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -70,7 +72,7 @@ public class FragmentMain extends Fragment {
 
 
         //搜索框的软键盘回车键设置监听。打开另一个活动展示搜索结果
-        EditText editText = view.findViewById(R.id.editText_fragment_main);
+        final EditText editText = view.findViewById(R.id.editText_fragment_main);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -82,6 +84,8 @@ public class FragmentMain extends Fragment {
                     case 3:hint = "请输入关键词搜索游记";break;
                     default: hint="";
                 }
+                hideSoftKeyboard();
+                editText.clearFocus();
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 intent.putExtra("query",(v.getText()).toString());
                 intent.putExtra("type",position);
@@ -92,5 +96,15 @@ public class FragmentMain extends Fragment {
         });
 
         return view;
+    }
+
+    //收起软键盘
+    private void hideSoftKeyboard(){
+        if (getActivity()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            if (inputMethodManager.isActive()) inputMethodManager
+                    .hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getApplicationWindowToken(),
+                            0);
+        }
     }
 }

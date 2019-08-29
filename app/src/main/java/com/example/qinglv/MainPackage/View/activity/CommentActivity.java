@@ -1,5 +1,6 @@
 package com.example.qinglv.MainPackage.View.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -10,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -105,7 +108,15 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 iPresenterComment.postComment(articleId , (v.getText()).toString(),articleType);
-                editText.setText("");
+                //editText.setText("");
+                editText.clearFocus();
+
+                //收起软键盘
+                InputMethodManager inputMethodManager = (InputMethodManager) CommentActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                if (inputMethodManager.isActive()) inputMethodManager
+                        .hideSoftInputFromWindow(CommentActivity.this.getWindow().getDecorView().getApplicationWindowToken(),
+                                0);
+
                 return false;
             }
         });
@@ -150,5 +161,16 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
         if (progressBar.getVisibility() != View.GONE){
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        InputMethodManager inputMethodManager = (InputMethodManager) CommentActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = getCurrentFocus();
+        if (view != null)
+            if (inputMethodManager.isActive()) inputMethodManager
+                    .hideSoftInputFromWindow(view.getApplicationWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
+        return super.dispatchTouchEvent(ev);
     }
 }
