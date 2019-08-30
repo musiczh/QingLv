@@ -20,6 +20,7 @@
     <string name="tittle">这里是标题</string>
     <string name="time">2000.00.00</string>
     <string name="user_name">我是用户名</string>
+    <string name="note_type">游记种类</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -33,4 +34,5 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="comment_content">说点什么呢...</string>
 </resources>

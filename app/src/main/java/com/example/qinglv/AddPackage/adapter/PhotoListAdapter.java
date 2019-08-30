@@ -1,34 +1,43 @@
 package com.example.qinglv.AddPackage.adapter;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-import com.example.qinglv.AddPackage.view.AddActivity;
+import com.example.qinglv.AddPackage.view.ShowEditPhotoPopupWindow;
+import com.example.qinglv.AddPackage.view.activity.AddActivity;
+import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerClickCallback;
 import com.example.qinglv.R;
-import com.example.qinglv.AddPackage.view.ShowPopupWindow;
+import com.example.qinglv.AddPackage.view.ShowPhotoPopupWindow;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 
-
 import java.util.List;
 
+import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
+
+
 
 /**
  * 相册选择显示的RecyclerView的适配器
  */
 
-public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private static final int ITEM_TYPE_CONTRNT = 1001;
@@ -37,8 +46,10 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
     private ImageView ivPhoto;
     private List<PhotoInfo> mList;
     private LayoutInflater mInflater;
-    private OnItemLongClickListener mOnItemLongClickListener = null;
-    private OnItemClickListener  mOnItemClickListener = null;
+    private boolean isShow;
+    private RecyclerClickCallback mCallback;
+
+
 
 
     public PhotoListAdapter(Activity activity, List<PhotoInfo> list) {
@@ -47,6 +58,7 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
 
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         RecyclerView.ViewHolder holder = null;
@@ -55,11 +67,14 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
             Log.d("底部View", "i=" + i);
             view = mInflater.inflate(R.layout.recyclerview_footer, viewGroup, false);
             holder = new FooterViewHolder(view);
+           setHeight(((FooterViewHolder) holder).footerImage);
         }else {
-            ivPhoto = (ImageView) mInflater.inflate(R.layout.adapter_photo_item, null);
-            setHeight(ivPhoto);
-            holder = new ViewHolder(ivPhoto);
+            view = mInflater.inflate(R.layout.adapter_photo_item,viewGroup,false);
+            holder = new ViewHolder(view);
+            setHeight(((ViewHolder) holder).imageView);
         }
+
+
         return holder;
     }
 
@@ -67,48 +82,44 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
     //将数据与界面绑定的操作
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
-        Log.d("测试", "i=" + i + "------" + isBottomView(i));
-        if (isBottomView(i)) {       //判断是否是最后一个item
 
+        if (isBottomView(i)) {       //判断是否是最后一个item
             if (viewHolder instanceof FooterViewHolder) {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
-                Log.d("向下转型", "成功");
-                footerViewHolder.imageButton.setOnClickListener(new View.OnClickListener() {
+                footerViewHolder.footerImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //弹出拍照选项
                         Log.d("footerViewHolder的点击事件","已点击");
-                       new ShowPopupWindow().showPopupWindow(AddActivity.mContext);
+                       new ShowPhotoPopupWindow().showPopupWindow(AddActivity.mContext);
                     }
                 });
-
-            } else {
-                Log.d("向下转型", "失败");
             }
-            Log.d("底部View", "viewHolder instanceof FooterViewHolder----" + i);
         } else {
             final ViewHolder holder = (ViewHolder) viewHolder;
             DisplayImageOptions options = new DisplayImageOptions.Builder().build();
             PhotoInfo photoInfo = mList.get(i);
-            ImageLoader.getInstance().displayImage("file:/" + photoInfo.getPhotoPath(), ivPhoto, options);
-            Log.d("适配器", "imageView" + i + "-----------------" + photoInfo.getPhotoPath() + "-------------------");
+            ImageLoader.getInstance().displayImage("file:/" + photoInfo.getPhotoPath(), holder.imageView, options);   //显示图片
 
-
+              //单击事件
                holder.imageView.setOnClickListener(new View.OnClickListener(){
                    @Override
                    public void onClick(View v) {
-                       Log.d("点击事件","已点击"+i);
-//                       mOnItemClickListener.onClick(holder.imageView,i);
-                   }
-               });
-               holder.imageView.setOnLongClickListener(new View.OnLongClickListener() {
-                   @Override
-                   public boolean onLongClick(View v) {
+                       Activity currentActivity = AddActivity.getCurrentActivity();
+                       new ShowEditPhotoPopupWindow().showPopupWindow(currentActivity, i, mList, new RecyclerClickCallback() {
+                           @Override
+                           public void onClick(int position) {
+                               removeList(i);
+                           }
 
-                       Log.d("长按事件","已长按"+i);
-                       return false;
+                           @Override
+                           public void onLongClick() {
+
+                           }
+                       });
                    }
                });
+
 
         }
     }
@@ -122,22 +133,20 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
 
     //底部ViewHolder
     public static class FooterViewHolder extends RecyclerView.ViewHolder {
-
-        ImageButton imageButton;
-
+        ImageView footerImage;
         public FooterViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageButton = itemView.findViewById(R.id.recy_footer_add);
+            footerImage = itemView.findViewById(R.id.recy_footer_add);
         }
     }
 
     //自定义ViewHolder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public  class ViewHolder extends RecyclerView.ViewHolder {
+          ImageView imageView;
 
-        ImageView imageView;
         public ViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.iv_photo);
+            imageView = itemView.findViewById(R.id.item_photo_iv);
 
         }
     }
@@ -166,32 +175,39 @@ public class PhotoListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
         //设置图片的大小
-        private void setHeight ( final ImageView convertView){
-            convertView.setLayoutParams(new RecyclerView.LayoutParams(400, 400));    //设置宽高
-            convertView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        private void setHeight ( final ImageView imageView){
+            Activity currentActivity = AddActivity.getCurrentActivity();
+            //取控件当前的布局参数
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+            //设置宽度值
+            params.width = dip2px(currentActivity, 100);
+            //设置高度值
+            params.height = dip2px(currentActivity, 100);
+            //使设置好的布局参数应用到控件
+            imageView.setLayoutParams(params);
+
+//            convertView.setLayoutParams(new RecyclerView.LayoutParams(400, 400));    //设置宽高
+            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         }
 
-    //设置点击事件
-    public void setOnItemClickListener(OnItemClickListener listener){
-        this.mOnItemClickListener = listener;
-    }
-    //设置长按事件
-    public void setOnItemLongClickListener(OnItemLongClickListener listener){
-        this.mOnItemLongClickListener = listener;
-    }
-    //点击事件接口
-    public interface OnItemClickListener{
-        void onClick(View parent,int position);
+
+        private int dip2px(Context context, float dipValue) {
+        Resources r = context.getResources();
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, dipValue, r.getDisplayMetrics());
     }
 
-    //长按事件接口
-    public  interface OnItemLongClickListener{
-        boolean onLongClick(View parent,int position);
+    //删除条目
+    public void removeList(int position){
+        mList.remove(position);//删除数据源,移除集合中当前下标的数据
+        notifyItemRemoved(position);//刷新被删除的地方
+        notifyItemRangeChanged(position, getItemCount()); //刷新被删除数据，以及其后面的数据
     }
 
-
-
-
-
+    //改变显示删除的imageview，通过定义变量isShow去接收变量isDelete
+    public void changetShowDelImage(boolean isShow) {
+        this.isShow = isShow;
+        notifyDataSetChanged();
+    }
 }
 

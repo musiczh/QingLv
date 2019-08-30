@@ -21,7 +21,7 @@ public class FoodDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_detail);
+        setContentView(R.layout.activity_detail_food);
         Food food = (Food) Objects.requireNonNull(getIntent().getExtras()).getSerializable("food");
 
         Toolbar toolbar = findViewById(R.id.toolbar_article_food);

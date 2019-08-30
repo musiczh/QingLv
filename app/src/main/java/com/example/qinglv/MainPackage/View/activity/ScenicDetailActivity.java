@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,11 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Entity.Scenic;
-import com.example.qinglv.MainPackage.Presentor.PathDetailPresenter;
 import com.example.qinglv.MainPackage.Presentor.ScenicDetailPresenter;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IViewDetail;
 import com.example.qinglv.R;
 
 import org.jsoup.Jsoup;
@@ -31,7 +31,7 @@ import org.jsoup.select.Elements;
 
 import java.util.Objects;
 
-public class ScenicDetailActivity extends AppCompatActivity implements IViewDetail<Scenic>{
+public class ScenicDetailActivity extends AppCompatActivity implements IViewDetail<Scenic> {
     private ProgressBar progressBar;
     private WebView webViewContent;
     private WebView webViewTraffic;
@@ -47,7 +47,8 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scenic_detail);
+        setContentView(R.layout.activity_detail_scenic);
+        final Intent intent = getIntent();
 
 
         //控件属性初始化
@@ -59,12 +60,25 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
         textViewTime = findViewById(R.id.textView_scenic_detail_time);
         progressBar = findViewById(R.id.progressBar_scenic_detail);
 
+
         //设置支持http协议图片混合的数据
         supportHttpMix(webViewContent);
         supportHttpMix(webViewTraffic);
 
+        //悬浮按钮设置监听
+        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton_detail_scenic);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(ScenicDetailActivity.this,CommentActivity.class);
+                intent1.putExtra("id",intent.getIntExtra("id",1));
+                intent1.putExtra("articleType",CommentActivity.SCENIC);
+
+                startActivity(intent1);
+            }
+        });
+
         //刷新数据
-        Intent intent = getIntent();
         iPresenterDetail = new ScenicDetailPresenter();
         ((ScenicDetailPresenter) iPresenterDetail).attachView(this);
         iPresenterDetail.init(intent.getIntExtra("id",1));

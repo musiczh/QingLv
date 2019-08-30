@@ -25,12 +25,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
+
         <activity android:name=".UserPackage.View.InfoActivity"></activity>
         <activity
             android:name=".UserPackage.View.RegisterActivity"
-            tools:ignore="InnerclassSeparator" />
-        <activity
-            android:name=".AddPackage.view.AddActivity"
             tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".UserPackage.View.LoginActivity"
@@ -53,13 +51,13 @@
             android:name=".MainPackage.View.activity.TravelDetailActivity"
             tools:ignore="InnerclassSeparator" />
         <activity android:name=".UserPackage.View.ForgetActivity" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainPackage.View.activity.CommentActivity"
+            tools:ignore="InnerclassSeparator" />
+
+        <activity android:name=".AddPackage.view.activity.AddActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

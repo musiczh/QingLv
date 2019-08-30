@@ -5,8 +5,7 @@ package com.example.qinglv.util;
  */
 public class StaticQuality {
     //所有网址的前缀
-    public static final String BASE_URL = "http://47.112.212.177/qinglv/";
-
+    public static final String BASE_URL = "http://47.102.212.18/qinglv/";
 
     //美食的附加网址
     public static final String FOOD_PREVIEW_URL= "share/food";
@@ -26,12 +25,20 @@ public class StaticQuality {
     //游记的附加网址
     public static final String TRAVEL_PREVIEW_URL= "travel/preview";
 
+    //游记的详情附加地址
+    public static final String TRAVEL_DETAIL_URL= "travel/detail/{id}";
+
     //游记搜索的附加地址
     public static final String TRAVEL_SEARCH_URL= "search/travel";
 
     //风景的附加网址
     public static final String SCENIC_PREVIEW_URL= "share/scenic";
 
+    //游记种类的附加地址
+    public static final String NOTE_TYPE_URL = "travel/tabs";
+
+    //提交游记的附加地址
+    public static final String NOTE_COMMIT_URL = "travel/post";
     //登陆
     public static final String USER_LOGIN_URL= "user/login/";
 
@@ -44,5 +51,17 @@ public class StaticQuality {
 
     //风景搜索的附加地址
     public static final String SCENIC_SEARCH_URL= "search/scenic";
+
+    //图片前缀
+    public static final String PREFIX_IMAGE = "http://47.112.212.177/requireImage/";
+
+    //景点评论的附加地址
+    public static final String SCENIC_COMMENT_URL = "comment/scenic";
+
+    //路线评论的附加地址
+    public static final String PATH_COMMENT_URL = "comment/path";
+
+    //游记评论的附加地址
+    public static final String TRAVEL_COMMENT_URL = "comment/travel";
 
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddPackage.view.NoteTypeActivity">
+    tools:context=".AddPackage.view.activity.NoteTypeActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/note_type_recyView"

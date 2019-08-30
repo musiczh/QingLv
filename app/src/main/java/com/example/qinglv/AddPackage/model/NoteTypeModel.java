@@ -1,6 +1,8 @@
 package com.example.qinglv.AddPackage.model;
 
-import com.example.qinglv.AddPackage.contract.NoteTypeContract;
+import android.util.Log;
+
+import com.example.qinglv.AddPackage.contract.INoteTypeContract;
 import com.example.qinglv.AddPackage.entity.NoteType;
 import com.example.qinglv.AddPackage.iApiService.NoteTypeApiService;
 import com.example.qinglv.MainPackage.bean.PreviewBean;
@@ -17,11 +19,11 @@ import retrofit2.Response;
  * 游记种类的model层
  */
 
-public class NoteTypeModel implements NoteTypeContract.IModel {
+public class NoteTypeModel implements INoteTypeContract.IModel {
 
-    private NoteTypeContract.IPresenter mPresenter;
+    private INoteTypeContract.IPresenter mPresenter;
 
-    public NoteTypeModel(NoteTypeContract.IPresenter presenter){
+    public NoteTypeModel(INoteTypeContract.IPresenter presenter){
         mPresenter = presenter;
     }
 
@@ -29,29 +31,29 @@ public class NoteTypeModel implements NoteTypeContract.IModel {
 
     //通过这个方法访问数据，并采用回调的方式在presenter中处理数据
     @Override
-    public void getDatas(final CallBack callBack) {
+    public void getDatas() {
         RetrofitManager.getInstance().createRs(NoteTypeApiService.class)
                 .getNoteType()
                 .enqueue(new Callback<PreviewBean<NoteType>>() {
                     @Override
                     public void onResponse(Call<PreviewBean<NoteType>> call, Response<PreviewBean<NoteType>> response) {
                         //数据访问成功
+                        Log.d("response","是否为空"+response);
                         assert response.body() != null;
                         boolean isMore = response.body().getResult().equals("success");
                         List<NoteType> noteTypeList = response.body().getMessage();
-                        callBack.onSuccess(noteTypeList);
+
+                        for (int i=0;i<noteTypeList.size();i++){
+                            Log.d("for",""+noteTypeList.get(i).getName());
+                        }
+
+                        mPresenter.setList(noteTypeList);
                     }
 
                     @Override
                     public void onFailure(Call<PreviewBean<NoteType>> call, Throwable t) {
-                        callBack.onError("访问服务器失败");
+                        mPresenter.setErrorToast("访问服务器错误");
                     }
                 });
     }
-
-
-
-
-
-
 }

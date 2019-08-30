@@ -90,9 +90,9 @@ public class RecyclerViewAdapterWrapper extends RecyclerView.Adapter<RecyclerVie
     }
 
     //设置footView的显示文字
-    public void setItemState(int itemState , boolean isFirst) {
+    public void setItemState(int itemState , boolean isOnlyFoot) {
         this.itemState = itemState;
-        if (isFirst){
+        if (isOnlyFoot){
             notifyItemChanged(getItemCount()-1);
         }else{
             notifyDataSetChanged();

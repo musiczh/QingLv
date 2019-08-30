@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.qinglv.AddPackage.view.AddActivity;
+import com.example.qinglv.AddPackage.view.activity.AddActivity;
 
 import com.example.qinglv.MainPackage.View.fragment.FragmentMain;
 import com.example.qinglv.MessagePackage.FragmentMessage;
@@ -28,6 +28,7 @@ import java.io.IOException;
 
 /**
  * 主函数，主界面
+ * 注释隐藏了商家界面以及好友界面
  */
 
 public class MainActivity extends AppCompatActivity {
@@ -35,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup radioGroup;          //底部导航按钮组
     private ImageView imageViewAdd;  //底部添加的image
     private FragmentMain fragmentMain;
-    private FragmentMessage fragmentMessage;
+    //private FragmentMessage fragmentMessage;
     private FragmentMy fragmentMy;
-    private FragmentShop fragmentShop;
+    //private FragmentShop fragmentShop;
 
 
     @Override
@@ -68,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
     private void initView(){
         //设置底部导航栏图标的规格为60dp
         setImgSize(R.id.radio_button_main,R.drawable.selector_main);
-        setImgSize(R.id.radio_button_shop,R.drawable.selector_shop);
-        setImgSize(R.id.radio_button_message,R.drawable.selector_message);
+        //setImgSize(R.id.radio_button_shop,R.drawable.selector_shop);
+        //setImgSize(R.id.radio_button_message,R.drawable.selector_message);
         setImgSize(R.id.radio_button_my,R.drawable.selector_my);
 
 
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                             transaction.show(fragmentMy);
                         }
                         break;
-                    case R.id.radio_button_shop :
+                    /*case R.id.radio_button_shop :
                         if (fragmentShop == null){
                             fragmentShop = new FragmentShop();
                             transaction.add(R.id.layout_frame_main,fragmentShop);
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         }else {
                             transaction.show(fragmentMessage);
                         }
-                        break;
+                        break;*/
 
                 }
                 //最后提交所有的修改
@@ -157,9 +158,9 @@ public class MainActivity extends AppCompatActivity {
     //隐藏所有的碎片
     private void hideFragment(FragmentTransaction transaction){
         if (fragmentMain!=null) transaction.hide(fragmentMain);
-        if (fragmentMessage!=null) transaction.hide(fragmentMessage);
+        //if (fragmentMessage!=null) transaction.hide(fragmentMessage);
         if (fragmentMy!=null) transaction.hide(fragmentMy);
-        if (fragmentShop!=null) transaction.hide(fragmentShop);
+        //if (fragmentShop!=null) transaction.hide(fragmentShop);
     }
 
 

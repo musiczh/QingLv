@@ -8,25 +8,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qinglv.MainActivity;
 import com.example.qinglv.MainPackage.Adapter.FoodAdapter;
-import com.example.qinglv.MainPackage.Presentor.PathDetailPresenter;
 import com.example.qinglv.MainPackage.View.activity.SearchActivity;
 import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.MainPackage.Entity.Food;
 import com.example.qinglv.MainPackage.Presentor.FoodPresenter;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterPager;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterPager;
 import com.example.qinglv.MainPackage.View.activity.FoodDetailActivity;
-import com.example.qinglv.MainPackage.View.iView.IViewPreview;
-import com.example.qinglv.MainPackage.View.iView.RecyclerClickCallback;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IViewPreview;
+import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerClickCallback;
 import com.example.qinglv.util.NewRecyclerScrollListener;
 import com.example.qinglv.R;
 import java.util.ArrayList;
@@ -76,7 +72,6 @@ public class FragmentShareFood extends Fragment implements IViewPreview<Food> {
             @Override
             public void onLoadMore(int itemCount) {
                 adapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
-
                 //判断是在搜索列表还是预览展示列表
                 if (getActivity()instanceof MainActivity)
                     iPresenterPager.refreshRecycler(itemCount , 10,false);

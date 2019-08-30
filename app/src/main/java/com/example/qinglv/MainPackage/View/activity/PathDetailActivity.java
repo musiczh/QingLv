@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +21,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Presentor.PathDetailPresenter;
-import com.example.qinglv.MainPackage.Presentor.iPresenter.IPresenterDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterDetail;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IViewDetail;
 import com.example.qinglv.R;
 
 import org.jsoup.Jsoup;
@@ -45,7 +47,7 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_path_detail);
+        setContentView(R.layout.activity_detail_path);
         toolbar = findViewById(R.id.toolBar_path_detail);
         webView = findViewById(R.id.webView_path_detail_content);
         textViewTime = findViewById(R.id.textView_path_detail_time);
@@ -63,7 +65,21 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
         //coordinatorLayout.setVisibility(View.GONE);
 
 
-        Intent intent = getIntent();//获取intent中的id
+        final Intent intent = getIntent();//获取intent
+
+        //悬浮按钮设置监听
+        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton_detail_path);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(PathDetailActivity.this,CommentActivity.class);
+                intent1.putExtra("id",intent.getIntExtra("id",1));
+                intent1.putExtra("articleType",CommentActivity.PATH);
+                startActivity(intent1);
+            }
+        });
+
+        //初始化数据
         iPresenterDetail = new PathDetailPresenter();
         ((PathDetailPresenter) iPresenterDetail).attachView(this);
         iPresenterDetail.init(intent.getIntExtra("id",1));

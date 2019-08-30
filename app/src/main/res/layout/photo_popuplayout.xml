@@ -17,7 +17,7 @@
 
 
         <TextView
-            android:id="@+id/pop_photograph"
+            android:id="@+id/pop_edit"
             android:layout_width="181dp"
             android:layout_height="54dp"
             android:layout_marginStart="8dp"
@@ -41,15 +41,15 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="#C4C4C1"
-            app:layout_constraintBottom_toTopOf="@+id/pop_photo"
-            app:layout_constraintEnd_toEndOf="@+id/pop_photograph"
+            app:layout_constraintBottom_toTopOf="@+id/pop_delete"
+            app:layout_constraintEnd_toEndOf="@+id/pop_edit"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/pop_photograph"
+            app:layout_constraintStart_toStartOf="@+id/pop_edit"
             tools:ignore="MissingConstraints" />
 
 
         <TextView
-            android:id="@+id/pop_photo"
+            android:id="@+id/pop_delete"
             android:layout_width="181dp"
             android:layout_height="54dp"
             android:layout_marginStart="8dp"
@@ -74,7 +74,7 @@
             app:layout_constraintBottom_toTopOf="@+id/pop_cancel"
             app:layout_constraintEnd_toEndOf="@+id/pop_cancel"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/pop_photo"
+            app:layout_constraintStart_toStartOf="@+id/pop_delete"
             tools:ignore="MissingConstraints" />
 
         <TextView
