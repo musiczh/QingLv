@@ -135,13 +135,24 @@ public class FragmentSharePath extends Fragment implements IViewPreview<Path> {
 
     //出现异常的处理，显示一个Toast
     @Override
-    public void setErrorToast(String string) {
+    public void setErrorToast(String string , int footType) {
         newRecyclerScrollListener.IS_SCROLL = true;
         Toast.makeText(getContext(),string,Toast.LENGTH_SHORT).show();
         if (swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);
         }
-        adapterWrapper.setItemState(RecyclerViewAdapterWrapper.CONTINUE_DRAG,true);
+        switch (footType){
+            case RecyclerViewAdapterWrapper.NO_MORE :
+                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_MORE,true);
+                newRecyclerScrollListener.IS_SCROLL = false;
+                break;
+            case RecyclerViewAdapterWrapper.NO_INTERNET:
+                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_INTERNET,true);
+                break;
+            case RecyclerViewAdapterWrapper.NO_ARTICLE:
+                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_ARTICLE,true);
+                break;
+        }
     }
 
     @Override

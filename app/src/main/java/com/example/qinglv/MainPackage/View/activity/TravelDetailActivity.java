@@ -56,7 +56,9 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
             @Override
             public void OnBannerClick(int position) {
                 Intent intent = new Intent(TravelDetailActivity.this,ImageActivity.class);
-                intent.putExtra("image",imageList.get(position-1));
+                if (imageList!=null) {
+                    intent.putExtra("image", imageList.get(position - 1));
+                }
                 startActivity(intent);
             }
         });
@@ -129,6 +131,11 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
 
         if (imageList != null && (!imageList.isEmpty())) {
             banner.setImages(imageList);
+            banner.start();
+        }else{
+            List<Integer> list = new ArrayList<>();
+            list.add(R.drawable.img_no_img);
+            banner.setImages(list);
             banner.start();
         }
 

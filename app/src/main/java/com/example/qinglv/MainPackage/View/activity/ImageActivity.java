@@ -16,7 +16,7 @@ public class ImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image);
         Intent intent = getIntent();
         String url = intent.getStringExtra("image");
-
+        if (url!=null)
         Glide.with(this).load(url).into(((ImageView) findViewById(R.id.imageView_bid_activity)));
 
     }

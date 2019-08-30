@@ -55,7 +55,9 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
         final int articleId = intent.getIntExtra("id",1);
         final int articleType = intent.getIntExtra("articleType",1);
 
+        //设置toolBar的标题和返回按钮
         Toolbar toolbar = findViewById(R.id.toolbar_comment);
+        toolbar.setTitle("评论");
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -156,10 +158,23 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
 
     //mvp接口view层方法展示一个toast
     @Override
-    public void setToast(String stringToast) {
+    public void setToast(String stringToast , int footType) {
         Toast.makeText(this,stringToast,Toast.LENGTH_SHORT).show();
         if (progressBar.getVisibility() != View.GONE){
             progressBar.setVisibility(View.GONE);
+        }
+        switch (footType){
+            case RecyclerViewAdapterWrapper.NO_MORE :
+                recyclerViewAdapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_MORE,true);
+                newRecyclerScrollListener.IS_SCROLL = false;
+                break;
+            case RecyclerViewAdapterWrapper.NO_INTERNET:
+                recyclerViewAdapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_INTERNET,true);
+                break;
+            case RecyclerViewAdapterWrapper.NO_ARTICLE:
+                recyclerViewAdapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_ARTICLE,true);
+                break;
+            default:
         }
     }
 

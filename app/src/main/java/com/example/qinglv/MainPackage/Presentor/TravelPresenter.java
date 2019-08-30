@@ -30,9 +30,9 @@ public class TravelPresenter extends BasePresenter<IViewPreview<Travel>> impleme
         }
 
         @Override
-        public void onError(String errorType) {
+        public void onError(String errorType , int recyclerFootType) {
             if (isAttached()) {
-                getView().setErrorToast(errorType);
+                getView().setErrorToast(errorType , recyclerFootType);
             }
         }
     };

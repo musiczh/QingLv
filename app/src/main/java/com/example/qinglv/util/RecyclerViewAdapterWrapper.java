@@ -29,6 +29,9 @@ public class RecyclerViewAdapterWrapper extends RecyclerView.Adapter<RecyclerVie
     public final static int CONTINUE_DRAG = 1;
     public final static int LOADING = 2;
     public final static int NO_MORE = 3;
+    public final static int NO_INTERNET = 4;
+    public final static int NO_ARTICLE = 5;
+    public final static int NO_COMMENT = 6;
 
     //新建一个最后一项布局的holder类，因为他的布局和其他的item不一样
     private class FootViewHolder extends RecyclerView.ViewHolder{
@@ -84,6 +87,9 @@ public class RecyclerViewAdapterWrapper extends RecyclerView.Adapter<RecyclerVie
                 case CONTINUE_DRAG : footViewHolder.textView.setText("上拉加载更多");break;
                 case LOADING : footViewHolder.textView.setText("正在加载中");break;
                 case NO_MORE : footViewHolder.textView.setText("我是个有底线的列表");break;
+                case NO_ARTICLE : footViewHolder.textView.setText("没有相关文章");break;
+                case NO_INTERNET : footViewHolder.textView.setText("出了点小问题，请检查一下网络");break;
+                case NO_COMMENT : footViewHolder.textView.setText("没有相关评论");break;
             }
         }else mAdapter.onBindViewHolder(viewHolder, i);
 

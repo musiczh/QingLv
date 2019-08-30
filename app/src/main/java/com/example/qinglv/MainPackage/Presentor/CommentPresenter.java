@@ -7,6 +7,7 @@ import com.example.qinglv.MainPackage.inter.iApiMvp.BasePresenter;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IModelComment;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterComment;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IViewComment;
+import com.example.qinglv.util.RecyclerViewAdapterWrapper;
 import com.example.qinglv.util.RetrofitManager;
 import com.nostra13.universalimageloader.utils.L;
 
@@ -24,8 +25,8 @@ public class CommentPresenter extends BasePresenter<IViewComment> implements IPr
             }
 
             @Override
-            public void onError(String errorType) {
-                if (isAttached()) getView().setToast(errorType);
+            public void onError(String errorType , int recyclerViewFootType) {
+                if (isAttached()) getView().setToast(errorType , recyclerViewFootType);
             }
         });
     }
@@ -35,14 +36,14 @@ public class CommentPresenter extends BasePresenter<IViewComment> implements IPr
         iModelComment.postComment(articleId, commentString, articleType, new IModelComment.CallBackPost() {
             @Override
             public void onSucceed(String result) {
-                if (isAttached()) getView().setToast(result);
+                if (isAttached()) getView().setToast(result , RecyclerViewAdapterWrapper.LOADING);
                 refreshList(articleId,0,10,articleType,true);
 
             }
 
             @Override
             public void onError(String error) {
-                if (isAttached()) getView().setToast(error);
+                if (isAttached()) getView().setToast(error , -1);
             }
         });
     }
