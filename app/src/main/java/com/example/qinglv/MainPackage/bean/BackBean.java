@@ -1,6 +1,6 @@
 package com.example.qinglv.MainPackage.bean;
 
-public class PostCommentBackBean {
+public class BackBean {
     private String result;
     private String message;
 

@@ -42,8 +42,7 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
     private IPresenterDetail iPresenterDetail;
     private ImageView heart;
     private ImageView collection;
-    private boolean isHeart;
-    private boolean isCollected;
+
 
 
 
@@ -134,14 +133,12 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
 
     @Override
     public void setHeart(boolean isHeart) {
-        this.isHeart = isHeart;
         if (isHeart) heart.setImageResource(R.drawable.img_heart_red);
         else heart.setImageResource(R.drawable.img_heart);
     }
 
     @Override
-    public void setStar(boolean isStar) {
-        this.isCollected = isStar;
+    public void setCollection(boolean isStar) {
         if (isStar) collection.setImageResource(R.drawable.img_star_yellow);
         else  collection.setImageResource(R.drawable.img_star);
     }

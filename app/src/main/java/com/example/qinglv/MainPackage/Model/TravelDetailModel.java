@@ -5,8 +5,11 @@ import android.support.annotation.NonNull;
 import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.Entity.Travel;
 import com.example.qinglv.MainPackage.Entity.TravelDetail;
+import com.example.qinglv.MainPackage.bean.BackBean;
 import com.example.qinglv.MainPackage.bean.DetailBean;
+import com.example.qinglv.MainPackage.bean.StarPostBean;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IModelDetail;
+import com.example.qinglv.MainPackage.inter.iApiService.IsStarApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.PathDetailApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.TravelDetailApiService;
 import com.example.qinglv.util.RetrofitManager;
@@ -16,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.qinglv.util.StaticQuality.TYPE_TRAVEL;
 
 public class TravelDetailModel implements IModelDetail<TravelDetail> {
     @Override
@@ -36,6 +41,31 @@ public class TravelDetailModel implements IModelDetail<TravelDetail> {
                     @Override
                     public void onFailure(@NotNull Call<DetailBean<TravelDetail>> call, @NotNull Throwable t) {
                         callBack.onError("好像出了一点小问题");
+                    }
+                });
+    }
+
+    @Override
+    public void isStar(int typeId , final CallBackStar callBackStar) {
+
+        RetrofitManager.getInstance().createRs(IsStarApiService.class)
+                .isStar(typeId , TYPE_TRAVEL)
+                .enqueue(new Callback<BackBean>() {
+                    @Override
+                    public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
+                        if (response.body()!=null){
+                            boolean isStar;
+                            if (response.body().getResult().equals("success")) isStar =true;
+                            else isStar = false;
+                            callBackStar.onSucceed(isStar);
+                        }else{
+                            callBackStar.onError("出现异常（body==null）");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<BackBean> call, @NotNull Throwable t) {
+                        callBackStar.onError("出现异常（Failure）");
                     }
                 });
     }

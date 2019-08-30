@@ -64,4 +64,18 @@ public class StaticQuality {
     //游记评论的附加地址
     public static final String TRAVEL_COMMENT_URL = "comment/travel";
 
+    //点赞的附加地址
+    public static final String STAR_URL = "star";
+
+    //点赞的对象类型
+    public static final int TYPE_TRAVEL = 1;
+    public static final int TYPE_TRAVEL_COMMENT = 2;
+    public static final int TYPE_TRAVEL_REPLY = 3;
+    public static final int TYPE_SCENIC =4;
+    public static final int TYPE_SCENIC_COMMENT = 5;
+    public static final int TYPE_SCENIC_REPLY = 6;
+    public static final int TYPE_PATH = 7;
+    public static final int TYPE_PATH_COMMENT = 8;
+    public static final int TYPE_PATH_REPLY = 9;
+
 }

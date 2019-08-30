@@ -36,6 +36,7 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
     private WebView webView;
     private TextView textViewTime;
     private ImageView imageView;
+    private ImageView imageViewStar;
     private Toolbar toolbar;
     private IPresenterDetail iPresenterDetail;
     private ProgressBar progressBar;
@@ -52,6 +53,7 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
         webView = findViewById(R.id.webView_path_detail_content);
         textViewTime = findViewById(R.id.textView_path_detail_time);
         imageView = findViewById(R.id.imageView_path_detail_preview);
+        imageViewStar = findViewById(R.id.imageView_detail_path_heart);
 
 
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
@@ -152,11 +154,12 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
 
     @Override
     public void setHeart(boolean isHeart) {
-
+        if (isHeart) imageViewStar.setImageResource(R.drawable.img_heart_red);
+        else imageViewStar.setImageResource(R.drawable.img_heart);
     }
 
     @Override
-    public void setStar(boolean isStar) {
+    public void setCollection(boolean isStar) {
 
     }
 }

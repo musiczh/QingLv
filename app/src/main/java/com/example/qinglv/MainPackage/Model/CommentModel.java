@@ -1,13 +1,9 @@
 package com.example.qinglv.MainPackage.Model;
 
 import com.example.qinglv.MainPackage.Entity.Comment;
-import com.example.qinglv.MainPackage.Entity.Food;
-import com.example.qinglv.MainPackage.Entity.Scenic;
-import com.example.qinglv.MainPackage.Entity.Travel;
 import com.example.qinglv.MainPackage.View.activity.CommentActivity;
 import com.example.qinglv.MainPackage.bean.CommentPostBean;
-import com.example.qinglv.MainPackage.bean.PostCommentBackBean;
-import com.example.qinglv.MainPackage.bean.PreviewBean;
+import com.example.qinglv.MainPackage.bean.BackBean;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IModelComment;
 import com.example.qinglv.MainPackage.inter.iApiService.PathCommentApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.PathPostCommentApiService;
@@ -140,7 +136,7 @@ public class CommentModel implements IModelComment {
 
     @Override
     public void postComment(int articleId, String commentString, int articleType, final CallBackPost callBack ) {
-        Call<PostCommentBackBean> call = null;
+        Call<BackBean> call = null;
         CommentPostBean commentPostBean = new CommentPostBean();
         commentPostBean.setArticleId(articleId);
         commentPostBean.setContent(commentString);
@@ -162,10 +158,10 @@ public class CommentModel implements IModelComment {
             default:hasType = false;
         }
         if (hasType) {
-            call.enqueue(new Callback<PostCommentBackBean>() {
+            call.enqueue(new Callback<BackBean>() {
                 @Override
-                public void onResponse(@NotNull Call<PostCommentBackBean> call,
-                                       @NotNull Response<PostCommentBackBean> response) {
+                public void onResponse(@NotNull Call<BackBean> call,
+                                       @NotNull Response<BackBean> response) {
                     if (response.body()!=null){
                         String result = response.body().getResult();
                         if (result.equals("success")) callBack.onSucceed(result);
@@ -176,7 +172,7 @@ public class CommentModel implements IModelComment {
                 }
 
                 @Override
-                public void onFailure(@NotNull Call<PostCommentBackBean> call, @NotNull Throwable t) {
+                public void onFailure(@NotNull Call<BackBean> call, @NotNull Throwable t) {
                     callBack.onError("评论提交出了一点小问题");
                 }
             });

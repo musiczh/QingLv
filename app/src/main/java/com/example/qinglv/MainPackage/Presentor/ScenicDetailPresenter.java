@@ -29,6 +29,17 @@ public class ScenicDetailPresenter extends BasePresenter<IViewDetail<Scenic>> im
             }
         });
 
+        iModelDetail.isStar(id, new IModelDetail.CallBackStar() {
+            @Override
+            public void onSucceed(boolean isStar) {
+                if (isAttached()) getView().setHeart(isStar);
+            }
+
+            @Override
+            public void onError(String errorType) {
+                if (isAttached()) getView().onError(errorType);
+            }
+        });
 
     }
 }

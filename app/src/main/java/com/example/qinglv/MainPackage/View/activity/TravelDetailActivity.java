@@ -37,6 +37,7 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
     private TextView textViewContent;
     private TextView textViewTime;
     private ProgressBar progressBar;
+    private ImageView imageViewStar;
     private List<String> imageList = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -65,6 +66,7 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
         banner.isAutoPlay(false);
 
         ImageView imageViewAuthor = findViewById(R.id.imageView_detail_travel_author);
+        imageViewStar = findViewById(R.id.imageView_travel_detail_heart);
         textViewContent = findViewById(R.id.textView_detail_travel_content);
         TextView textViewNickName = findViewById(R.id.textView_detail_travel_author);
         textViewTime = findViewById(R.id.textView_detail_travel_time);
@@ -72,6 +74,8 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
         IPresenterDetail iPresenterDetail = new TravelDetailPresenter();
 
         final Intent intent = getIntent();//获取intent中的id
+
+
 
         //悬浮按钮设置监听
         FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton_detail_travel);
@@ -157,11 +161,19 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
 
     @Override
     public void setHeart(boolean isHeart) {
+        if (imageViewStar == null) {
+            imageViewStar = findViewById(R.id.imageView_travel_detail_heart);
+        }
+        if (imageViewStar == null) {
+            //Toast.makeText(this, "kongde", Toast.LENGTH_SHORT).show();
+        }
 
+        //if (isHeart) imageViewStar.setImageResource(R.drawable.img_heart_red);
+        //else imageViewStar.setImageResource(R.drawable.img_heart);
     }
 
     @Override
-    public void setStar(boolean isStar) {
+    public void setCollection(boolean isStar) {
 
     }
 }
