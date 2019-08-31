@@ -38,7 +38,11 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
     private TextView textViewTime;
     private ProgressBar progressBar;
     private ImageView imageViewStar;
+    private ImageView imageViewCollection;
     private List<String> imageList = new ArrayList<>();
+
+    private boolean isStar;
+    private boolean isCollected;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -65,15 +69,17 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
         });
         banner.isAutoPlay(false);
 
+        imageViewStar = findViewById(R.id.imageView_detail_travel_star);
+        imageViewCollection = findViewById(R.id.imageView_detail_travel_collection);
         ImageView imageViewAuthor = findViewById(R.id.imageView_detail_travel_author);
-        imageViewStar = findViewById(R.id.imageView_travel_detail_heart);
         textViewContent = findViewById(R.id.textView_detail_travel_content);
         TextView textViewNickName = findViewById(R.id.textView_detail_travel_author);
         textViewTime = findViewById(R.id.textView_detail_travel_time);
         progressBar = findViewById(R.id.progressBar_travel_detail);
-        IPresenterDetail iPresenterDetail = new TravelDetailPresenter();
+        final IPresenterDetail iPresenterDetail = new TravelDetailPresenter();
 
         final Intent intent = getIntent();//获取intent中的id
+        final int articleId = intent.getIntExtra("id",1);
 
 
 
@@ -90,7 +96,23 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
             }
         });
 
+        //点赞按钮点击监听
+        imageViewStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //if (!isStar) iPresenterDetail.setStar(articleId);
+            }
+        });
+        //收藏按钮点击监听
+        imageViewCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //if (isCollected) iPresenterDetail.setCollection(articleId);
+            }
+        });
+
         //给toolBar设置标题,用户头像以及用户名字
+        if (intent.getStringExtra("nickName")!=null)
         textViewNickName.setText(intent.getStringExtra("nickName"));
         if (intent.getStringExtra("headPortrait") != null)
         Glide.with(this).load(intent.getStringExtra("headPortrait")).into(imageViewAuthor);
@@ -101,7 +123,7 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
 
         //访问网络刷新数据
         ((TravelDetailPresenter) iPresenterDetail).attachView(this);
-        iPresenterDetail.init(intent.getIntExtra("id",1));
+        iPresenterDetail.init(articleId);
 
 
 
@@ -161,19 +183,15 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
 
     @Override
     public void setHeart(boolean isHeart) {
-        if (imageViewStar == null) {
-            imageViewStar = findViewById(R.id.imageView_travel_detail_heart);
-        }
-        if (imageViewStar == null) {
-            //Toast.makeText(this, "kongde", Toast.LENGTH_SHORT).show();
-        }
-
-        //if (isHeart) imageViewStar.setImageResource(R.drawable.img_heart_red);
-        //else imageViewStar.setImageResource(R.drawable.img_heart);
+        if (isHeart) imageViewStar.setImageResource(R.drawable.img_heart_red);
+        else imageViewStar.setImageResource(R.drawable.img_heart);
+        isStar = isHeart;
     }
 
     @Override
     public void setCollection(boolean isStar) {
-
+        if (isStar) imageViewCollection.setImageResource(R.drawable.img_star_yellow);
+        else    imageViewCollection.setImageResource(R.drawable.img_star);
+        isCollected = isStar;
     }
 }

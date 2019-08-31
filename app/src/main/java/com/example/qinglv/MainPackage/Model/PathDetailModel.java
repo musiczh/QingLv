@@ -6,6 +6,7 @@ import com.example.qinglv.MainPackage.Entity.Path;
 import com.example.qinglv.MainPackage.bean.BackBean;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IModelDetail;
 import com.example.qinglv.MainPackage.bean.DetailBean;
+import com.example.qinglv.MainPackage.inter.iApiService.IsCollectionApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.IsStarApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.PathDetailApiService;
 import com.example.qinglv.util.RetrofitManager;
@@ -51,8 +52,7 @@ public class PathDetailModel implements IModelDetail<Path> {
                     public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
                         if (response.body()!=null){
                             boolean isStar;
-                            if (response.body().getResult().equals("success")) isStar =true;
-                            else isStar = false;
+                            isStar = response.body().getResult().equals("success");
                             callBackStar.onSucceed(isStar);
                         }else{
                             callBackStar.onError("出现异常（body==null）");
@@ -64,5 +64,38 @@ public class PathDetailModel implements IModelDetail<Path> {
                         callBackStar.onError("出现异常（Failure）");
                     }
                 });
+    }
+
+    @Override
+    public void isCollection(int typeId,final CallBackStar callBackStar) {
+        RetrofitManager.getInstance().createRs(IsCollectionApiService.class)
+                .isCollection(typeId , TYPE_PATH)
+                .enqueue(new Callback<BackBean>() {
+                    @Override
+                    public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
+                        if (response.body()!=null){
+                            boolean isCollection;
+                            isCollection = response.body().getResult().equals("success");
+                            callBackStar.onSucceed(isCollection);
+                        }else{
+                            callBackStar.onError("出现异常（body==null）");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<BackBean> call, @NotNull Throwable t) {
+                        callBackStar.onError("出现异常（Failure）");
+                    }
+                });
+    }
+
+    @Override
+    public void setStar(int articleId, CallBackStar callBackStar) {
+
+    }
+
+    @Override
+    public void setCollection(int articleId, CallBackStar callBackStar) {
+
     }
 }

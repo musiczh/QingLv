@@ -67,6 +67,9 @@ public class StaticQuality {
     //点赞的附加地址
     public static final String STAR_URL = "star";
 
+    //收藏的附加地址
+    public static final String COLLECTION_URL = "collection";
+
     //点赞的对象类型
     public static final int TYPE_TRAVEL = 1;
     public static final int TYPE_TRAVEL_COMMENT = 2;

@@ -110,7 +110,7 @@ public class CommentModel implements IModelComment {
                                     callBack.onSucceed(list, isMore);
                                 }
                             }else{
-                                if (firstNum == 0) callBack.onError(jsonObject.getString("message") , RecyclerViewAdapterWrapper.NO_ARTICLE);
+                                if (firstNum == 0) callBack.onError(jsonObject.getString("message") , RecyclerViewAdapterWrapper.NO_COMMENT);
                                 else callBack.onError(jsonObject.getString("message") , RecyclerViewAdapterWrapper.NO_MORE);
                             }
                         } catch (JSONException e) {

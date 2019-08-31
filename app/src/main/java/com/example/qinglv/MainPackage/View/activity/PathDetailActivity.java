@@ -37,6 +37,7 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
     private TextView textViewTime;
     private ImageView imageView;
     private ImageView imageViewStar;
+    private ImageView imageViewCollection;
     private Toolbar toolbar;
     private IPresenterDetail iPresenterDetail;
     private ProgressBar progressBar;
@@ -54,6 +55,7 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
         textViewTime = findViewById(R.id.textView_path_detail_time);
         imageView = findViewById(R.id.imageView_path_detail_preview);
         imageViewStar = findViewById(R.id.imageView_detail_path_heart);
+        imageViewCollection = findViewById(R.id.imageView_detail_path_collection);
 
 
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
@@ -160,6 +162,7 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
 
     @Override
     public void setCollection(boolean isStar) {
-
+        if (isStar) imageViewCollection.setImageResource(R.drawable.img_star_yellow);
+        else    imageViewCollection.setImageResource(R.drawable.img_star);
     }
 }
