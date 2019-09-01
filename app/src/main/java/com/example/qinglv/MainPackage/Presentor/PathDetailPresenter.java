@@ -31,5 +31,48 @@ public class PathDetailPresenter extends BasePresenter<IViewDetail<Path>> implem
                 }
             }
         });
+
+        iModelDetail.isStar(id, new IModelDetail.CallBackStar() {
+            @Override
+            public void onSucceed(boolean isStar) {
+                if (isAttached()) getView().setHeart(isStar);
+            }
+
+            @Override
+            public void onError(String errorType) {
+                if (isAttached()) getView().onError(errorType);
+            }
+        });
+    }
+
+
+    @Override
+    public void setStar(int articleId) {
+        iModelDetail.setStar(articleId, new IModelDetail.CallBackStar() {
+            @Override
+            public void onSucceed(boolean isStar) {
+                if (isAttached()) getView().setHeart(isStar);
+            }
+
+            @Override
+            public void onError(String errorType) {
+                if (isAttached()) getView().onError(errorType);
+            }
+        });
+    }
+
+    @Override
+    public void setCollection(int articleId) {
+        iModelDetail.setCollection(articleId, new IModelDetail.CallBackStar() {
+            @Override
+            public void onSucceed(boolean isStar) {
+                if (isAttached()) getView().setCollection(isStar);
+            }
+
+            @Override
+            public void onError(String errorType) {
+                if (isAttached()) getView().onError(errorType);
+            }
+        });
     }
 }

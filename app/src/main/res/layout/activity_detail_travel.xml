@@ -51,8 +51,8 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager_detail_travel_photo"
                 android:layout_width="match_parent"
-                android:layout_marginTop="4dp"
-                android:layout_height="200dp">
+                android:layout_height="150dp"
+                android:layout_marginTop="4dp">
 
             </android.support.v4.view.ViewPager>
 
@@ -66,11 +66,10 @@
 
                 <ImageView
                     android:id="@+id/imageView_detail_travel_author"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginBottom="2dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginTop="4dp"
+                    android:scaleType="centerCrop"
                     android:contentDescription="@string/text_view"
                     android:src="@drawable/img_head" />
 
@@ -130,13 +129,13 @@
                    app:layout_constraintTop_toTopOf="parent"/>
 
                <ImageView
+                   android:id="@+id/imageView_travel_detail_heart"
                    android:layout_width="30dp"
                    android:layout_height="30dp"
                    android:layout_marginTop="2dp"
                    android:layout_marginRight="8dp"
                    android:layout_marginLeft="8dp"
                    android:contentDescription="@string/content"
-                   android:id="@+id/imageView_detail_travel_star"
                    android:src="@drawable/img_heart"
                    app:layout_constraintRight_toLeftOf="@+id/imageView_detail_travel_collection"
                    app:layout_constraintTop_toTopOf="parent"

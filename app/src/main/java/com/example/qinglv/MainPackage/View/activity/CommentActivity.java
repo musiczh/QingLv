@@ -1,5 +1,6 @@
 package com.example.qinglv.MainPackage.View.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -10,11 +11,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.example.qinglv.MainPackage.Adapter.CommentAdapter;
 import com.example.qinglv.MainPackage.Entity.Comment;
 import com.example.qinglv.MainPackage.Presentor.CommentPresenter;
@@ -39,6 +45,7 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
     private NewRecyclerScrollListener newRecyclerScrollListener;
     private ProgressBar progressBar;
     private IPresenterComment iPresenterComment;
+    private ImageView imageViewHeadPortrait;
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -51,14 +58,23 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
         Intent intent = getIntent();
         final int articleId = intent.getIntExtra("id",1);
         final int articleType = intent.getIntExtra("articleType",1);
+        String headPortrait = intent.getStringExtra("headPortrait");
+        String nickName = intent.getStringExtra("nickName");
 
+        //设置toolBar的标题和返回按钮
         Toolbar toolbar = findViewById(R.id.toolbar_comment);
+        toolbar.setTitle("评论");
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         final EditText editText = findViewById(R.id.editText_comment);
         iPresenterComment = new CommentPresenter();
+        imageViewHeadPortrait = findViewById(R.id.imageView_comment_user);
+        Glide.with(this).load(headPortrait)
+                .placeholder(R.drawable.gif)
+                .error(R.drawable.img_head)
+                .into(imageViewHeadPortrait);
         progressBar = findViewById(R.id.progressBar_comment);
         RecyclerView recyclerView = findViewById(R.id.recyclerView_comment);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -94,7 +110,7 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
         newRecyclerScrollListener = new NewRecyclerScrollListener() {
             @Override
             public void onLoadMore(int itemCount) {
-                iPresenterComment.refreshList(articleId,itemCount,10 , articleType);
+                iPresenterComment.refreshList(articleId,itemCount,10 , articleType,false);
                 recyclerViewAdapterWrapper.setItemState(RecyclerViewAdapterWrapper.LOADING,true);
             }
         };
@@ -105,14 +121,22 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 iPresenterComment.postComment(articleId , (v.getText()).toString(),articleType);
-                editText.setText("");
+                //editText.setText("");
+                editText.clearFocus();
+
+                //收起软键盘
+                InputMethodManager inputMethodManager = (InputMethodManager) CommentActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                if (inputMethodManager.isActive()) inputMethodManager
+                        .hideSoftInputFromWindow(CommentActivity.this.getWindow().getDecorView().getApplicationWindowToken(),
+                                0);
+
                 return false;
             }
         });
 
         //第一次进入刷新的逻辑
         ((CommentPresenter)iPresenterComment).attachView(this);
-        iPresenterComment.refreshList(articleId, 0,10,articleType);
+        iPresenterComment.refreshList(articleId, 0,10,articleType,false);
 
     }
 
@@ -127,7 +151,8 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
 
     //mvp的View层刷新列表方法
     @Override
-    public void setComment(List<Comment> list, boolean isMore) {
+    public void setComment(List<Comment> list, boolean isMore , boolean isClear) {
+        if (isClear)  mList.clear();
         mList.addAll(list);
         if (isMore) {
             newRecyclerScrollListener.IS_SCROLL = true;
@@ -144,10 +169,34 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
 
     //mvp接口view层方法展示一个toast
     @Override
-    public void setToast(String stringToast) {
+    public void setToast(String stringToast , int footType) {
         Toast.makeText(this,stringToast,Toast.LENGTH_SHORT).show();
         if (progressBar.getVisibility() != View.GONE){
             progressBar.setVisibility(View.GONE);
         }
+        switch (footType){
+            case RecyclerViewAdapterWrapper.NO_MORE :
+                recyclerViewAdapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_MORE,true);
+                newRecyclerScrollListener.IS_SCROLL = false;
+                break;
+            case RecyclerViewAdapterWrapper.NO_INTERNET:
+                recyclerViewAdapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_INTERNET,true);
+                break;
+            case RecyclerViewAdapterWrapper.NO_ARTICLE:
+                recyclerViewAdapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_ARTICLE,true);
+                break;
+            default:
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        InputMethodManager inputMethodManager = (InputMethodManager) CommentActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = getCurrentFocus();
+        if (view != null)
+            if (inputMethodManager.isActive()) inputMethodManager
+                    .hideSoftInputFromWindow(view.getApplicationWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
+        return super.dispatchTouchEvent(ev);
     }
 }

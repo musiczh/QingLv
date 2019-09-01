@@ -29,9 +29,9 @@ public class PathPresenter extends BasePresenter<IViewPreview<Path>> implements 
         }
 
         @Override
-        public void onError(String errorType) {
+        public void onError(String errorType , int recyclerFootType) {
             if (isAttached()) {
-                getView().setErrorToast(errorType);
+                getView().setErrorToast(errorType , recyclerFootType);
             }
         }
     };

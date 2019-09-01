@@ -36,7 +36,7 @@ public class ViewPagerAdapterImage extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view = View.inflate(mContext, R.layout.image_view_pager , container);
         ImageView imageView = view.findViewById(R.id.imageView_detail_travel_viewPager);
-        Glide.with(mContext).load(mList.get(0)).into(imageView);
+        Glide.with(mContext).load(mList.get(position)).into(imageView);
         return imageView;
     }
 

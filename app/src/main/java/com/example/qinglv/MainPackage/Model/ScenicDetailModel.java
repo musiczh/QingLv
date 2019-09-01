@@ -1,8 +1,11 @@
 package com.example.qinglv.MainPackage.Model;
 
 import com.example.qinglv.MainPackage.Entity.Scenic;
+import com.example.qinglv.MainPackage.bean.BackBean;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IModelDetail;
 import com.example.qinglv.MainPackage.bean.DetailBean;
+import com.example.qinglv.MainPackage.inter.iApiService.IsCollectionApiService;
+import com.example.qinglv.MainPackage.inter.iApiService.IsStarApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.ScenicDetailApiService;
 import com.example.qinglv.util.RetrofitManager;
 
@@ -11,6 +14,9 @@ import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.qinglv.util.StaticQuality.TYPE_SCENIC;
+import static com.example.qinglv.util.StaticQuality.TYPE_TRAVEL;
 
 public class ScenicDetailModel implements IModelDetail<Scenic> {
     @Override
@@ -33,5 +39,61 @@ public class ScenicDetailModel implements IModelDetail<Scenic> {
                         callBack.onError("好像出了一点小问题");
                     }
                 });
+    }
+
+    @Override
+    public void isStar(int typeId, final CallBackStar callBackStar) {
+        RetrofitManager.getInstance().createRs(IsStarApiService.class)
+                .isStar(typeId , TYPE_SCENIC)
+                .enqueue(new Callback<BackBean>() {
+                    @Override
+                    public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
+                        if (response.body()!=null){
+                            boolean isStar;
+                            isStar = response.body().getResult().equals("success");
+                            callBackStar.onSucceed(isStar);
+                        }else{
+                            callBackStar.onError("出现异常（body==null）");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<BackBean> call, @NotNull Throwable t) {
+                        callBackStar.onError("出现异常（Failure）");
+                    }
+                });
+    }
+
+    @Override
+    public void isCollection(int typeId,final CallBackStar callBackStar) {
+        RetrofitManager.getInstance().createRs(IsCollectionApiService.class)
+                .isCollection(typeId , TYPE_SCENIC)
+                .enqueue(new Callback<BackBean>() {
+                    @Override
+                    public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
+                        if (response.body()!=null){
+                            boolean isCollection;
+                            isCollection = response.body().getResult().equals("success");
+                            callBackStar.onSucceed(isCollection);
+                        }else{
+                            callBackStar.onError("出现异常（body==null）");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<BackBean> call, @NotNull Throwable t) {
+                        callBackStar.onError("出现异常（Failure）");
+                    }
+                });
+    }
+
+    @Override
+    public void setStar(int articleId, CallBackStar callBackStar) {
+
+    }
+
+    @Override
+    public void setCollection(int articleId, CallBackStar callBackStar) {
+
     }
 }

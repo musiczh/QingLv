@@ -91,7 +91,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (mClickCallback.isStar(comment.getId())) commentViewHolder.imageViewStar.setImageResource(R.drawable.img_heart_red);
         else commentViewHolder.imageViewStar.setImageResource(R.drawable.img_heart);
 
-        if (position == (mList.size()-1)) ((CommentViewHolder) holder).linearLayout.setVisibility(View.GONE);
+        //if (position == (getItemCount()-1)) ((CommentViewHolder) holder).linearLayout.setVisibility(View.GONE);
     }
 
     @Override

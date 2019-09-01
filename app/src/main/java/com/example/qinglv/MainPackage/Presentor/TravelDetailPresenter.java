@@ -10,9 +10,12 @@ import com.example.qinglv.MainPackage.inter.iApiMvp.IViewDetail;
 
 public class TravelDetailPresenter extends BasePresenter<IViewDetail<TravelDetail>> implements IPresenterDetail {
 
+    private IModelDetail<TravelDetail> iModelDetail = new TravelDetailModel();
+
+    //初始化详情页界面数据的逻辑
     @Override
-    public void init(int id) {
-        IModelDetail<TravelDetail> iModelDetail = new TravelDetailModel();
+    public void init(final int id) {
+
         iModelDetail.getData(id, new IModelDetail.CallBack<TravelDetail>() {
             @Override
             public void onSucceed(TravelDetail detail) {
@@ -26,6 +29,60 @@ public class TravelDetailPresenter extends BasePresenter<IViewDetail<TravelDetai
                     getView().onError(errorType);
             }
         });
+        iModelDetail.isStar(id, new IModelDetail.CallBackStar() {
+            @Override
+            public void onSucceed(boolean isStar) {
+                if (isAttached()) getView().setHeart(isStar);
+            }
 
+            @Override
+            public void onError(String errorType) {
+                if (isAttached()) getView().onError(errorType);
+            }
+        });
+        iModelDetail.isCollection(id, new IModelDetail.CallBackStar() {
+            @Override
+            public void onSucceed(boolean isStar) {
+                if (isAttached()) getView().setCollection(isStar);
+            }
+
+            @Override
+            public void onError(String errorType) {
+                if (isAttached()) getView().onError(errorType);
+            }
+        });
+
+    }
+
+    //点赞的逻辑
+    @Override
+    public void setStar(int articleId) {
+        iModelDetail.setStar(articleId, new IModelDetail.CallBackStar() {
+            @Override
+            public void onSucceed(boolean isStar) {
+                if (isAttached()) getView().setHeart(isStar);
+            }
+
+            @Override
+            public void onError(String errorType) {
+                if (isAttached()) getView().onError(errorType);
+            }
+        });
+    }
+
+    //收藏的逻辑
+    @Override
+    public void setCollection(int articleId) {
+        iModelDetail.setCollection(articleId, new IModelDetail.CallBackStar() {
+            @Override
+            public void onSucceed(boolean isStar) {
+                if (isAttached()) getView().setCollection(isStar);
+            }
+
+            @Override
+            public void onError(String errorType) {
+                if (isAttached()) getView().onError(errorType);
+            }
+        });
     }
 }

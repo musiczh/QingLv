@@ -53,7 +53,7 @@ public class StaticQuality {
     public static final String SCENIC_SEARCH_URL= "search/scenic";
 
     //图片前缀
-    public static final String PREFIX_IMAGE = "http://47.112.212.177/requireImage/";
+    public static final String PREFIX_IMAGE = "http://47.102.212.18/requireImage/";
 
     //景点评论的附加地址
     public static final String SCENIC_COMMENT_URL = "comment/scenic";
@@ -63,5 +63,22 @@ public class StaticQuality {
 
     //游记评论的附加地址
     public static final String TRAVEL_COMMENT_URL = "comment/travel";
+
+    //点赞的附加地址
+    public static final String STAR_URL = "star";
+
+    //收藏的附加地址
+    public static final String COLLECTION_URL = "collection";
+
+    //点赞的对象类型
+    public static final int TYPE_TRAVEL = 1;
+    public static final int TYPE_TRAVEL_COMMENT = 2;
+    public static final int TYPE_TRAVEL_REPLY = 3;
+    public static final int TYPE_SCENIC =4;
+    public static final int TYPE_SCENIC_COMMENT = 5;
+    public static final int TYPE_SCENIC_REPLY = 6;
+    public static final int TYPE_PATH = 7;
+    public static final int TYPE_PATH_COMMENT = 8;
+    public static final int TYPE_PATH_REPLY = 9;
 
 }

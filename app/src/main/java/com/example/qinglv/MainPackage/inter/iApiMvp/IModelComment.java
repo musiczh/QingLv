@@ -9,7 +9,7 @@ public interface IModelComment  {
     public void postComment(int articleId , String commentString, int articleType, CallBackPost callBack );
     interface CallBack<T>{
         void onSucceed(List<T> list , boolean isMare);
-        void onError(String errorType);
+        void onError(String errorType , int recyclerViewFootType);
     }
     interface CallBackPost{
         void onSucceed(String result);

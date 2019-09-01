@@ -40,6 +40,9 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
     private TextView textViewTime;
     private Toolbar toolbar;
     private IPresenterDetail iPresenterDetail;
+    private ImageView heart;
+    private ImageView collection;
+
 
 
 
@@ -53,6 +56,8 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
 
         //控件属性初始化
         toolbar = findViewById(R.id.toolBar_scenic_detail);
+        heart = findViewById(R.id.imageView_detail_scenic_heart);
+        collection = findViewById(R.id.imageView_detail_scenic_collection);
         webViewContent = findViewById(R.id.webView_share_content);
         webViewTraffic = findViewById(R.id.webView_scenic_detail_traffic);
         imageView = findViewById(R.id.imageView_scenic_detail_preview);
@@ -124,6 +129,18 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
             progressBar.setVisibility(View.GONE);
         }
 
+    }
+
+    @Override
+    public void setHeart(boolean isHeart) {
+        if (isHeart) heart.setImageResource(R.drawable.img_heart_red);
+        else heart.setImageResource(R.drawable.img_heart);
+    }
+
+    @Override
+    public void setCollection(boolean isStar) {
+        if (isStar) collection.setImageResource(R.drawable.img_star_yellow);
+        else  collection.setImageResource(R.drawable.img_star);
     }
 
     //设置可混合http和https两种协议的网址数据

@@ -19,7 +19,7 @@
     <string name="content">我是文章内容</string>
     <string name="tittle">这里是标题</string>
     <string name="time">2000.00.00</string>
-    <string name="user_name">我是用户名</string>
+    <string name="user_name">该用户没有昵称</string>
     <string name="note_type">游记种类</string>
 
 
@@ -35,4 +35,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="comment_content">说点什么呢...</string>
+    <string name="imageDetail">图片详情</string>
+    <string name="travelPreview">该游记没有标题</string>
+    <string name="_0">0</string>
 </resources>

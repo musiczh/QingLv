@@ -10,7 +10,7 @@ public interface IModelPager<T> {
     public void getSearchData(String key , int firstNum , int size , CallBack<T> callBack);
     interface CallBack<T>{
         void onSucceed(List<T> list , boolean isMore);
-        void onError(String errorType);
+        void onError(String errorType , int recyclerFootType);
     }
 
 }

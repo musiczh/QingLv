@@ -9,12 +9,13 @@
     <ImageView
         android:id="@+id/imageView_item_comment_head"
         android:contentDescription="@string/content"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:src="@drawable/img_head"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="3dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"/>
 
@@ -23,11 +24,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/user_name"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:layout_marginTop="2dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toLeftOf="@id/imageView_item_comment_star"
         app:layout_constraintLeft_toRightOf="@id/imageView_item_comment_head"/>
@@ -48,14 +49,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView_item_comment_content"
-        android:textSize="14sp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
+        android:textSize="15sp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/content"
         app:layout_constraintTop_toBottomOf="@id/textView_item_comment_userName"
         app:layout_constraintLeft_toRightOf="@+id/imageView_item_comment_head"
         app:layout_constraintRight_toLeftOf="@id/imageView_item_comment_star"
-        android:layout_marginStart="4dp" />
+         />
 
     <LinearLayout
         app:layout_constraintTop_toBottomOf="@id/textView_item_comment_content"

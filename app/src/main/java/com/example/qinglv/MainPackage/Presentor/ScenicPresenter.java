@@ -32,9 +32,9 @@ public class ScenicPresenter extends BasePresenter<IViewPreview<Scenic>> impleme
         }
 
         @Override
-        public void onError(String errorType) {
+        public void onError(String errorType  , int recyclerFootType) {
             if (isAttached()) {
-                getView().setErrorToast(errorType);
+                getView().setErrorToast(errorType , recyclerFootType);
             }
         }
     };

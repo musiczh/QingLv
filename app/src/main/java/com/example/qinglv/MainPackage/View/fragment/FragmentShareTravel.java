@@ -57,12 +57,21 @@ public class FragmentShareTravel extends Fragment implements IViewPreview<Travel
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         TravelAdapter travelAdapter = new TravelAdapter(mList, new RecyclerClickCallback() {
+            //recyclerView子项点击监听
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(getContext(), TravelDetailActivity.class);
                 Travel travel = mList.get(position);
+
+                String url;
+                if (travel.getHeadPortrait().length()<10) {
+                    url = PREFIX_IMAGE+travel.getHeadPortrait();
+                }else{
+                    url = travel.getHeadPortrait();
+                }
+
                 intent.putExtra("nickName",travel.getNickName());
-                intent.putExtra("headPortrait",PREFIX_IMAGE+ travel.getHeadPortrait());
+                intent.putExtra("headPortrait",url);
                 intent.putExtra("tittle",travel.getTitle());
                 intent.putExtra("id",travel.getId());
                 startActivity(intent);
@@ -141,13 +150,25 @@ public class FragmentShareTravel extends Fragment implements IViewPreview<Travel
 
     //出现异常的处理，显示一个Toast
     @Override
-    public void setErrorToast(String string) {
+    public void setErrorToast(String string , int footType) {
         newRecyclerScrollListener.IS_SCROLL = true;
         Toast.makeText(getContext(),string,Toast.LENGTH_SHORT).show();
         if (swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);
         }
-        adapterWrapper.setItemState(RecyclerViewAdapterWrapper.CONTINUE_DRAG,true);
+        switch (footType){
+            case RecyclerViewAdapterWrapper.NO_MORE :
+                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_MORE,true);
+                newRecyclerScrollListener.IS_SCROLL = false;
+                break;
+            case RecyclerViewAdapterWrapper.NO_INTERNET:
+                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_INTERNET,true);
+                break;
+            case RecyclerViewAdapterWrapper.NO_ARTICLE:
+                adapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_ARTICLE,true);
+                break;
+        }
+
     }
 
     @Override
