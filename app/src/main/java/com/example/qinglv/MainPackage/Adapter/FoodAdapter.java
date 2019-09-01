@@ -76,7 +76,7 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         //绑定数据
         Food food = mList.get(i);
-        String content = food.getContent().substring(0,27)+"......点击查看详情";
+        String content = food.getContent().substring(0,40)+"......点击查看详情";
         foodViewHolder.timeTextView.setText(food.getDepositTime());
         foodViewHolder.contentTextView.setText(content);
         foodViewHolder.tittleTextView.setText(food.getTitle());

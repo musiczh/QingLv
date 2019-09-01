@@ -74,16 +74,21 @@ public class TravelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         TravelViewHolder travelViewHolder = (TravelViewHolder) viewHolder;
+
         Travel travel = mList.get(i);
         if (travel.getNickName()!=null) travelViewHolder.userNameTextView.setText(travel.getNickName());
         if (travel.getStarNum()!=null) travelViewHolder.HeartTextView.setText(travel.getStarNum());
         travelViewHolder.tittleTextView.setText(travel.getTitle());
         List<String> strings = travel.getPhoto();
         String url;
-
+        String s = null;
         if (strings!=null) {
-            String s = strings.get(0);
-            Glide.with(context).load(s).into(travelViewHolder.previewImage);
+            s = strings.get(0);
+            Glide.with(context).load(s)
+                    .placeholder(R.drawable.gif)
+                    .error(R.drawable.img_no_img)
+                    //.override(120,20)
+                    .into(travelViewHolder.previewImage);
         }
         if (travel.getHeadPortrait().length()<10) {
             url = PREFIX_IMAGE+travel.getHeadPortrait();

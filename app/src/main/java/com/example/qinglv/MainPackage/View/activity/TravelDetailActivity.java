@@ -76,10 +76,15 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
         TextView textViewNickName = findViewById(R.id.textView_detail_travel_author);
         textViewTime = findViewById(R.id.textView_detail_travel_time);
         progressBar = findViewById(R.id.progressBar_travel_detail);
-        final IPresenterDetail iPresenterDetail = new TravelDetailPresenter();
 
+        final IPresenterDetail iPresenterDetail = new TravelDetailPresenter();
+        final String headPortrait;
+        final String nickName;
+        final int articleId;
         final Intent intent = getIntent();//获取intent中的id
-        final int articleId = intent.getIntExtra("id",1);
+        articleId = intent.getIntExtra("id",1);
+        headPortrait = intent.getStringExtra("headPortrait");
+        nickName = intent.getStringExtra("nickName");
 
 
 
@@ -91,6 +96,8 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
                 Intent intent1 = new Intent(TravelDetailActivity.this,CommentActivity.class);
                 intent1.putExtra("id",intent.getIntExtra("id",1));
                 intent1.putExtra("articleType",CommentActivity.TRAVEL);
+                intent1.putExtra("headPortrait",headPortrait);
+                intent1.putExtra("nickName",nickName);
 
                 startActivity(intent1);
             }
@@ -113,9 +120,9 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
 
         //给toolBar设置标题,用户头像以及用户名字
         if (intent.getStringExtra("nickName")!=null)
-        textViewNickName.setText(intent.getStringExtra("nickName"));
+        textViewNickName.setText(nickName);
         if (intent.getStringExtra("headPortrait") != null)
-        Glide.with(this).load(intent.getStringExtra("headPortrait")).into(imageViewAuthor);
+        Glide.with(this).load(headPortrait).into(imageViewAuthor);
         toolbar.setTitle(intent.getStringExtra("tittle"));
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
@@ -134,7 +141,10 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
     class GlideImageLoader extends ImageLoader{
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
-            Glide.with(context).load(path).into(imageView);
+            Glide.with(context).load(path)
+                    .placeholder(R.drawable.gif)
+                    .error(R.drawable.img_no_img)
+                    .into(imageView);
         }
     }
 

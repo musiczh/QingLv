@@ -53,8 +53,8 @@
             <com.youth.banner.Banner
             android:id="@+id/banner_detail_travel_photo"
             android:layout_width="wrap_content"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginLeft="18dp"
             android:layout_marginTop="4dp"
             android:layout_height="300dp"/>
 
@@ -64,15 +64,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/imageView_detail_travel_author"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:scaleType="centerCrop"
                     android:layout_marginBottom="2dp"
                     android:contentDescription="@string/text_view"
                     android:src="@drawable/img_head" />

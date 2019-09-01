@@ -15,9 +15,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.example.qinglv.MainPackage.Adapter.CommentAdapter;
 import com.example.qinglv.MainPackage.Entity.Comment;
 import com.example.qinglv.MainPackage.Presentor.CommentPresenter;
@@ -42,6 +45,7 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
     private NewRecyclerScrollListener newRecyclerScrollListener;
     private ProgressBar progressBar;
     private IPresenterComment iPresenterComment;
+    private ImageView imageViewHeadPortrait;
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -54,6 +58,8 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
         Intent intent = getIntent();
         final int articleId = intent.getIntExtra("id",1);
         final int articleType = intent.getIntExtra("articleType",1);
+        String headPortrait = intent.getStringExtra("headPortrait");
+        String nickName = intent.getStringExtra("nickName");
 
         //设置toolBar的标题和返回按钮
         Toolbar toolbar = findViewById(R.id.toolbar_comment);
@@ -64,6 +70,11 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
 
         final EditText editText = findViewById(R.id.editText_comment);
         iPresenterComment = new CommentPresenter();
+        imageViewHeadPortrait = findViewById(R.id.imageView_comment_user);
+        Glide.with(this).load(headPortrait)
+                .placeholder(R.drawable.gif)
+                .error(R.drawable.img_head)
+                .into(imageViewHeadPortrait);
         progressBar = findViewById(R.id.progressBar_comment);
         RecyclerView recyclerView = findViewById(R.id.recyclerView_comment);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

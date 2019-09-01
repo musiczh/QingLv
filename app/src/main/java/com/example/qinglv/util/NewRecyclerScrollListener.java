@@ -21,6 +21,7 @@ public abstract class NewRecyclerScrollListener extends RecyclerView.OnScrollLis
     public  Boolean IS_SCROLL = true;
     //判断是否在向上滑动
     private Boolean isDragUp = false;
+    private int y = 0;
 
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -42,7 +43,8 @@ public abstract class NewRecyclerScrollListener extends RecyclerView.OnScrollLis
     @Override
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        isDragUp = dy>0;
+        isDragUp = dy<y;
+        y = dy;
     }
 
     /**
