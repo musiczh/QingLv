@@ -14,12 +14,12 @@ public class BasePresenter<V> {
     }
 
 
-    protected V getMvpView() {
+    public V getMvpView() {
         return view;
     }
 
 
-    protected boolean isAttachView() {
+    public boolean isAttachView() {
         return view != null;
     }
 

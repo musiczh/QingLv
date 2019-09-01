@@ -11,14 +11,19 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".MainPackage.View.activity.ImageActivity"></activity>
+        <activity android:name=".MainPackage.View.activity.ImageActivity"
+            tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".MainPackage.View.activity.CommentActivity"
             tools:ignore="InnerclassSeparator" />
 
         <activity android:name=".AddPackage.view.activity.AddActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            />
+            tools:ignore="InnerclassSeparator" />
+
+
+        <activity android:name=".UserPackage.View.InfoActivity"
+            tools:ignore="InnerclassSeparator" />
 
         <activity
             android:name=".UserPackage.View.RegisterActivity"
@@ -33,6 +38,7 @@
             android:name=".MainPackage.View.activity.ScenicDetailActivity"
             android:theme="@style/NewAppTheme"
             tools:ignore="InnerclassSeparator" />
+
         <activity
             android:name=".MainPackage.View.activity.PathDetailActivity"
             android:theme="@style/NewAppTheme"
@@ -43,7 +49,8 @@
         <activity
             android:name=".MainPackage.View.activity.TravelDetailActivity"
             tools:ignore="InnerclassSeparator" />
-        <activity android:name=".AddPackage.view.activity.NoteTypeActivity" />
+        <activity android:name=".AddPackage.view.activity.NoteTypeActivity"
+            tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".UserPackage.View.ForgetActivity"
             tools:ignore="InnerclassSeparator" />
@@ -54,6 +61,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainPackage.View.activity.CommentActivity"
+            tools:ignore="DuplicateActivity,InnerclassSeparator" />
+
+        <activity android:name=".AddPackage.view.activity.AddActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            tools:ignore="DuplicateActivity,InnerclassSeparator" />
+
 
         <provider
             android:name="android.support.v4.content.FileProvider"

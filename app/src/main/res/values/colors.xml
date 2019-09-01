@@ -78,7 +78,7 @@
     <color name="palegreen">#98fb98</color><!--苍绿色 -->
     <color name="mediumturquoise">#48d1cc</color><!--中绿宝石 -->
     <color name="mediumaquamarine">#66cdaa</color><!--中绿色 -->
-    <color name="aqua">#00ffff</color><!--浅绿色 -->
+    <color name="aqua">#00FFFF</color><!--浅绿色 -->
     <color name="springgreen">#00ff7f</color><!--春绿色 -->
     <color name="mediumspringgreen">#00fa9a</color><!--中春绿色 -->
     <color name="darkturquoise">#00ced1</color><!--暗宝石绿 -->
@@ -110,8 +110,8 @@
     <color name="darkslateblue">#483d8b</color><!--暗灰蓝色 -->
     <color name="mediumseagreen">#3cb371</color><!--中海蓝 -->
     <color name="steelblue">#4682b4</color><!--钢兰色 -->
-    <color name="lightsteelblue">#b0c4de</color><!--亮钢兰色 -->
-    <color name="cornflowerblue">#6495ed</color><!--菊兰色 -->
+    <color name="lightsteelblue">#B3B9C1</color><!--亮钢兰色 -->
+    <color name="cornflowerblue">#6495ED</color><!--菊兰色 -->
     <color name="dodgerblue">#1e90ff</color><!--闪兰色 -->
     <color name="cadetblue">#5f9ea0</color><!--军兰色 -->
     <color name="blueviolet">#8a2be2</color><!--紫罗兰蓝色 -->
