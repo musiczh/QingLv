@@ -7,6 +7,8 @@ import com.example.qinglv.MainPackage.bean.DetailBean;
 import com.example.qinglv.MainPackage.inter.iApiService.IsCollectionApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.IsStarApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.ScenicDetailApiService;
+import com.example.qinglv.MainPackage.inter.iApiService.SetCollectionApiService;
+import com.example.qinglv.MainPackage.inter.iApiService.SetStarApiService;
 import com.example.qinglv.util.RetrofitManager;
 
 import org.jetbrains.annotations.NotNull;
@@ -88,12 +90,46 @@ public class ScenicDetailModel implements IModelDetail<Scenic> {
     }
 
     @Override
-    public void setStar(int articleId, CallBackStar callBackStar) {
+    public void setStar(int articleId,final CallBackStar callBackStar) {
+        RetrofitManager.getInstance().createRs(SetStarApiService.class)
+                .setStar(articleId , TYPE_SCENIC)
+                .enqueue(new Callback<BackBean>() {
+                    @Override
+                    public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
+                        if (response.body()!=null){
+                            if (response.body().getResult().equals("success")) callBackStar.onSucceed(true);
+                            else callBackStar.onError("你已点过赞啦");
+                        }else{
+                            callBackStar.onError("出现异常（body==null）");
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(@NotNull Call<BackBean> call, @NotNull Throwable t) {
+                        callBackStar.onError("出现异常（Failure）");
+                    }
+                });
     }
 
     @Override
-    public void setCollection(int articleId, CallBackStar callBackStar) {
+    public void setCollection(int articleId,final CallBackStar callBackStar) {
+        RetrofitManager.getInstance().createRs(SetCollectionApiService.class)
+                .setCollection(articleId , TYPE_SCENIC)
+                .enqueue(new Callback<BackBean>() {
+                    @Override
+                    public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
+                        if (response.body()!=null){
+                            if (response.body().getResult().equals("success")) callBackStar.onSucceed(true);
+                            else callBackStar.onError("你已收藏过啦");
+                        }else{
+                            callBackStar.onError("出现异常（body==null）");
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(@NotNull Call<BackBean> call, @NotNull Throwable t) {
+                        callBackStar.onError("出现异常（Failure）");
+                    }
+                });
     }
 }

@@ -50,26 +50,29 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_path);
+
+        //控件的初始化
         toolbar = findViewById(R.id.toolBar_path_detail);
         webView = findViewById(R.id.webView_path_detail_content);
         textViewTime = findViewById(R.id.textView_path_detail_time);
         imageView = findViewById(R.id.imageView_path_detail_preview);
         imageViewStar = findViewById(R.id.imageView_detail_path_heart);
         imageViewCollection = findViewById(R.id.imageView_detail_path_collection);
+        progressBar = findViewById(R.id.progressBar_path_detail);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout_path_detail);
 
 
+        //webView的相关设置
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
             webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
         webView.getSettings().setJavaScriptEnabled(true);//启用js
         webView.getSettings().setBlockNetworkImage(false);//解决图片不显示
 
-        progressBar = findViewById(R.id.progressBar_path_detail);
-        coordinatorLayout = findViewById(R.id.coordinatorLayout_path_detail);
-        //coordinatorLayout.setVisibility(View.GONE);
 
+        Intent intent = getIntent();//获取intent
+        final int articleId = intent.getIntExtra("id",1);
 
-        final Intent intent = getIntent();//获取intent
 
         //悬浮按钮设置监听
         FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton_detail_path);
@@ -77,9 +80,24 @@ public class PathDetailActivity extends AppCompatActivity implements IViewDetail
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(PathDetailActivity.this,CommentActivity.class);
-                intent1.putExtra("id",intent.getIntExtra("id",1));
+                intent1.putExtra("id",articleId);
                 intent1.putExtra("articleType",CommentActivity.PATH);
                 startActivity(intent1);
+            }
+        });
+
+        //点赞监听
+        imageViewStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iPresenterDetail.setStar(articleId);
+            }
+        });
+        //收藏监听
+        imageViewCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iPresenterDetail.setCollection(articleId);
             }
         });
 

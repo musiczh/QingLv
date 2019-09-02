@@ -41,8 +41,6 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
     private ImageView imageViewCollection;
     private List<String> imageList = new ArrayList<>();
 
-    private boolean isStar;
-    private boolean isCollected;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -107,14 +105,14 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
         imageViewStar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if (!isStar) iPresenterDetail.setStar(articleId);
+                iPresenterDetail.setStar(articleId);
             }
         });
         //收藏按钮点击监听
         imageViewCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if (isCollected) iPresenterDetail.setCollection(articleId);
+                iPresenterDetail.setCollection(articleId);
             }
         });
 
@@ -196,13 +194,11 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
     public void setHeart(boolean isHeart) {
         if (isHeart) imageViewStar.setImageResource(R.drawable.img_heart_red);
         else imageViewStar.setImageResource(R.drawable.img_heart);
-        isStar = isHeart;
     }
 
     @Override
     public void setCollection(boolean isStar) {
         if (isStar) imageViewCollection.setImageResource(R.drawable.img_star_yellow);
         else    imageViewCollection.setImageResource(R.drawable.img_star);
-        isCollected = isStar;
     }
 }

@@ -51,7 +51,8 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_scenic);
-        final Intent intent = getIntent();
+        Intent intent = getIntent();
+        final int articleId = intent.getIntExtra("id",1);
 
 
         //控件属性初始化
@@ -76,10 +77,25 @@ public class ScenicDetailActivity extends AppCompatActivity implements IViewDeta
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(ScenicDetailActivity.this,CommentActivity.class);
-                intent1.putExtra("id",intent.getIntExtra("id",1));
+                intent1.putExtra("id",articleId);
                 intent1.putExtra("articleType",CommentActivity.SCENIC);
 
                 startActivity(intent1);
+            }
+        });
+
+        //点赞监听
+        heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iPresenterDetail.setStar(articleId);
+            }
+        });
+        //收藏监听
+        collection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iPresenterDetail.setCollection(articleId);
             }
         });
 
