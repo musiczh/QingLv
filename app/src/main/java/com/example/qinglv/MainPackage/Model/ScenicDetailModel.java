@@ -18,6 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.qinglv.util.StaticQuality.TYPE_SCENIC;
+import static com.example.qinglv.util.StaticQuality.TYPE_SCENIC_COLLECTION;
 import static com.example.qinglv.util.StaticQuality.TYPE_TRAVEL;
 
 public class ScenicDetailModel implements IModelDetail<Scenic> {
@@ -69,7 +70,7 @@ public class ScenicDetailModel implements IModelDetail<Scenic> {
     @Override
     public void isCollection(int typeId,final CallBackStar callBackStar) {
         RetrofitManager.getInstance().createRs(IsCollectionApiService.class)
-                .isCollection(typeId , TYPE_SCENIC)
+                .isCollection(typeId , TYPE_SCENIC_COLLECTION)
                 .enqueue(new Callback<BackBean>() {
                     @Override
                     public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
@@ -114,7 +115,7 @@ public class ScenicDetailModel implements IModelDetail<Scenic> {
     @Override
     public void setCollection(int articleId,final CallBackStar callBackStar) {
         RetrofitManager.getInstance().createRs(SetCollectionApiService.class)
-                .setCollection(articleId , TYPE_SCENIC)
+                .setCollection(articleId , TYPE_SCENIC_COLLECTION)
                 .enqueue(new Callback<BackBean>() {
                     @Override
                     public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {

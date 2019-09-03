@@ -46,6 +46,9 @@ public class TravelDetailActivity extends AppCompatActivity implements IViewDeta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            TravelDetailActivity.this.getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         setContentView(R.layout.activity_detail_travel);
 
         //控件初始化

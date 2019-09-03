@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.example.qinglv.MainPackage.View.fragment.FragmentShareFood;
@@ -31,6 +32,9 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            SearchActivity.this.getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         Intent intent = getIntent();
 

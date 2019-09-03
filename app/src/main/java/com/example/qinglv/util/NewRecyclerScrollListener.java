@@ -43,8 +43,7 @@ public abstract class NewRecyclerScrollListener extends RecyclerView.OnScrollLis
     @Override
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        isDragUp = dy<y;
-        y = dy;
+        isDragUp = dy>0;
     }
 
     /**

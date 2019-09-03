@@ -75,7 +75,10 @@ public class ScenicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         scenicViewHolder.commentNumTextView.setText(String.valueOf(scenic.getCommentNum()));
         scenicViewHolder.tittleTextView.setText(scenic.getTitle());
         scenicViewHolder.scoreTextView.setText(String.valueOf( scenic.getScore()));
-        Glide.with(context).load(scenic.getPreview()).into(scenicViewHolder.previewImage);
+        Glide.with(context).load(scenic.getPreview())
+                .placeholder(R.drawable.gif)
+                .error(R.drawable.img_no_img)
+                .into(scenicViewHolder.previewImage);
     }
 
     //获得一共有几项

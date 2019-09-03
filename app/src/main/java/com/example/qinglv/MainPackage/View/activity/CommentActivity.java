@@ -54,6 +54,10 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            CommentActivity.this.getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+
         //获取文章id
         Intent intent = getIntent();
         final int articleId = intent.getIntExtra("id",1);

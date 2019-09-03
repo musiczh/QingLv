@@ -80,7 +80,10 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         foodViewHolder.timeTextView.setText(food.getDepositTime());
         foodViewHolder.contentTextView.setText(content);
         foodViewHolder.tittleTextView.setText(food.getTitle());
-        Glide.with(context).load(food.getPreview()).into(foodViewHolder.previewImage);
+        Glide.with(context).load(food.getPreview())
+                .placeholder(R.drawable.gif)
+                .error(R.drawable.img_no_img)
+                .into(foodViewHolder.previewImage);
     }
 
     //获得一共有几项

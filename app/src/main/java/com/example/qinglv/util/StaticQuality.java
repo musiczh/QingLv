@@ -70,6 +70,8 @@ public class StaticQuality {
     //收藏的附加地址
     public static final String COLLECTION_URL = "collection";
 
+
+
     //点赞的对象类型
     public static final int TYPE_TRAVEL = 1;
     public static final int TYPE_TRAVEL_COMMENT = 2;
@@ -80,5 +82,11 @@ public class StaticQuality {
     public static final int TYPE_PATH = 7;
     public static final int TYPE_PATH_COMMENT = 8;
     public static final int TYPE_PATH_REPLY = 9;
+    public static final int TYPE_TRAVEL_COLLECTION = 10;
+    public static final int TYPE_PATH_COLLECTION = 11;
+    public static final int TYPE_SCENIC_COLLECTION = 12;
+
+
+
 
 }

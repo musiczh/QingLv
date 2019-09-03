@@ -87,6 +87,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         CommentViewHolder commentViewHolder = (CommentViewHolder) holder;
         commentViewHolder.textViewUserName.setText(comment.getNickname());
         commentViewHolder.textViewContent.setText(comment.getContent());
+        if (comment.getHeadPortrait()!=null)
         Glide.with(mContext).load(comment.getHeadPortrait()).into(commentViewHolder.imageViewHeadPortrait);
         if (mClickCallback.isStar(comment.getId())) commentViewHolder.imageViewStar.setImageResource(R.drawable.img_heart_red);
         else commentViewHolder.imageViewStar.setImageResource(R.drawable.img_heart);

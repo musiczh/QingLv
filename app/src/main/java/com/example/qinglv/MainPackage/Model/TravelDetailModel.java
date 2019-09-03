@@ -11,7 +11,6 @@ import com.example.qinglv.MainPackage.bean.StarPostBean;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IModelDetail;
 import com.example.qinglv.MainPackage.inter.iApiService.IsCollectionApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.IsStarApiService;
-import com.example.qinglv.MainPackage.inter.iApiService.PathDetailApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.SetCollectionApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.SetStarApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.TravelDetailApiService;
@@ -24,6 +23,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.qinglv.util.StaticQuality.TYPE_TRAVEL;
+import static com.example.qinglv.util.StaticQuality.TYPE_TRAVEL_COLLECTION;
 
 public class TravelDetailModel implements IModelDetail<TravelDetail> {
     @Override
@@ -75,7 +75,7 @@ public class TravelDetailModel implements IModelDetail<TravelDetail> {
     @Override
     public void isCollection(int typeId,final CallBackStar callBackStar) {
         RetrofitManager.getInstance().createRs(IsCollectionApiService.class)
-                .isCollection(typeId , TYPE_TRAVEL)
+                .isCollection(typeId , TYPE_TRAVEL_COLLECTION)
                 .enqueue(new Callback<BackBean>() {
                     @Override
                     public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
@@ -120,7 +120,7 @@ public class TravelDetailModel implements IModelDetail<TravelDetail> {
     @Override
     public void setCollection(int articleId,final CallBackStar callBackStar) {
         RetrofitManager.getInstance().createRs(SetCollectionApiService.class)
-                .setCollection(articleId , TYPE_TRAVEL)
+                .setCollection(articleId ,TYPE_TRAVEL_COLLECTION)
                 .enqueue(new Callback<BackBean>() {
                     @Override
                     public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {

@@ -20,6 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.qinglv.util.StaticQuality.TYPE_PATH;
+import static com.example.qinglv.util.StaticQuality.TYPE_PATH_COLLECTION;
 import static com.example.qinglv.util.StaticQuality.TYPE_SCENIC;
 import static com.example.qinglv.util.StaticQuality.TYPE_TRAVEL;
 
@@ -72,7 +73,7 @@ public class PathDetailModel implements IModelDetail<Path> {
     @Override
     public void isCollection(int typeId,final CallBackStar callBackStar) {
         RetrofitManager.getInstance().createRs(IsCollectionApiService.class)
-                .isCollection(typeId , TYPE_PATH)
+                .isCollection(typeId , TYPE_PATH_COLLECTION)
                 .enqueue(new Callback<BackBean>() {
                     @Override
                     public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
@@ -117,7 +118,7 @@ public class PathDetailModel implements IModelDetail<Path> {
     @Override
     public void setCollection(int articleId,final CallBackStar callBackStar) {
         RetrofitManager.getInstance().createRs(SetCollectionApiService.class)
-                .setCollection(articleId , TYPE_PATH)
+                .setCollection(articleId , TYPE_PATH_COLLECTION)
                 .enqueue(new Callback<BackBean>() {
                     @Override
                     public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {

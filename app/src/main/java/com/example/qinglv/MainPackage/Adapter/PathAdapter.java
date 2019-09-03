@@ -72,7 +72,10 @@ public class PathAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         pathViewHolder.commentNumTextView.setText(String.valueOf(path.getCommentNum()));
         pathViewHolder.contentTextView.setText(path.getIntroduction());
         pathViewHolder.tittleTextView.setText(path.getTitle());
-        Glide.with(context).load(path.getPreview()).into(pathViewHolder.previewImage);
+        Glide.with(context).load(path.getPreview())
+                .placeholder(R.drawable.gif)
+                .error(R.drawable.img_no_img)
+                .into(pathViewHolder.previewImage);
     }
 
     //获得一共有几项
