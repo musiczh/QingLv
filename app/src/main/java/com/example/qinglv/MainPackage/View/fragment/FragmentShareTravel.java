@@ -63,7 +63,8 @@ public class FragmentShareTravel extends Fragment implements IViewPreview<Travel
                 Intent intent = new Intent(getContext(), TravelDetailActivity.class);
                 Travel travel = mList.get(position);
 
-                String url;
+                String url = travel.getHeadPortrait();
+                if (!url.substring(0,4).equals("http"))
                     url = PREFIX_IMAGE+travel.getHeadPortrait();
 
 

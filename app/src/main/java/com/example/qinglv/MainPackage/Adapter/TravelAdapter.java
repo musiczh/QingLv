@@ -80,7 +80,6 @@ public class TravelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (travel.getStarNum()!=null) travelViewHolder.HeartTextView.setText(travel.getStarNum());
         travelViewHolder.tittleTextView.setText(travel.getTitle());
         List<String> strings = travel.getPhoto();
-        String url;
         String s = null;
         if (strings!=null) {
             s = strings.get(0);
@@ -93,7 +92,11 @@ public class TravelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             Glide.with(context).load(R.drawable.img_no_img).into(travelViewHolder.previewImage);
         }
 
-        Glide.with(context).load(PREFIX_IMAGE+travel.getHeadPortrait()).into(travelViewHolder.userHeadImage);
+        //搜索列表与展示列表返回的数据不同分开处理
+        String portraitUrl = travel.getHeadPortrait();
+        if (!portraitUrl.substring(0,4).equals("http"))
+            portraitUrl = PREFIX_IMAGE+travel.getHeadPortrait();
+        Glide.with(context).load(portraitUrl).into(travelViewHolder.userHeadImage);
     }
 
     //获得一共有几项

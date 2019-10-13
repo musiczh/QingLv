@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.qinglv.MainPackage.Adapter.CommentAdapter;
 import com.example.qinglv.MainPackage.Entity.Comment;

@@ -60,6 +60,7 @@ public class TravelModel implements IModelPager<Travel> {
                 });*/
 
 
+        //由于后台返回的数据结构不一致，只能通过原生来解析
         RetrofitManagerAn.getInstance().createRs(TravelSearchApiService.class)
                 .getTravel(key,firstNum, size)
                 .enqueue(new Callback<ResponseBody>() {
