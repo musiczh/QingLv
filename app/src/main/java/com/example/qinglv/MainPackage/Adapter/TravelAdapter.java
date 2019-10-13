@@ -92,12 +92,8 @@ public class TravelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }else{
             Glide.with(context).load(R.drawable.img_no_img).into(travelViewHolder.previewImage);
         }
-        if (travel.getHeadPortrait().length()<10) {
-            url = PREFIX_IMAGE+travel.getHeadPortrait();
-        }else{
-            url = travel.getHeadPortrait();
-        }
-        Glide.with(context).load(url).into(travelViewHolder.userHeadImage);
+
+        Glide.with(context).load(PREFIX_IMAGE+travel.getHeadPortrait()).into(travelViewHolder.userHeadImage);
     }
 
     //获得一共有几项

@@ -26,6 +26,7 @@ import com.example.qinglv.MainPackage.Entity.Comment;
 import com.example.qinglv.MainPackage.Presentor.CommentPresenter;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IPresenterComment;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IViewComment;
+import com.example.qinglv.MainPackage.inter.iApiUtil.CommentStarCallBack;
 import com.example.qinglv.MainPackage.inter.iApiUtil.RecyclerCommentClickCallBack;
 import com.example.qinglv.R;
 import com.example.qinglv.util.NewRecyclerScrollListener;
@@ -45,7 +46,6 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
     private NewRecyclerScrollListener newRecyclerScrollListener;
     private ProgressBar progressBar;
     private IPresenterComment iPresenterComment;
-    private ImageView imageViewHeadPortrait;
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -63,7 +63,7 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
         final int articleId = intent.getIntExtra("id",1);
         final int articleType = intent.getIntExtra("articleType",1);
         String headPortrait = intent.getStringExtra("headPortrait");
-        String nickName = intent.getStringExtra("nickName");
+
 
         //设置toolBar的标题和返回按钮
         Toolbar toolbar = findViewById(R.id.toolbar_comment);
@@ -74,7 +74,7 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
 
         final EditText editText = findViewById(R.id.editText_comment);
         iPresenterComment = new CommentPresenter();
-        imageViewHeadPortrait = findViewById(R.id.imageView_comment_user);
+        ImageView imageViewHeadPortrait = findViewById(R.id.imageView_comment_user);
         Glide.with(this).load(headPortrait)
                 .placeholder(R.drawable.gif)
                 .error(R.drawable.img_head)
@@ -92,8 +92,15 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
             }
 
             @Override
-            public void clickStar(int commentId) {
+            public void clickStar(int commentId ,final int position) {
                 //点赞监听
+                iPresenterComment.setCommentStar(commentId, articleType + 1, new CommentStarCallBack() {
+                    @Override
+                    public void notifyItem(boolean isStar) {
+                        recyclerViewAdapterWrapper.notifyItemChanged(position , isStar);
+                    }
+                });
+
             }
 
             @Override
@@ -102,9 +109,8 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
             }
 
             @Override
-            public boolean isStar(int commentId) {
-                //判断是否点赞
-                return false;
+            public void isStar(int commentId ,final int position) {
+                //点击点赞图标监听
             }
         });
         recyclerViewAdapterWrapper = new RecyclerViewAdapterWrapper(commentAdapter);
@@ -165,15 +171,17 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
             newRecyclerScrollListener.IS_SCROLL = false;
             recyclerViewAdapterWrapper.setItemState(RecyclerViewAdapterWrapper.NO_MORE,false);
         }
+
+        //隐藏加载动画
         if (progressBar.getVisibility() != GONE){
             progressBar.setVisibility(GONE);
         }
 
     }
 
-    //mvp接口view层方法展示一个toast
+
     @Override
-    public void setToast(String stringToast , int footType) {
+    public void setRecyclerToast(String stringToast , int footType) {
         Toast.makeText(this,stringToast,Toast.LENGTH_SHORT).show();
         if (progressBar.getVisibility() != View.GONE){
             progressBar.setVisibility(View.GONE);
@@ -191,6 +199,13 @@ public class CommentActivity extends AppCompatActivity implements IViewComment {
                 break;
             default:
         }
+    }
+
+    //mvp接口view层方法展示一个toast
+    @Override
+    public void setToast(String string) {
+        Toast.makeText(this,string,Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

@@ -1,8 +1,11 @@
 package com.example.qinglv.MainPackage.inter.iApiUtil;
 
+import android.media.Image;
+import android.widget.ImageView;
+
 public interface RecyclerCommentClickCallBack {
     void clickHead(int UserId);
-    void clickStar(int commentId);
+    void clickStar(int commentId , int position);
     void clickContent(int commentId , int userId);
-    boolean isStar(int commentId);
+    void isStar(int commentId  , int position);
 }

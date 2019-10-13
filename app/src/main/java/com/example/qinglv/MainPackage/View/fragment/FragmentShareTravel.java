@@ -64,11 +64,8 @@ public class FragmentShareTravel extends Fragment implements IViewPreview<Travel
                 Travel travel = mList.get(position);
 
                 String url;
-                if (travel.getHeadPortrait().length()<10) {
                     url = PREFIX_IMAGE+travel.getHeadPortrait();
-                }else{
-                    url = travel.getHeadPortrait();
-                }
+
 
                 intent.putExtra("nickName",travel.getNickName());
                 intent.putExtra("headPortrait",url);

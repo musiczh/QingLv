@@ -5,10 +5,13 @@ import com.example.qinglv.MainPackage.View.activity.CommentActivity;
 import com.example.qinglv.MainPackage.bean.CommentPostBean;
 import com.example.qinglv.MainPackage.bean.BackBean;
 import com.example.qinglv.MainPackage.inter.iApiMvp.IModelComment;
+import com.example.qinglv.MainPackage.inter.iApiMvp.IModelDetail;
+import com.example.qinglv.MainPackage.inter.iApiService.IsStarApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.PathCommentApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.PathPostCommentApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.ScenicCommentApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.ScenicPostCommentApiService;
+import com.example.qinglv.MainPackage.inter.iApiService.SetStarApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.TravelCommentApiService;
 import com.example.qinglv.MainPackage.inter.iApiService.TravelPostCommentApiService;
 import com.example.qinglv.util.RecyclerViewAdapterWrapper;
@@ -30,6 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CommentModel implements IModelComment {
+    private boolean isCommentStar = false;
     @Override
     public void getData(int articleId,final int firstNum,final int size, int articleType, final CallBack<Comment> callBack ) {
         /*Call<PreviewBean<Comment>> call = null;
@@ -73,6 +77,7 @@ public class CommentModel implements IModelComment {
 
 
         Call<ResponseBody> call = null;
+        //判断是哪种文章的评论
         boolean hasType = true;
         switch (articleType){
             case CommentActivity.PATH:
@@ -89,6 +94,7 @@ public class CommentModel implements IModelComment {
                 break;
             default:hasType = false;
         }
+
         if (hasType) {
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -180,4 +186,54 @@ public class CommentModel implements IModelComment {
         else callBack.onError("获取不到文章类型");
 
     }
+
+    @Override
+    public void setCommentStar(int commentId, int typeId, final IModelDetail.CallBackStar callBackStar) {
+        RetrofitManager.getInstance().createRs(SetStarApiService.class)
+                .setStar(commentId , typeId)
+                .enqueue(new Callback<BackBean>() {
+                    @Override
+                    public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
+                        if (response.body()!=null){
+                            if (response.body().getResult().equals("success")) callBackStar.onSucceed(true);
+                            else callBackStar.onError("你已经点过赞啦");
+
+                        }else{
+                            callBackStar.onError("出了点小问题 （comment body == null）");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<BackBean> call, @NotNull Throwable t) {
+                        callBackStar.onError("出了点小问题 （comment onFailure）");
+                    }
+                });
+    }
+
+    @Override
+    public void isCommentStar(int commentId, int typeId, final IModelDetail.CallBackStar callBackStar) {
+        RetrofitManager.getInstance().createRs(IsStarApiService.class)
+                .isStar(commentId , typeId)
+                .enqueue(new Callback<BackBean>() {
+                    @Override
+                    public void onResponse(@NotNull Call<BackBean> call, @NotNull Response<BackBean> response) {
+                        if (response.body()!=null){
+                            if (response.body().getResult().equals("success")) {
+                                callBackStar.onSucceed(true);
+                            }
+
+                        }else{
+                            callBackStar.onError("出了点小问题（comment body == null）");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<BackBean> call, @NotNull Throwable t) {
+                            callBackStar.onError("出了点小问题（comment onFailure）");
+                    }
+                });
+
+    }
+
+
 }

@@ -34,7 +34,6 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView textViewUserName;
         TextView textViewContent;
         ImageView imageViewHeadPortrait;
-        ImageView imageViewStar;
         LinearLayout linearLayout;
 
         CommentViewHolder(View itemView){
@@ -42,7 +41,6 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             textViewContent = itemView.findViewById(R.id.textView_item_comment_content);
             textViewUserName = itemView.findViewById(R.id.textView_item_comment_userName);
             imageViewHeadPortrait = itemView.findViewById(R.id.imageView_item_comment_head);
-            imageViewStar = itemView.findViewById(R.id.imageView_item_comment_star);
             linearLayout = itemView.findViewById(R.id.line_comment_item);
 
         }
@@ -57,13 +55,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 .inflate(R.layout.item_comment,viewGroup,false);
         final CommentViewHolder commentViewHolder = new CommentViewHolder(view);
 
-        commentViewHolder.imageViewStar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Comment comment = mList.get(commentViewHolder.getLayoutPosition());
-                mClickCallback.clickStar(comment.getId());
-            }
-        });
+        //设置子项控件的监听
         commentViewHolder.imageViewHeadPortrait.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,10 +81,14 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         commentViewHolder.textViewContent.setText(comment.getContent());
         if (comment.getHeadPortrait()!=null)
         Glide.with(mContext).load(comment.getHeadPortrait()).into(commentViewHolder.imageViewHeadPortrait);
-        if (mClickCallback.isStar(comment.getId())) commentViewHolder.imageViewStar.setImageResource(R.drawable.img_heart_red);
-        else commentViewHolder.imageViewStar.setImageResource(R.drawable.img_heart);
+        mClickCallback.isStar(comment.getId() , position);
 
         //if (position == (getItemCount()-1)) ((CommentViewHolder) holder).linearLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+
     }
 
     @Override
